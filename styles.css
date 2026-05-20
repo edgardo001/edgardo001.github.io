@@ -270,8 +270,8 @@ nav .container {
 .nav-controls {
     display: none;
     align-items: center;
-    gap: 8px;
-    z-index: 1001;
+    gap: 4px;
+    position: relative;
 }
 .menu-toggle {
     display: flex;
@@ -295,6 +295,8 @@ nav .container {
 
 @media (max-width: 900px) {
     .nav-controls { display: flex; }
+    /* Ocultar theme-btn del nav-links en móvil (queda solo el de nav-controls) */
+    .nav-links #theme-toggle { display: none; }
     .nav-links {
         position: fixed;
         top: 0;
@@ -700,11 +702,16 @@ nav .container {
     align-items: center;
     gap: 6px;
 }
-.skill-item svg {
+.skill-item svg,
+.skill-item img {
     width: 13px;
     height: 13px;
     flex-shrink: 0;
-    opacity: 0.85;
+    opacity: 0.9;
+}
+/* Íconos blancos se invierten en tema claro */
+[data-theme="light"] .icon-invert {
+    filter: invert(1);
 }
 
 /* --- Timeline Section (Experience & Education) --- */
