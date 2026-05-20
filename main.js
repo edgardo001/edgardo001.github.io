@@ -60,6 +60,7 @@ filterButtons.forEach(button => {
 
 // Theme Toggle Logic
 const themeToggle = document.getElementById('theme-toggle');
+const themeToggleMobile = document.getElementById('theme-toggle-mobile');
 const htmlElement = document.documentElement;
 
 const initialTheme = localStorage.getItem('theme') ||
@@ -67,13 +68,15 @@ const initialTheme = localStorage.getItem('theme') ||
 
 htmlElement.setAttribute('data-theme', initialTheme);
 
-themeToggle.addEventListener('click', () => {
+function toggleTheme() {
     const isLight = htmlElement.getAttribute('data-theme') === 'light';
     const newTheme = isLight ? 'dark' : 'light';
-
     htmlElement.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
-});
+}
+
+themeToggle.addEventListener('click', toggleTheme);
+themeToggleMobile.addEventListener('click', toggleTheme);
 
 // Contact form → WhatsApp redirect
 document.getElementById('contact-form').addEventListener('submit', function(e) {
