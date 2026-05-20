@@ -1424,7 +1424,7 @@
                                 <span class="contact-method-icon">📱</span>
                                 <div class="contact-method-text">
                                     <h5>Móvil / WhatsApp</h5>
-                                    <p>(+56) 9 921 9760</p>
+                                    <p>(+569) 9921 9760</p>
                                 </div>
                             </div>
                             
@@ -1465,7 +1465,7 @@
     </main>
 
     <!-- Floating WhatsApp Action -->
-    <a href="https://wa.me/5699219760" class="wa-float" target="_blank" aria-label="Contacto por WhatsApp">
+    <a href="https://wa.me/+56999219760" class="wa-float" target="_blank" aria-label="Contacto por WhatsApp">
         <svg viewBox="0 0 32 32">
             <path d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.733 5.48 2.01 7.79l-2.01 7.21 7.425-1.95c2.208 1.134 4.717 1.775 7.375 1.775 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.25c-2.392 0-4.63-0.612-6.58-1.683l-0.472-0.258-4.385 1.153 1.173-4.218-0.285-0.453c-1.182-1.878-1.875-4.105-1.875-6.49 0-7.043 5.707-12.75 12.75-12.75s12.75 5.707 12.75 12.75-5.707 12.75-12.75 12.75zM22.188 18.963c-0.34-0.17-2.01-0.993-2.322-1.107s-0.54-0.17-0.765 0.17c-0.227 0.34-0.878 1.107-1.077 1.33s-0.4 0.255-0.74 0.085c-0.34-0.17-1.435-0.528-2.735-1.688-1.01-0.9-1.69-2.013-1.89-2.353s-0.02-0.525 0.15-0.693c0.153-0.152 0.34-0.395 0.51-0.595s0.227-0.34 0.34-0.567c0.113-0.227 0.057-0.425-0.028-0.595s-0.765-1.842-1.05-2.522c-0.275-0.662-0.555-0.572-0.765-0.583s-0.425-0.012-0.652-0.012c-0.227 0-0.595 0.085-0.907 0.425s-1.19 1.162-1.19 2.833c0 1.672 1.218 3.287 1.388 3.513s2.398 3.662 5.807 5.132c0.81 0.35 1.442 0.558 1.935 0.715 0.813 0.258 1.553 0.222 2.138 0.135 0.653-0.098 2.01-0.822 2.293-1.615s0.283-1.473 0.198-1.615-0.312-0.227-0.652-0.397z"></path>
         </svg>
@@ -1568,7 +1568,6 @@
             localStorage.setItem('theme', newTheme);
         });
 
-        // Form to WhatsApp parser with exact number: +5699219760
         document.getElementById('contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const name = document.getElementById('form-name').value;
@@ -1578,8 +1577,7 @@
             const rawMessage = `Hola Edgardo,\n\nMi nombre es ${name}.\nMe comunico para consultar sobre: *${subject}*.\n\n*Detalles del Proyecto:*\n${message}`;
             const encodedText = encodeURIComponent(rawMessage);
             
-            // Correct Chilean mobile number is 5699219760 (country code 56, mobile prefix 9, number 9219760)
-            const whatsappUrl = `https://wa.me/5699219760?text=${encodedText}`;
+            const whatsappUrl = `https://wa.me/+56999219760?text=${encodedText}`;
             window.open(whatsappUrl, '_blank');
         });
     </script>
