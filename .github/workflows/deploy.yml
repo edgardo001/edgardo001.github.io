@@ -1,49 +1,61 @@
+# Nombre visible del workflow en la pestaña Actions del repositorio
 name: Deploy to GitHub Pages
 
+# Evento que dispara el workflow: cada vez que hagas push a main
 on:
   push:
-    branches: [ main ] # Cambiar a master si tu rama principal se llama así
+    branches: [ main ]
 
+# Permisos que necesita el workflow para leer el código y desplegar en Pages
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: read      # Leer el código del repo
+  pages: write        # Escribir en GitHub Pages
+  id-token: write     # Token de autenticación para Pages (sin secrets)
 
+# Si ya hay un deployment corriendo y llega otro push, cancela el anterior
 concurrency:
   group: "pages"
   cancel-in-progress: true
 
 jobs:
+  # --- PRIMER JOB: compilar y generar los archivos estáticos ---
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest   # Máquina virtual Linux donde se ejecuta
     steps:
+      # Descarga el código del repositorio al runner
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Instala Node.js versión 20 y activa caché de npm para acelerar
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
 
+      # Instala las dependencias del proyecto (lectura limpia del lockfile)
       - name: Install dependencies
         run: npm ci
 
+      # Ejecuta "npm run build" para que Astro genere el sitio en ./dist
       - name: Build Astro
         run: npm run build
 
+      # Sube la carpeta ./dist como artifact para el job de deploy
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
+  # --- SEGUNDO JOB: publicar en GitHub Pages (depende de "build") ---
   deploy:
-    needs: build
+    needs: build               # Espera a que "build" termine bien
     runs-on: ubuntu-latest
     environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      name: github-pages       # Asocia el deploy al environment de Pages
+      url: ${{ steps.deployment.outputs.page_url }}  # URL final del sitio
     steps:
+      # Usa la acción oficial de GitHub para publicar el artifact en Pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
