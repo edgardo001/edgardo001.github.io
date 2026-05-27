@@ -1,0 +1,67 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+export interface Props {
+	entry: CollectionEntry<'blog'>;
+}
+
+const { entry } = Astro.props;
+const { title, description, pubDate } = entry.data;
+---
+
+<a href={`/blog/${entry.slug}/`} class="blog-card">
+	<time class="blog-card-date" datetime={pubDate.toISOString()}>
+		{new Intl.DateTimeFormat('es-CL', { dateStyle: 'long' }).format(pubDate)}
+	</time>
+	<h2 class="blog-card-title">{title}</h2>
+	<p class="blog-card-desc">{description}</p>
+	<span class="blog-card-cta">Leer artículo &rarr;</span>
+</a>
+
+<style>
+	.blog-card {
+		display: block;
+		background: var(--surface-card);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-lg);
+		padding: 32px;
+		transition: var(--transition);
+		text-decoration: none;
+	}
+	.blog-card:hover {
+		border-color: var(--border-hover);
+		transform: translateY(-4px);
+		box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+	}
+	.blog-card-date {
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		color: var(--text-muted);
+		display: block;
+		margin-bottom: 12px;
+	}
+	.blog-card-title {
+		font-family: var(--font-display);
+		font-size: 1.35rem;
+		font-weight: 700;
+		color: var(--text-primary);
+		margin-bottom: 8px;
+		line-height: 1.3;
+	}
+	.blog-card-desc {
+		font-size: 0.95rem;
+		color: var(--text-secondary);
+		line-height: 1.6;
+		margin-bottom: 16px;
+	}
+	.blog-card-cta {
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		color: var(--accent-emerald);
+		font-weight: 600;
+		transition: var(--transition);
+	}
+	.blog-card:hover .blog-card-cta {
+		color: var(--accent-indigo);
+	}
+</style>

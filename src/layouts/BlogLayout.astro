@@ -1,0 +1,219 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+	title: string;
+	description: string;
+	pubDate: Date;
+}
+
+const { title, description, pubDate } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description" content={description} />
+	<meta property="og:title" content={title} />
+	<meta property="og:description" content={description} />
+	<meta property="og:type" content="article" />
+	<title>{title} — Edgardo Vásquez</title>
+	<link rel="icon" type="image/png" href="/mpedf3pv-img.jpg" />
+
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link rel="preconnect" href="https://www.googletagmanager.com" />
+	<link rel="preload" as="font" href="https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2" type="font/woff2" crossorigin>
+	<link rel="preload" as="font" href="https://fonts.gstatic.com/s/outfit/v15/QGYvz_MVcBeNP4NJtEtqUYLknw.woff2" type="font/woff2" crossorigin>
+	<link rel="preload" as="font" href="https://fonts.gstatic.com/s/firacode/v27/uU9NCBsR6Z2vfE9aq3bh3dSDqFGedA.woff2" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&display=swap" media="print" onload="this.media='all'; this.onload=null;" />
+	<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&display=swap" /></noscript>
+
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-HQ7V2L86TR" is:inline></script>
+	<script is:inline>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-HQ7V2L86TR');
+	</script>
+
+	<script is:inline>
+		const initialTheme = localStorage.getItem('theme') ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.setAttribute('data-theme', initialTheme);
+		requestAnimationFrame(() => document.documentElement.classList.add('ready'));
+	</script>
+</head>
+<body>
+	<article class="blog-article">
+		<header class="blog-header">
+			<a href="/blog/" class="blog-back">&larr; Volver al blog</a>
+			<h1 class="blog-title">{title}</h1>
+			<p class="blog-description">{description}</p>
+			<time class="blog-date" datetime={pubDate.toISOString()}>
+				{new Intl.DateTimeFormat('es-CL', { dateStyle: 'long' }).format(pubDate)}
+			</time>
+		</header>
+		<div class="blog-content">
+			<slot />
+		</div>
+	</article>
+</body>
+</html>
+
+<style is:global>
+	.blog-article {
+		max-width: 720px;
+		margin: 0 auto;
+		padding: 140px 24px 80px;
+		font-family: var(--font-body);
+		font-size: 1.125rem;
+		line-height: 1.8;
+		color: var(--text-primary);
+	}
+
+	.blog-header {
+		margin-bottom: 48px;
+	}
+
+	.blog-back {
+		display: inline-block;
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		color: var(--accent-emerald);
+		margin-bottom: 24px;
+		transition: var(--transition);
+	}
+	.blog-back:hover {
+		color: var(--accent-indigo);
+	}
+
+	.blog-title {
+		font-family: var(--font-display);
+		font-size: clamp(2rem, 5vw, 2.75rem);
+		font-weight: 800;
+		line-height: 1.15;
+		margin-bottom: 16px;
+		letter-spacing: -0.02em;
+	}
+
+	.blog-description {
+		font-size: 1.15rem;
+		color: var(--text-secondary);
+		line-height: 1.6;
+		margin-bottom: 16px;
+	}
+
+	.blog-date {
+		font-family: var(--font-mono);
+		font-size: 0.85rem;
+		color: var(--text-muted);
+	}
+
+	.blog-content h2 {
+		font-family: var(--font-display);
+		font-size: 1.75rem;
+		font-weight: 700;
+		margin: 40px 0 16px;
+		letter-spacing: -0.02em;
+		line-height: 1.2;
+	}
+
+	.blog-content h3 {
+		font-family: var(--font-display);
+		font-size: 1.35rem;
+		font-weight: 700;
+		margin: 32px 0 12px;
+		letter-spacing: -0.01em;
+		line-height: 1.2;
+	}
+
+	.blog-content p {
+		margin-bottom: 24px;
+		color: var(--text-primary);
+	}
+
+	.blog-content ul,
+	.blog-content ol {
+		margin-bottom: 24px;
+		padding-left: 24px;
+	}
+
+	.blog-content li {
+		margin-bottom: 8px;
+	}
+
+	.blog-content strong {
+		font-weight: 600;
+	}
+
+	.blog-content a {
+		color: var(--accent-emerald);
+		text-decoration: underline;
+		text-underline-offset: 3px;
+		transition: var(--transition);
+	}
+	.blog-content a:hover {
+		color: var(--accent-indigo);
+	}
+
+	.blog-content pre {
+		background: var(--surface);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-md);
+		padding: 20px 24px;
+		overflow-x: auto;
+		margin-bottom: 24px;
+		font-family: var(--font-mono);
+		font-size: 0.875rem;
+		line-height: 1.6;
+	}
+
+	.blog-content code {
+		font-family: var(--font-mono);
+		font-size: 0.875rem;
+		background: var(--surface);
+		padding: 2px 6px;
+		border-radius: 4px;
+		border: 1px solid var(--border);
+	}
+
+	.blog-content pre code {
+		background: none;
+		padding: 0;
+		border: none;
+		border-radius: 0;
+	}
+
+	.blog-content blockquote {
+		border-left: 4px solid var(--accent-emerald);
+		padding: 16px 24px;
+		margin-bottom: 24px;
+		background: var(--surface-card);
+		border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+		color: var(--text-secondary);
+		font-style: italic;
+	}
+
+	.blog-content hr {
+		border: none;
+		border-top: 1px solid var(--border);
+		margin: 40px 0;
+	}
+
+	.blog-content img {
+		max-width: 100%;
+		border-radius: var(--radius-md);
+		border: 1px solid var(--border);
+		margin: 24px 0;
+	}
+
+	@media (max-width: 600px) {
+		.blog-article {
+			padding: 120px 16px 60px;
+			font-size: 1rem;
+		}
+	}
+</style>
