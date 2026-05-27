@@ -27,9 +27,11 @@ const {
     <link rel="preconnect" href="https://www.googletagmanager.com" />
     <link rel="preconnect" href="https://cdn.simpleicons.org" />
 
-    <!-- Google Fonts (non-render-blocking) -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&display=swap" media="print" onload="this.media='all'" />
+    <!-- Google Fonts: preconnect + preload woff2 critical weights -->
+    <link rel="preload" as="font" href="https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2" type="font/woff2" crossorigin>
+    <link rel="preload" as="font" href="https://fonts.gstatic.com/s/outfit/v15/QGYvz_MVcBeNP4NJtEtqUYLknw.woff2" type="font/woff2" crossorigin>
+    <link rel="preload" as="font" href="https://fonts.gstatic.com/s/firacode/v27/uU9NCBsR6Z2vfE9aq3bh3dSDqFGedA.woff2" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&display=swap" media="print" onload="this.media='all'; this.onload=null;" />
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&display=swap" /></noscript>
 
     <!-- Google tag (gtag.js) -->
@@ -46,6 +48,7 @@ const {
         const initialTheme = localStorage.getItem('theme') ||
             (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
         document.documentElement.setAttribute('data-theme', initialTheme);
+        requestAnimationFrame(() => document.documentElement.classList.add('ready'));
     </script>
 </head>
 <body>
