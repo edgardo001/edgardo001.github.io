@@ -86,3 +86,46 @@ npm run preview
 ## 🌐 Despliegue en GitHub Pages
 
 Al compilarse como un sitio puramente estático (`output: "static"` por defecto en Astro), es totalmente compatible con GitHub Pages. Puedes configurar tu repositorio para desplegar la carpeta resultante `/dist` o configurar un flujo de trabajo de GitHub Actions (`.github/workflows/deploy.yml`) para compilar de forma automática al hacer push a la rama `main`.
+
+---
+
+## 📊 Lighthouse Performance & OpenSpec Workflow
+
+### OpenSpec - Gestión de Cambios
+
+Este proyecto usa **OpenSpec** para planificar, diseñar e implementar cambios de forma estructurada. El flujo de trabajo es:
+
+```text
+openspec new change "<nombre>"   → Crea directorio con artifactos
+proposal.md                      → Define qué y por qué
+design.md                        → Define cómo (arquitectura y decisiones)
+specs/<capability>/spec.md       → Define requisitos detallados
+tasks.md                         → Checklist de implementación
+```
+
+Comandos útiles:
+```bash
+openspec status --change "<nombre>"        # Ver progreso
+openspec instructions <artifact> --change "<nombre>"  # Ver instrucciones
+```
+
+Los cambios se almacenan en `openspec/changes/<nombre>/`.
+
+### Optimizaciones Lighthouse Aplicadas
+
+Basado en auditorías Lighthouse, se aplicaron las siguientes optimizaciones:
+
+| Categoría | Problema | Solución |
+|---|---|---|
+| **SEO** | `robots.txt` con directiva `Content-Signal` no estándar (manejada por Cloudflare) | `public/robots.txt` propio con directivas estándar |
+| **Accesibilidad** | Jerarquía de encabezados incorrecta (h2→h4 en Skills, h2→h5 en Contact) | h4→h3 en Skills, h5→h4 en Contact |
+| **Rendimiento** | Google Fonts CSS bloqueaba el renderizado (~224ms) | Carga diferida con `media="print" onload="this.media='all'"` |
+| **Rendimiento** | Falta de precarga para imagen LCP | `fetchpriority="high"` + `decoding="async"` en Hero img |
+| **Rendimiento** | Sin preconnect para orígenes de terceros | Preconnect para `googletagmanager.com` y `cdn.simpleicons.org` |
+
+Para ejecutar una auditoría Lighthouse:
+```bash
+npx lighthouse https://edgardovasquez.cl/ --view --preset=desktop
+```
+
+O desde Chrome DevTools → Lighthouse → Generate report.
