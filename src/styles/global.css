@@ -707,7 +707,6 @@ nav .container {
     color: var(--accent-indigo);
     padding: 4px 0;
     transition: var(--transition);
-    margin-bottom: 12px;
     width: fit-content;
 }
 .project-link:hover {
@@ -722,8 +721,9 @@ nav .container {
 }
 .project-links {
     display: flex;
-    flex-wrap: wrap;
-    gap: 16px 24px;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 8px;
     margin-bottom: 12px;
 }
 .project-subdomains {
