@@ -1220,3 +1220,165 @@ footer p {
     .project-card { padding: 24px; }
     .btn { min-width: 140px; padding: 14px 20px; font-size: 0.85rem; }
 }
+
+/* ===== QUE APORTO / AUDIENCIAS ===== */
+.servicios-section {
+  padding: 5rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.audiencias-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+  align-items: start;
+}
+
+.audiencia-card {
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 16px;
+  padding: 2rem;
+  position: relative;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  background: var(--surface-card);
+}
+
+.audiencia-card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+  border-color: var(--border-hover);
+}
+
+.audiencia-card--destacada {
+  border-width: 2px;
+  border-color: var(--accent-emerald, #3b82f6);
+}
+
+.audiencia-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+}
+
+.audiencia-badge--empleo    { background: var(--accent-indigo-glow); color: var(--accent-indigo); }
+.audiencia-badge--consultoria { background: var(--accent-emerald-glow); color: var(--accent-emerald); }
+.audiencia-badge--landing   { background: var(--accent-indigo-glow); color: var(--text-primary); }
+
+.audiencia-icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.75rem;
+}
+
+.audiencia-card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.audiencia-card p {
+  font-size: 0.95rem;
+  opacity: 0.85;
+  margin-bottom: 1rem;
+}
+
+.audiencia-card ul {
+  padding-left: 1.2rem;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-bottom: 1rem;
+}
+
+.audiencia-card ul li {
+  margin-bottom: 0.3rem;
+}
+
+.audiencia-detalle {
+  font-size: 0.8rem;
+  opacity: 0.6;
+  margin-bottom: 1.25rem;
+  font-style: italic;
+}
+
+.btn-audiencia {
+  display: block;
+  text-align: center;
+  padding: 0.65rem 1.25rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.btn-audiencia:hover { opacity: 0.85; }
+
+.btn-audiencia--empleo      { background: var(--accent-indigo); color: var(--bg); }
+.btn-audiencia--consultoria { background: var(--accent-emerald); color: var(--bg); }
+.btn-audiencia--landing     { background: var(--text-primary); color: var(--bg); }
+
+/* ===== LOGROS ===== */
+.logros-section {
+  padding: 5rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logros-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.logro-card {
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  background: var(--surface-card);
+}
+
+.logro-card--principal {
+  border-color: var(--accent-emerald, #3b82f6);
+  border-width: 2px;
+}
+
+.logro-numero {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: var(--accent-emerald, #3b82f6);
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.logro-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+  opacity: 0.7;
+}
+
+.logro-contexto {
+  font-size: 0.88rem;
+  opacity: 0.75;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.logros-nota {
+  margin-top: 2rem;
+  font-size: 0.8rem;
+  opacity: 0.5;
+  text-align: center;
+  font-style: italic;
+}
