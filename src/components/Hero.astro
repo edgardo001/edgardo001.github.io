@@ -5,7 +5,13 @@
     <div class="container">
         <div class="hero-grid">
             <div class="hero-content">
-                <span class="kicker">Liderazgo, Cultura & Excelencia Técnica</span>
+                <div class="hero-kicker-container">
+                    <span class="location-badge">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        Santiago, Chile
+                    </span>
+                    <span class="kicker" style="margin-bottom: 0;">Liderazgo, Cultura & Excelencia Técnica</span>
+                </div>
                 <h1 class="hero-title">Solutions Architect · Technical Lead · Senior Software Engineer</h1>
                 <p class="hero-subtitle">
                     12 años diseñando y construyendo plataformas para organismos públicos, instituciones financieras y empresas privadas. Arquitectura de software, cloud, seguridad e integración de IA aplicada al desarrollo.<br><br>Disponible para incorporarme a equipos de tecnología o colaborar en proyectos.
@@ -17,7 +23,6 @@
                         LinkedIn
                     </a>
                 </div>
-                <div style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">Santiago, Chile</div>
             </div>
             <div class="hero-image-wrapper">
                 <div class="hero-backdrop-glow"></div>
@@ -32,3 +37,30 @@
         </div>
     </div>
 </section>
+
+<style>
+    .hero-kicker-container {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 12px;
+        flex-wrap: wrap;
+    }
+    .location-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        white-space: nowrap;
+    }
+    @media (max-width: 900px) {
+        .hero-kicker-container {
+            justify-content: center;
+        }
+    }
+</style>
