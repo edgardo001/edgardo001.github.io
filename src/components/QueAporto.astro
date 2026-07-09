@@ -1,92 +1,88 @@
 ---
-// QueAporto.astro — sin props, contenido estático
 ---
 
 <section id="servicios" class="servicios-section">
   <div class="section-header">
-    <span class="section-label kicker">¿Cómo puedo ayudarte?</span>
-    <h2 class="section-title">Elige lo que mejor describe tu situación</h2>
+    <span class="section-label kicker" data-i18n="queaporto.kicker">¿Cómo puedo ayudarte?</span>
+    <h2 class="section-title" data-i18n="queaporto.title">Elige lo que mejor describe tu situación</h2>
   </div>
 
   <div class="audiencias-grid">
 
-    <!-- PERFIL A: Empleador -->
     <div class="audiencia-card">
-      <div class="audiencia-badge audiencia-badge--empleo">Para empresas</div>
+      <div class="audiencia-badge audiencia-badge--empleo" data-i18n="queaporto.empleo.badge">Para empresas</div>
       <div class="audiencia-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32"><rect x="2" y="8" width="20" height="14" rx="2"/><path d="M12 2L2 8h20L12 2z"/><line x1="12" y1="16" x2="12" y2="18"/><line x1="8" y1="12" x2="8" y2="18"/><line x1="16" y1="12" x2="16" y2="18"/></svg>
       </div>
-      <h3>Busco integrarme a un equipo de tecnología</h3>
-      <p>
+      <h3 data-i18n="queaporto.empleo.title">¿Buscas un profesional para tu equipo de tecnología?</h3>
+      <p data-i18n="queaporto.empleo.desc">
         12 años diseñando y construyendo plataformas críticas para sector público,
         financiero y privado. Experiencia completa desde arquitectura hasta producción.
       </p>
       <ul>
-        <li>Solutions Architect</li>
-        <li>Technical Lead / Engineering Manager</li>
-        <li>Senior Software Engineer (.NET · Java · Python · Node.js)</li>
-        <li>Software Development Manager</li>
+        <li data-i18n="queaporto.empleo.role1">Solutions Architect</li>
+        <li data-i18n="queaporto.empleo.role2">Technical Lead / Engineering Manager</li>
+        <li data-i18n="queaporto.empleo.role3">Senior Software Engineer (.NET · Java · Python · Node.js)</li>
+        <li data-i18n="queaporto.empleo.role4">Software Development Manager</li>
       </ul>
-      <div class="audiencia-detalle">
+      <div class="audiencia-detalle" data-i18n="queaporto.empleo.location">
         Santiago, Chile
       </div>
       <a href="https://www.linkedin.com/in/edgardovasquezvalenzuela" target="_blank" class="btn-audiencia btn-audiencia--empleo">
-        Ver perfil en LinkedIn
+        <span data-i18n="queaporto.empleo.cta">Ver perfil en LinkedIn</span>
       </a>
     </div>
 
-    <!-- PERFIL B: Empresa mediana -->
     <div class="audiencia-card audiencia-card--destacada">
-      <div class="audiencia-badge audiencia-badge--consultoria">Consultoría</div>
+      <div class="audiencia-badge audiencia-badge--consultoria" data-i18n="queaporto.consultoria.badge">Consultoría</div>
       <div class="audiencia-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
       </div>
-      <h3>¿Necesitas apoyo técnico experto en un proyecto?</h3>
-      <p>
+      <h3 data-i18n="queaporto.consultoria.title">¿Necesitas apoyo técnico experto en un proyecto?</h3>
+      <p data-i18n="queaporto.consultoria.desc">
         Asesoría en arquitectura de software, seguridad, cloud o integración
         de IA. Trabajo por proyecto o por horas según lo que necesites.
       </p>
       <ul>
-        <li>Arquitectura de software empresarial y SaaS</li>
-        <li>Cloud Azure · DevOps · CI/CD · Terraform</li>
-        <li>Observabilidad (Grafana · Prometheus · Loki)</li>
-        <li>Seguridad (OWASP · PKI · revisión de vulnerabilidades)</li>
-        <li>IA aplicada al ciclo de desarrollo</li>
-        <li>Liderazgo técnico temporal (Tech Lead as a Service)</li>
+        <li data-i18n="queaporto.consultoria.svc1">Arquitectura de software empresarial y SaaS</li>
+        <li data-i18n="queaporto.consultoria.svc2">Cloud Azure · DevOps · CI/CD · Terraform</li>
+        <li data-i18n="queaporto.consultoria.svc3">Observabilidad (Grafana · Prometheus · Loki)</li>
+        <li data-i18n="queaporto.consultoria.svc4">Seguridad (OWASP · PKI · revisión de vulnerabilidades)</li>
+        <li data-i18n="queaporto.consultoria.svc5">IA aplicada al ciclo de desarrollo</li>
+        <li data-i18n="queaporto.consultoria.svc6">Liderazgo técnico temporal (Tech Lead as a Service)</li>
       </ul>
-      <div class="audiencia-detalle">
+      <div class="audiencia-detalle" data-i18n="queaporto.consultoria.free">
         Primera conversación sin costo
       </div>
       <a href="#contact-section" class="btn-audiencia btn-audiencia--consultoria">
-        Conversemos sobre tu proyecto
+        <span data-i18n="queaporto.consultoria.cta">Conversemos sobre tu proyecto</span>
       </a>
     </div>
 
-    <!-- PERFIL C: Negocio pequeño -->
     <div class="audiencia-card audiencia-card--landing">
-      <div class="audiencia-badge audiencia-badge--landing">Landing Page</div>
+      <div class="audiencia-badge audiencia-badge--landing" data-i18n="queaporto.landing.badge">Landing Page</div>
       <div class="audiencia-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
       </div>
-      <h3>Necesito una página web para mi negocio</h3>
-      <p>
+      <h3 data-i18n="queaporto.landing.title">¿Necesitas una página web para tu negocio?</h3>
+      <p data-i18n="queaporto.landing.desc">
         Landing page profesional con diseño incluido, adaptada a móvil,
         con WhatsApp integrado y hosting gratuito. Lista en 1 mes.
       </p>
       <ul>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" style="color: var(--accent-emerald); flex-shrink: 0;"><polyline points="20 6 9 17 4 12"/></svg> Diseño + desarrollo completo</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" style="color: var(--accent-emerald); flex-shrink: 0;"><polyline points="20 6 9 17 4 12"/></svg> Dominio .cl incluido</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" style="color: var(--accent-emerald); flex-shrink: 0;"><polyline points="20 6 9 17 4 12"/></svg> Hosting gratuito (Cloudflare / GitHub Pages)</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" style="color: var(--accent-emerald); flex-shrink: 0;"><polyline points="20 6 9 17 4 12"/></svg> WhatsApp flotante + Google Maps</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" style="color: var(--accent-emerald); flex-shrink: 0;"><polyline points="20 6 9 17 4 12"/></svg> Google Analytics 4 integrado</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" style="color: var(--accent-emerald); flex-shrink: 0;"><polyline points="20 6 9 17 4 12"/></svg> SEO optimizado · Velocidad +90 Lighthouse</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" style="color: var(--accent-warning); flex-shrink: 0;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Solo frontend · Sin backend ni base de datos</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" style="color: var(--accent-emerald); flex-shrink: 0;"><polyline points="20 6 9 17 4 12"/></svg> <span data-i18n="queaporto.landing.item1">Diseño + desarrollo completo</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" style="color: var(--accent-emerald); flex-shrink: 0;"><polyline points="20 6 9 17 4 12"/></svg> <span data-i18n="queaporto.landing.item2">Dominio .cl incluido</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" style="color: var(--accent-emerald); flex-shrink: 0;"><polyline points="20 6 9 17 4 12"/></svg> <span data-i18n="queaporto.landing.item3">Hosting gratuito (Cloudflare / GitHub Pages)</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" style="color: var(--accent-emerald); flex-shrink: 0;"><polyline points="20 6 9 17 4 12"/></svg> <span data-i18n="queaporto.landing.item4">WhatsApp flotante + Google Maps</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" style="color: var(--accent-emerald); flex-shrink: 0;"><polyline points="20 6 9 17 4 12"/></svg> <span data-i18n="queaporto.landing.item5">Google Analytics 4 integrado</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" style="color: var(--accent-emerald); flex-shrink: 0;"><polyline points="20 6 9 17 4 12"/></svg> <span data-i18n="queaporto.landing.item6">SEO optimizado · Velocidad +90 Lighthouse</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" style="color: var(--accent-warning); flex-shrink: 0;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> <span data-i18n="queaporto.landing.warn">Solo frontend · Sin backend ni base de datos</span></li>
       </ul>
-      <div class="audiencia-detalle">
+      <div class="audiencia-detalle" data-i18n="queaporto.landing.detail">
         Cotización sin compromiso · Cuéntame tu negocio
       </div>
       <a href="#contact-section" class="btn-audiencia btn-audiencia--landing">
-        Quiero mi página web
+        <span data-i18n="queaporto.landing.cta">Quiero mi página web</span>
       </a>
     </div>
 
