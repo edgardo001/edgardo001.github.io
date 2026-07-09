@@ -1222,7 +1222,7 @@ footer p {
 
 /* ===== QUE APORTO / AUDIENCIAS ===== */
 .servicios-section {
-  padding: 5rem 2rem;
+  padding: 1rem 2rem 5rem;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -1232,7 +1232,7 @@ footer p {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
   margin-top: 3rem;
-  align-items: start;
+  align-items: stretch;
 }
 
 .audiencia-card {
@@ -1242,6 +1242,16 @@ footer p {
   position: relative;
   transition: box-shadow 0.2s ease, transform 0.2s ease;
   background: var(--surface-card);
+  display: flex;
+  flex-direction: column;
+}
+
+.audiencia-card ul {
+  flex: 1;
+}
+
+.audiencia-card .btn-audiencia {
+  margin-top: auto;
 }
 
 .audiencia-card:hover {
