@@ -33,3 +33,5 @@ dist/
 .DS_Store?
 ehthumbs.db
 Thumbs.db
+
+archivos/*
