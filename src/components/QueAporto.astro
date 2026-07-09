@@ -13,7 +13,9 @@
     <!-- PERFIL A: Empleador -->
     <div class="audiencia-card">
       <div class="audiencia-badge audiencia-badge--empleo">Para empresas</div>
-      <div class="audiencia-icon">🏢</div>
+      <div class="audiencia-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32"><rect x="2" y="8" width="20" height="14" rx="2"/><path d="M12 2L2 8h20L12 2z"/><line x1="12" y1="16" x2="12" y2="18"/><line x1="8" y1="12" x2="8" y2="18"/><line x1="16" y1="12" x2="16" y2="18"/></svg>
+      </div>
       <h3>Busco incorporar talento técnico a mi equipo</h3>
       <p>
         12 años diseñando y construyendo plataformas críticas para sector público,
@@ -36,7 +38,9 @@
     <!-- PERFIL B: Empresa mediana -->
     <div class="audiencia-card audiencia-card--destacada">
       <div class="audiencia-badge audiencia-badge--consultoria">Consultoría</div>
-      <div class="audiencia-icon">⚙️</div>
+      <div class="audiencia-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </div>
       <h3>Necesito apoyo técnico experto en un proyecto</h3>
       <p>
         Asesoría en arquitectura de software, seguridad, cloud o integración
@@ -59,9 +63,11 @@
     </div>
 
     <!-- PERFIL C: Negocio pequeño -->
-    <div class="audiencia-card">
+    <div class="audiencia-card audiencia-card--landing">
       <div class="audiencia-badge audiencia-badge--landing">Landing Page</div>
-      <div class="audiencia-icon">🚀</div>
+      <div class="audiencia-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
       <h3>Necesito una página web para mi negocio</h3>
       <p>
         Landing page profesional con diseño incluido, adaptada a móvil,
@@ -86,3 +92,12 @@
 
   </div>
 </section>
+
+<style>
+  .audiencia-card--landing {
+    opacity: 0.75;
+  }
+  .audiencia-card--landing:hover {
+    opacity: 1;
+  }
+</style>
