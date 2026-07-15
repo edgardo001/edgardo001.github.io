@@ -89,6 +89,41 @@ Al compilarse como un sitio puramente estático (`output: "static"` por defecto 
 
 ---
 
+## 🌐 Despliegue en Netlify
+
+El proyecto incluye un archivo `netlify.toml` con la configuración necesaria para desplegar automáticamente en Netlify.
+
+### Prerrequisitos
+
+1. Haz push del repositorio a GitHub (o GitLab / Bitbucket).
+2. Conéctate a [Netlify](https://app.netlify.com/) e inicia sesión con tu proveedor Git.
+
+### Pasos para desplegar
+
+1. En Netlify, haz clic en **Add new site → Import an existing project**.
+2. Selecciona tu repositorio.
+3. Netlify detectará automáticamente la configuración desde `netlify.toml`:
+   - **Build command:** `npm run build`
+   - **Publish directory:** `dist`
+   - **Node version:** 20
+4. Haz clic en **Deploy site**.
+
+### Dominio personalizado
+
+Si deseas usar `edgardovasquez.cl` (o cualquier dominio propio):
+
+1. Ve a **Site settings → Domain management → Add custom domain**.
+2. Sigue las instrucciones de Netlify para configurar los DNS (agrega registros CNAME o apunta los nameservers).
+3. Netlify emitirá automáticamente un certificado SSL (Let's Encrypt).
+
+> **Nota:** Si también tienes configurado GitHub Pages con el mismo dominio, solo uno puede estar activo a la vez. Decide qué plataforma usar y apunta el DNS únicamente a esa.
+
+### Re-despliegues automáticos
+
+Cada vez que hagas push a la rama principal (ej. `main`), Netlify ejecutará `astro build` y publicará el resultado automáticamente.
+
+---
+
 ## 📊 Lighthouse Performance & OpenSpec Workflow
 
 ### OpenSpec - Gestión de Cambios
