@@ -9,7 +9,7 @@ URL: https://edgardovasquez.cl
 
 | Capa | Tecnología |
 |------|-----------|
-| Framework | Astro.js v4 (static output) |
+| Framework | Astro.js v7 (static output) |
 | Estilos | Vanilla CSS (global.css con variables CSS) |
 | Interactividad | Vanilla JS embebido en componentes |
 | Hosting | GitHub Pages |

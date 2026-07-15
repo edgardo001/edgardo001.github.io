@@ -10,7 +10,7 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^4.9.2",
+    "astro": "^7.0.9",
     "i18next": "^26.3.6"
   }
 }
