@@ -63,6 +63,6 @@
 
 - [x] 8.1 Eliminar `dist-backup/` y screenshots temporales
 - [x] 8.2 Actualizar `AGENTS.md` si hay cambios relevantes en el stack
-- [ ] 8.3 Commit: `chore(deps): migrate to Astro 7 with Rust compiler, Vite 8, and Sätteri`
+- [x] 8.3 Commit: `chore(deps): migrate to Astro 7 with Rust compiler, Vite 8, and Sätteri`
 - [ ] 8.4 Push y crear PR para revisión
 - [ ] 8.5 Desplegar en GitHub Pages y verificar dominio edgardovasquez.cl funciona
