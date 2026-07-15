@@ -9,7 +9,7 @@ const { entry } = Astro.props;
 const { title, description, pubDate } = entry.data;
 ---
 
-<a href={`/blog/${entry.slug}/`} class="blog-card">
+<a href={`/blog/${entry.id}/`} class="blog-card">
 	<time class="blog-card-date" datetime={pubDate.toISOString()}>
 		{new Intl.DateTimeFormat('es-CL', { dateStyle: 'long' }).format(pubDate)}
 	</time>
