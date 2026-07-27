@@ -50,6 +50,7 @@ Single-page estática + blog con content collections (Astro v7). Sin framework J
   - Sección de cierre sin sensacionalismo.
 - **JSON-LD estructurado**: Todo post debe tener schema Article vía `<script type="application/ld+json">` en el `<head>`, incluyendo headline, description, datePublished, author, publisher, url y mainEntityOfPage. Se implementa en `BlogLayout.astro` con las props del post + `Astro.site` para la URL canónica.
 - **Figcaption**: Imágenes con pie usan `<figure>` + `<figcaption>` con estilo global en BlogLayout (centrado, mono, itálica, tono muted).
+- **FAQ para público no técnico**: Incluir sección FAQ cuando el artículo mencione conceptos técnicos (frontend, backend, etc.). Explicar en lenguaje simple, sin jerga. Ideal para posts orientados a clientes o reclutadores.
 
 ## Flujo de trabajo
 
