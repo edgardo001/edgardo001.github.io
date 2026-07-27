@@ -1,4 +1,5 @@
 # Lighthouse audit reports
+lighthouse/
 lighthouse.json
 
 # Node.js / npm
