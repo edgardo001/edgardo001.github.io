@@ -50,8 +50,10 @@ const {
     <script is:inline>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-HQ7V2L86TR');
+        window.addEventListener('load', () => {
+            gtag('js', new Date());
+            gtag('config', 'G-HQ7V2L86TR');
+        });
     </script>
 
     <!-- Script síncrono para evitar el parpadeo del tema claro/oscuro -->
@@ -64,7 +66,7 @@ const {
 </head>
 <body>
     <slot />
-    <script>
+    <script type="module">
         import i18next from 'i18next';
         import es from '../i18n/es.json';
         import en from '../i18n/en.json';
@@ -109,8 +111,9 @@ const {
             document.dispatchEvent(new CustomEvent('languageChanged', { detail: lng }));
         }
 
-        applyTranslations();
         window.__i18n = { changeLanguage, applyTranslations, currentLang: () => i18next.language };
+
+        requestIdleCallback(() => applyTranslations(), { timeout: 1500 });
     </script>
 </body>
 </html>
