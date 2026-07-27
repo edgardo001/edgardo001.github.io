@@ -1,5 +1,6 @@
 ---
-import '../styles/global.css';
+import rawCritical from '../styles/critical.css?raw';
+import globalCSS from '../styles/global.css?url';
 
 export interface Props {
 	title: string;
@@ -42,6 +43,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 		"mainEntityOfPage": canonicalURL.toString()
 	})} is:inline></script>
 	<link rel="icon" type="image/png" href="/mpedf3pv-img.jpg" />
+
+	<style is:inline set:html={rawCritical}></style>
+	<link rel="stylesheet" href={globalCSS} media="print" onload="this.media='all';this.onload=null" />
+	<noscript><link rel="stylesheet" href={globalCSS} /></noscript>
 
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

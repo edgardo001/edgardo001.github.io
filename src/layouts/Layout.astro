@@ -1,5 +1,6 @@
 ---
-import '../styles/global.css';
+import rawCritical from '../styles/critical.css?raw';
+import globalCSS from '../styles/global.css?url';
 
 interface Props {
 	title?: string;
@@ -21,11 +22,21 @@ const {
     <link rel="icon" type="image/png" href="/mpedf3pv-img.jpg" />
     <title>{title}</title>
 
+    <!-- Preload hero LCP image -->
+    <link rel="preload" as="image" href="/mpedf3pv-img.avif" type="image/avif" fetchpriority="high">
+
     <!-- Preconnect hints for critical third-party origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://www.googletagmanager.com" />
     <link rel="preconnect" href="https://cdn.simpleicons.org" />
+
+    <!-- Critical CSS inline -->
+    <style is:inline set:html={rawCritical}></style>
+
+    <!-- Non-critical CSS loaded async -->
+    <link rel="stylesheet" href={globalCSS} media="print" onload="this.media='all';this.onload=null" />
+    <noscript><link rel="stylesheet" href={globalCSS} /></noscript>
 
     <!-- Google Fonts: preconnect + preload woff2 critical weights -->
     <link rel="preload" as="font" href="https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2" type="font/woff2" crossorigin>
