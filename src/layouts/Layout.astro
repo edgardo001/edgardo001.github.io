@@ -79,16 +79,8 @@ const {
             return 'es';
         }
 
-        i18next.init({
-            lng: getInitialLang(),
-            fallbackLng: 'es',
-            resources: {
-                es: { translation: es },
-                en: { translation: en }
-            }
-        });
-
         function applyTranslations() {
+            if (!_ready) return;
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 const translation = i18next.t(key);
@@ -102,16 +94,26 @@ const {
             document.documentElement.lang = i18next.language;
         }
 
-        function changeLanguage(lng) {
-            i18next.changeLanguage(lng);
-            localStorage.setItem('lang', lng);
+        window.__i18n = {
+            changeLanguage(lng) {
+                if (!_ready) return;
+                i18next.changeLanguage(lng);
+                localStorage.setItem('lang', lng);
+                applyTranslations();
+                document.dispatchEvent(new CustomEvent('languageChanged', { detail: lng }));
+            },
+            currentLang() { return _ready ? i18next.language : getInitialLang(); }
+        };
+
+        requestIdleCallback(() => {
+            i18next.init({
+                lng: getInitialLang(),
+                fallbackLng: 'es',
+                resources: { es: { translation: es }, en: { translation: en } }
+            });
+            _ready = true;
             applyTranslations();
-            document.dispatchEvent(new CustomEvent('languageChanged', { detail: lng }));
-        }
-
-        window.__i18n = { changeLanguage, applyTranslations, currentLang: () => i18next.language };
-
-        requestIdleCallback(() => applyTranslations(), { timeout: 1500 });
+        }, { timeout: 3000 });
     </script>
 </body>
 </html>
