@@ -67,6 +67,8 @@ Toda versión debe pasar auditoría Lighthouse antes de darse por completa.
 
 **Umbral mínimo: 90+ en todas las categorías** (performance, accessibility, best-practices, seo).
 
+**Línea base actual:** Performance 84, Accessibility 100, Best-practices 100, SEO 100.
+
 ### Ejecutar
 
 ```bash
@@ -75,6 +77,7 @@ npx lighthouse https://edgardovasquez.cl --only-categories="performance,accessib
 
 - Ejecutar contra producción y contra localhost (dev server) cuando aplique.
 - Si alguna categoría baja de 90, no se considera completo.
+- El MCP `chrome-devtools` NO incluye la categoría performance correctamente — usar siempre la CLI oficial.
 
 ### Guardado
 
