@@ -8,6 +8,7 @@ export interface Props {
 }
 
 const { title, description, pubDate } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!DOCTYPE html>
@@ -20,6 +21,26 @@ const { title, description, pubDate } = Astro.props;
 	<meta property="og:description" content={description} />
 	<meta property="og:type" content="article" />
 	<title>{title} — Edgardo Vásquez</title>
+	<link rel="canonical" href={canonicalURL} />
+	<script type="application/ld+json" set:html={JSON.stringify({
+		"@context": "https://schema.org",
+		"@type": "Article",
+		"headline": title,
+		"description": description,
+		"datePublished": pubDate.toISOString(),
+		"author": {
+			"@type": "Person",
+			"name": "Edgardo Vásquez Valenzuela",
+			"url": "https://edgardovasquez.cl"
+		},
+		"publisher": {
+			"@type": "Person",
+			"name": "Edgardo Vásquez Valenzuela",
+			"url": "https://edgardovasquez.cl"
+		},
+		"url": canonicalURL.toString(),
+		"mainEntityOfPage": canonicalURL.toString()
+	})} is:inline></script>
 	<link rel="icon" type="image/png" href="/mpedf3pv-img.jpg" />
 
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -201,6 +222,23 @@ const { title, description, pubDate } = Astro.props;
 		border: none;
 		border-top: 1px solid var(--border);
 		margin: 40px 0;
+	}
+
+	.blog-content figure {
+		margin: 24px 0;
+	}
+
+	.blog-content figure img {
+		margin: 0;
+	}
+
+	.blog-content figcaption {
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		color: var(--text-muted);
+		text-align: center;
+		margin-top: 8px;
+		font-style: italic;
 	}
 
 	.blog-content img {
