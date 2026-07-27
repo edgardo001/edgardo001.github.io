@@ -20,7 +20,7 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <link rel="icon" type="image/png" href="/mpedf3pv-img.jpg" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧑‍💻</text></svg>">
     <title>{title}</title>
 
     <!-- Preload hero LCP image -->
@@ -35,8 +35,9 @@ const {
     <!-- Critical CSS inline -->
     <style is:inline set:html={rawCritical}></style>
 
-    <!-- Global CSS (render-blocking to prevent CLS) -->
-    <link rel="stylesheet" href={globalCSS} />
+    <!-- Global CSS (async: print media swaps to all on load) -->
+    <link rel="stylesheet" href={globalCSS} media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href={globalCSS} /></noscript>
 
     <!-- Google Fonts: preload + async CSS with display=optional (no swap CLS) -->
     <link rel="preload" as="font" href="https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2" type="font/woff2" crossorigin>
