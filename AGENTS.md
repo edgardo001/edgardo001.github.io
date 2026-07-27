@@ -1,5 +1,7 @@
 # edgardo001.github.io — Portafolio Profesional
 
+> Este archivo se actualiza con cada aprendizaje relevante: nuevas convenciones, patrones, decisiones de arquitectura, o reglas que faciliten el trabajo futuro. Es responsabilidad del agente en curso mantenerlo.
+
 ## Proyecto
 
 Sitio web personal de **Edgardo Vásquez Valenzuela** — Solutions Architect, Technical Lead & Senior Software Engineer.
@@ -21,16 +23,42 @@ URL: https://edgardovasquez.cl
 ```
 src/
 ├── components/     → 12 componentes .astro (Hero, QueAporto, Skills, Contact…)
-├── layouts/        → Layout.astro (shell HTML + head + theme script)
-├── pages/          → index.astro (página única que importa todos los componentes)
+├── content/
+│   └── blog/       → Artículos en markdown (.md) con frontmatter (title, description, pubDate)
+├── i18n/           → Traducciones ES/EN (i18next)
+├── layouts/        → Layout.astro + BlogLayout.astro (shell HTML + head + theme script)
+├── pages/          → index.astro + /blog/index.astro + /blog/[slug].astro
 └── styles/         → global.css (~1400 líneas, variables, layout, secciones)
+
+public/
+└── blog/
+    └── img/        → Imágenes de artículos del blog (WebP optimizado ~100KB)
 ```
 
-Single-page estática. Sin framework JS cliente, sin router, sin API. Cada componente es autónomo con su template + estilo scoped.
+Single-page estática + blog con content collections (Astro v7). Sin framework JS cliente, sin router, sin API. Los slugs de blog se derivan del nombre del archivo `.md`. Las imágenes del blog van en `public/blog/img/` y se referencian como `/blog/img/nombre.webp`.
+
+## Blog
+
+- **Tono**: Personal, profesional, directo. Sin clickbait ni frases absolutas ("se murió", "te doy la solución", "nunca", "siempre"). Demostrar conocimiento compartiendo experiencia real con ejemplos concretos del código del proyecto.
+- **Frontmatter**: `title`, `description` (máx 160 caracteres), `pubDate` en formato ISO.
+- **Imagen destacada**: WebP optimizado (~100KB) en `public/blog/img/`, referenciada como `/blog/img/nombre.webp`.
+- **Navbar**: Incluir enlace a `/blog/` con entrada i18n `nav.blog` en ES/EN.
+- **SEO/AEO/GEO en contenido**:
+  - Encabezados H2/H3 descriptivos, evitar "clickbait".
+  - Incluir ejemplos de código real del proyecto (ARIA labels, preconnect, fetchpriority, etc.).
+  - Párrafos cortos y directos, sin exageraciones.
+  - Sección de cierre sin sensacionalismo.
+- **JSON-LD estructurado**: Todo post debe tener schema Article vía `<script type="application/ld+json">` en el `<head>`, incluyendo headline, description, datePublished, author, publisher, url y mainEntityOfPage. Se implementa en `BlogLayout.astro` con las props del post + `Astro.site` para la URL canónica.
+- **Figcaption**: Imágenes con pie usan `<figure>` + `<figcaption>` con estilo global en BlogLayout (centrado, mono, itálica, tono muted).
 
 ## Flujo de trabajo
 
 Los cambios pasan por **OpenSpec** (plan → diseño → tareas → implementación) usando los comandos `/opsx-*`.
+
+## Comandos útiles
+
+- `start-dev.bat` — inicia el servidor de desarrollo (`npm run dev`).
+- `npx astro build` — build de producción.
 
 ---
 
