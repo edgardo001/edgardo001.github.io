@@ -61,6 +61,25 @@ Los cambios pasan por **OpenSpec** (plan → diseño → tareas → implementaci
 - `start-dev.bat` — inicia el servidor de desarrollo (`npm run dev`).
 - `npx astro build` — build de producción.
 
+## Auditoría con Lighthouse
+
+Toda versión debe pasar auditoría Lighthouse antes de darse por completa.
+
+**Umbral mínimo: 90+ en todas las categorías** (performance, accessibility, best-practices, seo).
+
+### Ejecutar
+
+```bash
+npx lighthouse https://edgardovasquez.cl --only-categories="performance,accessibility,best-practices,seo" --output json --output-path lighthouse/report.json --chrome-path "C:\Program Files\Google\Chrome\Application\chrome.exe"
+```
+
+- Ejecutar contra producción y contra localhost (dev server) cuando aplique.
+- Si alguna categoría baja de 90, no se considera completo.
+
+### Guardado
+
+El reporte JSON va en `lighthouse/report.json` dentro de la versión correspondiente.
+
 ---
 
 ## Agentes de desarrollo
