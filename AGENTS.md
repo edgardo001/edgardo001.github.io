@@ -92,12 +92,27 @@ Mobile está bajo el umbral (84). Los principales cuellos de botella mobile son:
 | gtag init deferred a window.load | ~-TBT | Analytics no bloquea interacción |
 | Navbar styles restaurados | Fix visual | Mobile menu + theme toggle duplicado en mobile |
 
+### Cuello de botella principal: Google Tag Manager (GTM)
+
+**GTM** (`https://www.googletagmanager.com/gtag/js?id=G-HQ7V2L86TR`) es el script de Google Analytics que mide las visitas del sitio. Es el principal culpable de que mobile no alcance 90+ en Lighthouse.
+
+| Impacto | Valor |
+|---------|-------|
+| Peso | **163KB** (~35% del total de la página) |
+| Script Evaluation | **0.2-0.8s** en el hilo principal |
+| Conexiones adicionales | DNS + TCP + TLS a `googletagmanager.com` |
+| Tracking adicional | `analytics.google.com`, `doubleclick.net`, `google.cl/ads` |
+
+No se puede eliminar porque las visitas se miden con Google Analytics 4. Ya está mitigado con:
+- `gtag()` init diferido a `window.load` (no bloquea interacción temprana)
+- Script con atributo `async` (no bloquea parsing)
+
+Si en el futuro se requiere llegar a 90+ mobile, GTM debe reemplazarse por un sistema de analytics más liviano (ej. Plausible, Umami) o cargarse solo después de interacción del usuario.
+
 ### Pendiente mobile (para llegar a 90+)
 
-- **GTM (163KB)**: Principal contribuyente a TBT. Opciones: cargar después de interacción o precargar con prioridad más baja.
 - **CSS crítico sin minificar**: Usar `<style is:global>` en el template en vez de `?raw` para que Astro lo minifique.
-- **i18next module load**: Mover a carga on-demand (solo cuando usuario hace clic en toggle de idioma) en vez de module script.
-- **Reducir pesos de fuentes**: Actualmente 11 archivos (~115KB). Evaluar cuáles realmente se usan.
+- **Reducir pesos de fuentes**: Actualmente ~70KB (Inter + Fira Code). Evaluar si Fira Code es necesario.
 
 ### Ejecutar
 
