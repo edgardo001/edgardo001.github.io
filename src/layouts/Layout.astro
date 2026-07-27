@@ -1,7 +1,6 @@
 ---
 import rawCritical from '../styles/critical.css?raw';
 import globalCSS from '../styles/global.css?url';
-import i18nUrl from '../i18n/init.js?url';
 
 interface Props {
 	title?: string;
@@ -81,6 +80,10 @@ const {
         };
     </script>
     <!-- i18next loaded after page load to reduce main thread work -->
-    <script is:inline set:html={`window.addEventListener('load', () => { import('${i18nUrl}'); });`} />
+    <script>
+        window.addEventListener('load', () => {
+            import('../i18n/init.js');
+        });
+    </script>
 </body>
 </html>
