@@ -84,10 +84,6 @@ const {
         };
     </script>
     <!-- i18next loaded after page load to reduce main thread work -->
-    <script is:inline>
-        window.addEventListener('load', () => {
-            import('{i18nUrl}');
-        });
-    </script>
+    <script is:inline set:html={`window.addEventListener('load', () => { import('${i18nUrl}'); });`} />
 </body>
 </html>
