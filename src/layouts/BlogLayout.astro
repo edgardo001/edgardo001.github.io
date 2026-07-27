@@ -68,6 +68,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 	</script>
 </head>
 <body>
+	<button id="blog-theme-toggle" class="blog-theme-btn" aria-label="Cambiar tema">
+		<svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+		<svg class="moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+	</button>
 	<article class="blog-article">
 		<header class="blog-header">
 			<a href="/blog/" class="blog-back">&larr; Volver al blog</a>
@@ -81,6 +85,19 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 			<slot />
 		</div>
 	</article>
+
+	<script>
+		const themeBtn = document.getElementById('blog-theme-toggle');
+		if (themeBtn) {
+			themeBtn.addEventListener('click', () => {
+				const html = document.documentElement;
+				const isLight = html.getAttribute('data-theme') === 'light';
+				const newTheme = isLight ? 'dark' : 'light';
+				html.setAttribute('data-theme', newTheme);
+				localStorage.setItem('theme', newTheme);
+			});
+		}
+	</script>
 </body>
 </html>
 
@@ -247,6 +264,41 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 		border: 1px solid var(--border);
 		margin: 24px 0;
 	}
+
+	.blog-theme-btn {
+		position: fixed;
+		top: 16px;
+		right: 16px;
+		z-index: 1001;
+		background: var(--surface);
+		border: 1px solid var(--border);
+		border-radius: 50%;
+		width: 40px;
+		height: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition: var(--transition);
+		color: var(--text-primary);
+	}
+	.blog-theme-btn:hover {
+		background: var(--surface-card);
+		transform: scale(1.05);
+	}
+	.blog-theme-btn svg {
+		width: 18px;
+		height: 18px;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 2;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+	.blog-theme-btn .sun { display: block; }
+	.blog-theme-btn .moon { display: none; }
+	[data-theme="light"] .blog-theme-btn .sun { display: none; }
+	[data-theme="light"] .blog-theme-btn .moon { display: block; }
 
 	@media (width <= 600px) {
 		.blog-article {
