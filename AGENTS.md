@@ -67,21 +67,58 @@ Toda versión debe pasar auditoría Lighthouse antes de darse por completa.
 
 **Umbral mínimo: 90+ en todas las categorías** (performance, accessibility, best-practices, seo).
 
-**Línea base actual:** Performance 84, Accessibility 100, Best-practices 100, SEO 100.
+**Línea base actual (julio 2026):**
+| Dispositivo | Performance | Accessibility | Best-practices | SEO |
+|-------------|-------------|---------------|----------------|-----|
+| Desktop | 91-98 | 100 | 100 | 100 |
+| Mobile | 84 | 96 | 96 | 100 |
+
+Mobile está bajo el umbral (84). Los principales cuellos de botella mobile son:
+- **CLS** (ya resuelto: 0.000 con CSS render-blocking + font-display:optional)
+- **LCP** (~4.3s): Hero image tarda en cargar por Slow 4G + JS execution
+- **TBT** (~90ms): GTM (163KB) + módulo i18next (18.5KB) en main thread
+- **Style & Layout** (~1.0s, 51% del main thread): CSS inline sin minificar + global.css render-blocking
+
+### Estrategias aplicadas
+
+| Técnica | Impacto | Notas |
+|---------|---------|-------|
+| Critical CSS inlined (sin minificar vía `?raw`) | +FCP/LCP desktop, ~5KB inline | No minificado porque `?raw` bypass el procesamiento de Vite |
+| global.css render-blocking | Fix CLS (0.825→0.000) | Necesario para evitar layout shifts al aplicar estilos asíncronos |
+| Font CSS async con `display=optional` | -render-blocking, sin CLS | `media="print"` + onload swap. `optional` evita font swap CLS |
+| Hero image AVIF preload con fetchpriority=high | +LCP | Primer elemento en `<head>` |
+| Preconnect GTM, Google Fonts, simpleicons | -latencia conexiones | Antes del CSS crítico |
+| i18next init deferred a requestIdleCallback | ~-JS execution | La UI responde antes, i18n se init en idle |
+| gtag init deferred a window.load | ~-TBT | Analytics no bloquea interacción |
+| Navbar styles restaurados | Fix visual | Mobile menu + theme toggle duplicado en mobile |
+
+### Pendiente mobile (para llegar a 90+)
+
+- **GTM (163KB)**: Principal contribuyente a TBT. Opciones: cargar después de interacción o precargar con prioridad más baja.
+- **CSS crítico sin minificar**: Usar `<style is:global>` en el template en vez de `?raw` para que Astro lo minifique.
+- **i18next module load**: Mover a carga on-demand (solo cuando usuario hace clic en toggle de idioma) en vez de module script.
+- **Reducir pesos de fuentes**: Actualmente 11 archivos (~115KB). Evaluar cuáles realmente se usan.
 
 ### Ejecutar
 
+Desktop:
 ```bash
-npx lighthouse https://edgardovasquez.cl --only-categories="performance,accessibility,best-practices,seo" --output json --output-path lighthouse/report.json --chrome-path "C:\Program Files\Google\Chrome\Application\chrome.exe"
+npx lighthouse https://edgardovasquez.cl --only-categories="performance,accessibility,best-practices,seo" --output json --output-path lighthouse/report.json --chrome-path "C:\Program Files\Google\Chrome\Application\chrome.exe" --preset=desktop
 ```
 
-- Ejecutar contra producción y contra localhost (dev server) cuando aplique.
+Mobile:
+```bash
+npx lighthouse https://edgardovasquez.cl --only-categories="performance" --output json --output-path lighthouse/report-mobile.json --chrome-path "C:\Program Files\Google\Chrome\Application\chrome.exe" --emulated-form-factor=mobile --throttling-method=simulate
+```
+
+- Ejecutar contra producción (no localhost) para resultados realistas.
 - Si alguna categoría baja de 90, no se considera completo.
+- Lighthouse CLI falla con EPERM en cleanup (Windows temp) pero los reportes se generan antes del error — ignorar.
 - El MCP `chrome-devtools` NO incluye la categoría performance correctamente — usar siempre la CLI oficial.
 
 ### Guardado
 
-El reporte JSON va en `lighthouse/report.json` dentro de la versión correspondiente.
+El reporte JSON va en `lighthouse/report.json` (desktop) y `lighthouse/report-mobile.json` (mobile).
 
 ---
 
