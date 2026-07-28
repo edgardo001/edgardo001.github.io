@@ -2,6 +2,10 @@
 title: "Primer Artículo"
 description: "Bienvenido al blog de Edgardo Vásquez. Aquí compartiré artículos sobre tecnología, liderazgo y arquitectura de software."
 pubDate: 2026-05-27
+shareX: "Arranca mi blog profesional. Voy a compartir sobre desarrollo, arquitectura cloud, liderazgo técnico e IA"
+shareWhatsApp: "Acabo de lanzar mi blog profesional donde compartiré artículos sobre desarrollo de software, arquitectura cloud, liderazgo de equipos técnicos e inteligencia artificial. Ideal si te interesa la ingeniería de software y la innovación tecnológica."
+shareReddit: "Inicio mi blog profesional sobre tecnología, liderazgo y arquitectura de software"
+shareInstagram: "Arranca mi blog profesional 🚀 Desarrollo, arquitectura cloud, IA y liderazgo técnico en un solo lugar."
 ---
 
 ¡Bienvenido a mi blog!

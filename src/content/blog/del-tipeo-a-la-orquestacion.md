@@ -2,6 +2,11 @@
 title: "Del \"Tipeo\" a la Orquestación: Cómo Liderar el Cambio hacia los Agentes de IA"
 description: "Cómo pasar de escribir código a orquestar agentes de IA. Liderazgo técnico, inteligencia emocional y gestión del cambio en la era de la IA."
 pubDate: 2026-07-27
+shareX: "Cómo liderar el cambio de escribir código a orquestar agentes de IA. Liderazgo técnico en la era de la IA"
+shareWhatsApp: "Artículo sobre cómo pasar de ser un desarrollador que escribe código a un arquitecto que orquesta agentes de IA. Abordo el liderazgo técnico, la inteligencia emocional y la gestión del cambio necesarios para esta transformación."
+shareReddit: "Del código a la orquestación: cómo liderar agentes de IA"
+shareInstagram: "Del código a la orquestación de agentes de IA 🤖 Liderazgo técnico, inteligencia emocional y gestión del cambio."
+image: "/blog/img/blog-del-tipeo-a-la-orquestacion.webp"
 ---
 
 Llevo más de una década escribiendo código y liderando equipos, pero en los últimos meses mi forma de trabajar cambió más que en los diez años anteriores. Estamos dejando de escribir sintaxis manualmente para **orquestar agentes autónomos** como Claude Code, Codex, OpenCode o Antigravity.
