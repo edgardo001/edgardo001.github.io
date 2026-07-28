@@ -1,4 +1,5 @@
 ---
+import ShareButtons from '../components/ShareButtons.astro';
 import rawCritical from '../styles/critical.css?raw';
 import globalCSS from '../styles/global.css?url';
 
@@ -6,10 +7,17 @@ export interface Props {
 	title: string;
 	description: string;
 	pubDate: Date;
+	shareX?: string;
+	shareWhatsApp?: string;
+	shareReddit?: string;
+	shareInstagram?: string;
+	image?: string;
 }
 
-const { title, description, pubDate } = Astro.props;
+const { title, description, pubDate, shareX, shareWhatsApp, shareReddit, shareInstagram, image } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const siteURL = String(Astro.site).replace(/\/$/, '');
+const imageURL = image ? `${siteURL}${image}` : null;
 ---
 
 <!DOCTYPE html>
@@ -21,6 +29,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 	<meta property="og:title" content={title} />
 	<meta property="og:description" content={description} />
 	<meta property="og:type" content="article" />
+	<meta property="og:url" content={canonicalURL} />
+	<meta property="og:site_name" content="Edgardo Vásquez" />
+	{imageURL ? <meta property="og:image" content={imageURL} /> : null}
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content={title} />
+	<meta name="twitter:description" content={description} />
+	{imageURL ? <meta name="twitter:image" content={imageURL} /> : null}
 	<title>{title} — Edgardo Vásquez</title>
 	<link rel="canonical" href={canonicalURL} />
 	<script type="application/ld+json" set:html={JSON.stringify({
@@ -89,6 +104,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 		<div class="blog-content">
 			<slot />
 		</div>
+		<ShareButtons url={canonicalURL.toString()} title={title} description={description}
+			shareX={shareX}
+			shareWhatsApp={shareWhatsApp}
+			shareReddit={shareReddit}
+			shareInstagram={shareInstagram}
+		/>
 	</article>
 
 	<script>
