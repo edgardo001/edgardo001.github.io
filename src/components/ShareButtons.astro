@@ -105,7 +105,12 @@ const redditUrl = `https://www.reddit.com/submit?text=${encodedRedditText}&title
   .share-btn.whatsapp:hover { background: #25d366; }
   .share-btn.twitter:hover { background: #000; }
   .share-btn.reddit:hover { background: #ff4500; }
-  .share-btn.share-copy:hover { background: var(--accent); }
+  .share-btn.share-copy:hover { background: var(--accent-gradient); }
+
+  .share-btn:focus-visible {
+    outline: 2px solid var(--accent-emerald);
+    outline-offset: 2px;
+  }
 
   .share-toast {
     position: absolute;
