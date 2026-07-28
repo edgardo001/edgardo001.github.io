@@ -6,6 +6,7 @@ shareX: "El modelo ABC de la inclusión: Autoría, Pertenencia y Competencia. Lo
 shareWhatsApp: "Te comparto lo que aprendí sobre el modelo ABC de la inclusión organizacional en el diplomado de la Universidad Católica. Explica cómo pasar de la simple representación a una participación efectiva usando Autoría, Pertenencia y Competencia."
 shareReddit: "ABC de la Inclusión Organizacional: el modelo de Heather Caruso aplicado a equipos y empresas"
 shareInstagram: "El ABC de la inclusión organizacional 📚 Lo que aprendí en el diplomado de la UC sobre Autoría, Pertenencia y Competencia."
+image: "/blog/img/blog-abc-inclusion-organizacional.webp"
 ---
 
 El año pasado hice un diplomado en la Universidad Católica. Siempre quise escribir sobre lo aprendido, pero entre el trabajo, los proyectos y la vida, nunca encontraba el momento. Ahora que tengo mi propio sitio, un blog y algo más de espacio para ordenar ideas, empiezo a compartir estas notas. Más que artículos académicos, son mi forma de fijar el conocimiento y, de paso, compartirlo con quien le sirva.
@@ -25,6 +26,11 @@ Hay una frase de Verna Myers que lo resume mejor que cualquier definición técn
 Diversidad es que te abran la puerta. Inclusión es que te den un rol, una voz, un espacio real para participar.
 
 En lo personal, casi siempre me invitaron a la fiesta, pero pocas veces me sacaron a bailar. Tal vez por eso valoro tanto cuando alguien hace espacio para que el otro realmente participe.
+
+<figure>
+  <img src="/blog/img/blog-abc-inclusion-organizacional.webp" alt="ABC de la Inclusión Organizacional — Autoría, Pertenencia y Competencia">
+  <figcaption>Elaboración propia mediante inteligencia artificial utilizando el modelo de generación de imágenes GPT Image de OpenAI (2026).</figcaption>
+</figure>
 
 ## El modelo ABC de la Inclusión
 

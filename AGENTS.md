@@ -32,10 +32,10 @@ src/
 
 public/
 └── blog/
-    └── img/        → Imágenes de artículos del blog (WebP optimizado ~100KB)
+    └── img/        → Imágenes de artículos del blog (WebP, formato obligatorio, ~100KB)
 ```
 
-Single-page estática + blog con content collections (Astro v7). Sin framework JS cliente, sin router, sin API. Los slugs de blog se derivan del nombre del archivo `.md`. Las imágenes del blog van en `public/blog/img/` y se referencian como `/blog/img/nombre.webp`.
+Single-page estática + blog con content collections (Astro v7). Sin framework JS cliente, sin router, sin API. Los slugs de blog se derivan del nombre del archivo `.md`. Las imágenes del blog van en `public/blog/img/` y se referencian como `/blog/img/nombre.webp` (formato obligatorio).
 
 ## Blog
 
@@ -44,7 +44,9 @@ Single-page estática + blog con content collections (Astro v7). Sin framework J
   - `[slug].astro` obtiene los campos custom (`image`, `shareX`, `shareWhatsApp`, `shareReddit`, `shareInstagram`) vía **gray-matter** leyendo los archivos `.md` directamente con `readFileSync` + `process.cwd()`.
   - **Motivo**: `entry.data` de `getCollection('blog')` cuando pasa por `getStaticPaths` solo expone `title`, `description` y `pubDate`. Los campos custom se pierden durante la serialización interna de Astro. gray-matter los lee del disco sin pasar por ese proxy, y se pasan al layout mediante un objeto `frontmatter` separado en las props.
   - **Dependencia**: `gray-matter` (agregada con `npm install gray-matter`).
-- **Imagen destacada**: WebP optimizado (~100KB) en `public/blog/img/`, referenciada como `/blog/img/nombre.webp`.
+- **Imagen destacada**: WebP optimizado (~100KB) en `public/blog/img/`, referenciada como `/blog/img/nombre.webp`. Formato obligatorio, no usar PNG/JPG.
+  - La imagen se genera en la raíz como `image.png`, se convierte a WebP y se mueve a `public/blog/img/`. **Nunca commitear `image.png`** — está en `.gitignore`.
+  - **No pushear el post sin la imagen.** Verificar que exista en `public/blog/img/` antes de commitear.
 - **Navbar**: Incluir enlace a `/blog/` con entrada i18n `nav.blog` en ES/EN.
 - **SEO/AEO/GEO en contenido**:
   - Encabezados H2/H3 descriptivos, evitar "clickbait".

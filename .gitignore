@@ -35,4 +35,9 @@ dist/
 ehthumbs.db
 Thumbs.db
 
+# Images — solo WebP permitido en el proyecto
+*.png
+*.jpg
+*.jpeg
+
 archivos/*
