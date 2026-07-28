@@ -40,7 +40,10 @@ Single-page estática + blog con content collections (Astro v7). Sin framework J
 ## Blog
 
 - **Tono**: Personal, profesional, directo. Sin clickbait ni frases absolutas ("se murió", "te doy la solución", "nunca", "siempre"). Demostrar conocimiento compartiendo experiencia real con ejemplos concretos del código del proyecto.
-- **Frontmatter**: `title`, `description` (máx 160 caracteres), `pubDate` en formato ISO.
+- **Frontmatter**: `title`, `description` (máx 160 caracteres), `pubDate` en formato ISO. Campo opcional `image` para OG Image (ej. `/blog/img/mi-imagen.webp`).
+  - `[slug].astro` obtiene los campos custom (`image`, `shareX`, `shareWhatsApp`, `shareReddit`, `shareInstagram`) vía **gray-matter** leyendo los archivos `.md` directamente con `readFileSync` + `process.cwd()`.
+  - **Motivo**: `entry.data` de `getCollection('blog')` cuando pasa por `getStaticPaths` solo expone `title`, `description` y `pubDate`. Los campos custom se pierden durante la serialización interna de Astro. gray-matter los lee del disco sin pasar por ese proxy, y se pasan al layout mediante un objeto `frontmatter` separado en las props.
+  - **Dependencia**: `gray-matter` (agregada con `npm install gray-matter`).
 - **Imagen destacada**: WebP optimizado (~100KB) en `public/blog/img/`, referenciada como `/blog/img/nombre.webp`.
 - **Navbar**: Incluir enlace a `/blog/` con entrada i18n `nav.blog` en ES/EN.
 - **SEO/AEO/GEO en contenido**:
@@ -51,6 +54,53 @@ Single-page estática + blog con content collections (Astro v7). Sin framework J
 - **JSON-LD estructurado**: Todo post debe tener schema Article vía `<script type="application/ld+json">` en el `<head>`, incluyendo headline, description, datePublished, author, publisher, url y mainEntityOfPage. Se implementa en `BlogLayout.astro` con las props del post + `Astro.site` para la URL canónica.
 - **Figcaption**: Imágenes con pie usan `<figure>` + `<figcaption>` con estilo global en BlogLayout (centrado, mono, itálica, tono muted).
 - **FAQ para público no técnico**: Incluir sección FAQ cuando el artículo mencione conceptos técnicos (frontend, backend, etc.). Explicar en lenguaje simple, sin jerga. Ideal para posts orientados a clientes o reclutadores.
+
+### Botones de Compartir
+
+Cada post tiene botones para LinkedIn, WhatsApp, X (Twitter), Reddit, Facebook e Instagram en `src/components/ShareButtons.astro`. El texto que se comparte se controla desde el frontmatter con campos opcionales:
+
+| Campo | Para | Límite | Formato del share |
+|-------|------|--------|-------------------|
+| `shareX` | X/Twitter | **280 caracteres** (incluyendo URL + `\n\n`) | `{shareX}\n\n{url}` |
+| `shareWhatsApp` | WhatsApp | **4096 caracteres** | `{shareWhatsApp}\n\n{url}` |
+| `shareReddit` | Reddit (título + cuerpo del post) | **300 caracteres título** | Post tipo texto con `{shareReddit}\n\n{url}` en el cuerpo |
+| `shareInstagram` | Instagram (menú nativo) | Sin límite práctico | `{shareInstagram}\n\n{url}` vía `navigator.share()` |
+| `shareDescription` | — (general, obsoleto) | — | Usado solo si el campo específico no existe |
+
+**Regla de validación — X/Twitter es el más restrictivo:**
+```
+len(shareX) + 2 + len(url) ≤ 280
+```
+Donde la URL del post es `https://edgardovasquez.cl/blog/{slug}/`. Ejemplo real: `https://edgardovasquez.cl/blog/primer-articulo/` = 47 chars.
+
+**Cadena de fallback**: Si un campo no está definido, se usa `description` (el que se ve en la página). Si `description` tampoco existe, se usa `title`.
+
+**LinkedIn y Facebook** no usan texto personalizado — extraen título y descripción de los OG Tags de la página automáticamente.
+
+**Instagram** usa `navigator.share()` (Web Share API). En móvil abre el menú nativo con todas las apps (incluyendo Instagram). Si Web Share no está disponible, fallback a copiar al portapapeles.
+
+### OG Tags & Twitter Cards
+
+Se generan en `BlogLayout.astro` en el `<head>`. No requieren configuración por post (usan `title`, `description`, `pubDate` e `image` del frontmatter). Los tags generados:
+
+| Tag | Fuente |
+|-----|--------|
+| `og:title` | `title` |
+| `og:description` | `description` |
+| `og:type` | `"article"` (fijo) |
+| `og:url` | `canonicalURL` (Astro.site + pathname) |
+| `og:site_name` | `"Edgardo Vásquez"` (fijo) |
+| `og:image` | `image` del frontmatter (solo si existe) |
+| `twitter:card` | `"summary_large_image"` (fijo) |
+| `twitter:title` | `title` |
+| `twitter:description` | `description` |
+| `twitter:image` | `image` del frontmatter (solo si existe) |
+
+**Importante**: LinkedIn y Facebook cachean los OG tags hasta por 7 días. Al publicar un post nuevo, usar https://www.linkedin.com/post-inspector/ para forzar la refrescada del caché.
+
+### Content Config
+
+Los campos de frontmatter se validan con Zod en `src/content/config.ts`. Sin embargo, los campos custom no sobreviven la serialización de `getStaticPaths` (ver sección gray-matter arriba). El schema existe solo para type safety y validación en dev.
 
 ## Flujo de trabajo
 
