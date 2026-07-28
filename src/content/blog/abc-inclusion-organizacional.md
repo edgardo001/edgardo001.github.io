@@ -9,7 +9,7 @@ shareInstagram: "El ABC de la inclusión organizacional 📚 Lo que aprendí en 
 image: "/blog/img/blog-abc-inclusion-organizacional.webp"
 ---
 
-El año pasado hice un diplomado en la Universidad Católica. Siempre quise escribir sobre lo aprendido, pero entre el trabajo, los proyectos y la vida, nunca encontraba el momento. Ahora que tengo mi propio sitio, un blog y algo más de espacio para ordenar ideas, empiezo a compartir estas notas. Más que artículos académicos, son mi forma de fijar el conocimiento y, de paso, compartirlo con quien le sirva.
+El año pasado hice un diplomado en la Pontificia Universidad Católica de Chile. Siempre quise escribir sobre lo aprendido, pero entre el trabajo, los proyectos y la vida, nunca encontraba el momento. Ahora que tengo mi propio sitio, un blog y algo más de espacio para ordenar ideas, empiezo a compartir estas notas. Más que artículos académicos, son mi forma de fijar el conocimiento y, de paso, compartirlo con quien le sirva.
 
 Una de las materias era sobre liderazgo inclusivo y diversidad en las organizaciones. En mi [artículo anterior](/blog/del-tipeo-a-la-orquestacion/) mencioné brevemente el modelo de inclusión aplicado a los agentes de IA. Hoy voy a la raíz del concepto.
 
@@ -25,7 +25,7 @@ Hay una frase de Verna Myers que lo resume mejor que cualquier definición técn
 
 Diversidad es que te abran la puerta. Inclusión es que te den un rol, una voz, un espacio real para participar.
 
-En lo personal, casi siempre me invitaron a la fiesta, pero pocas veces me sacaron a bailar. Tal vez por eso valoro tanto cuando alguien hace espacio para que el otro realmente participe.
+En lo personal y mas de joven, casi siempre me invitaron a la fiesta, pero pocas veces me sacaron a bailar. Tal vez por eso valoro tanto cuando alguien hace espacio para que el otro realmente participe.
 
 <figure>
   <img src="/blog/img/blog-abc-inclusion-organizacional.webp" alt="ABC de la Inclusión Organizacional — Autoría, Pertenencia y Competencia">
@@ -34,11 +34,11 @@ En lo personal, casi siempre me invitaron a la fiesta, pero pocas veces me sacar
 
 ## El modelo ABC de la Inclusión
 
-Este modelo fue propuesto por [Heather Caruso](https://compass.onlinelibrary.wiley.com/doi/10.1111/spc3.12848), profesora de la UCLA, y describe tres variables que funcionan como "macronutrientes" de la inclusión. Así como el cuerpo necesita proteínas, carbohidratos y grasas para funcionar, una organización necesita estos tres componentes para que la inclusión no se quede en el discurso.
+Este modelo fue propuesto por [Heather Caruso](https://compass.onlinelibrary.wiley.com/doi/10.1111/spc3.12848), profesora de la UCLA, y describe tres variables que funcionan como "macronutrientes" de la inclusión. Sí, suena a frase de libro, pero así me lo explicaron y me quedó claro: así como el cuerpo necesita proteínas, carbohidratos y grasas para funcionar, una organización necesita estos tres componentes para que la inclusión no se quede en el discurso.
 
 ### A. Autoría (Authorship)
 
-La autoría es la capacidad de ejercer **libertad y control sobre el trabajo propio**. No se trata solo de tener un puesto, sino de tener margen real para tomar decisiones, proponer soluciones y crear valor desde el propio criterio.
+La autoría es la capacidad de ejercer **libertad y control sobre el trabajo propio**. No se trata solo de tener un puesto, sino de tener la posibilidad real para tomar decisiones, proponer soluciones y crear valor desde el propio criterio.
 
 Esto aplica sobre todo para quienes históricamente han tenido menos voz en las decisiones. Si una persona está en la mesa pero no puede incidir en lo que se decide, hay diversidad sin inclusión.
 
@@ -48,21 +48,21 @@ En términos prácticos, se traduce en cosas como: ¿puedo elegir cómo resolver
 
 La pertenencia es el componente social: **sentirse conectado, valorado y apoyado** por el equipo. La neurociencia muestra que nuestras necesidades sociales se procesan en las mismas redes neuronales que las de supervivencia básica. Sentirse excluido no es solo incómodo. El cerebro lo registra como una amenaza real.
 
-Una de las herramientas más efectivas para construir pertenencia es el **storytelling**. Escuchar historias activa la liberación de oxitocina, lo que facilita la empatía y la conexión entre colegas ([Paul J. Zak](https://futureofstorytelling.org/case-study/the-neuroscience-of-good-storytelling/)). No se trata de hacer dinámicas forzadas, sino de crear espacios genuinos donde las personas compartan quiénes son y qué las mueve.
+Una de las herramientas más efectivas para construir pertenencia es el **storytelling**. Escuchar historias activa la liberación de oxitocina, lo que facilita la empatía y la conexión entre colegas ([Paul J. Zak](https://futureofstorytelling.org/case-study/the-neuroscience-of-good-storytelling/)). No se trata de hacer dinámicas forzadas, sino de crear espacios reales donde las personas compartan quiénes son y qué las mueve.
 
 ### C. Competencia (Competence)
 
-El principio rector aquí es **presumir competencia**: en ausencia de evidencia en contra, asumir que cada persona es capaz de integrarse y aportar valor.
+La idea principal es **presumir competencia**: en ausencia de evidencia en contra, asumir que cada persona es capaz de integrarse y aportar valor.
 
-Parece de sentido común, pero en el día a día es donde más se falla. Las expectativas de quien lidera tienen un impacto directo en el rendimiento del equipo. Es el viejo [efecto Pigmalión](https://es.wikipedia.org/wiki/Efecto_Pigmali%C3%B3n). Si asumo que alguien no va a rendir, termino dándole menos oportunidades y, efectivamente, rinde menos.
+Parece de sentido común, pero en el día a día es donde más se falla. Las expectativas de quien lidera tienen un impacto directo en el rendimiento del equipo. Se conoce como [efecto Pigmalión](https://es.wikipedia.org/wiki/Efecto_Pigmali%C3%B3n): si esperas que alguien rinda, le das más oportunidades y rinde mejor. Pero al revés también funciona: si asumo que alguien no va a rendir, termino dándole menos oportunidades y, efectivamente rinde menos.
 
 El concepto hermano de la competencia es la **[seguridad psicológica](https://psychsafety.com/about-psychological-safety/)**: un ambiente donde puedes equivocarte, preguntar o proponer algo distinto sin miedo a consecuencias negativas. Sin seguridad psicológica, la competencia no tiene espacio para desplegarse.
 
-Pensando en esto, me doy cuenta de que siempre apliqué el modelo ABC sin saber que tenía nombre y autor. Para mí siempre fue lo correcto en las relaciones humanas: dar libertad para decidir, generar conexión genuina y asumir que el otro es capaz. El diplomado solo me dio el lenguaje, un orden, una forma de referirme a lo correcto en un grupo, en la sociedad misma.
+Pensando en esto, me doy cuenta de que siempre tuve claro que esto era lo correcto en las relaciones humanas: dar libertad para decidir, generar conexión genuina y asumir que el otro es capaz. Aplicarlo al pie de la letra es otra cosa, pero la idea siempre estuvo ahí. El diplomado solo me dio el lenguaje, un orden, una forma de referirme a lo correcto en un grupo, en la sociedad misma.
 
 ## El equilibrio entre pertenencia e individualidad
 
-La inclusión real no es que todos piensen igual ni que las diferencias se disimulen para encajar. Se alcanza cuando una persona experimenta simultáneamente:
+La inclusión real no es que todos piensen igual o que las diferencias se disimulen para encajar. Se alcanza cuando una persona experimenta simultáneamente:
 
 - **Pertenencia:** ser parte del grupo, compartir una identidad común.
 - **Individualidad:** ser valorado por lo que te hace distinto, sin tener que ocultar partes de quien eres.
@@ -71,7 +71,7 @@ Cuando solo hay pertenencia sin individualidad, la persona se diluye en el grupo
 
 El punto justo está en que el equipo te valore por tu singularidad y, al mismo tiempo, te haga sentir que perteneces.
 
-En desarrollo de software solemos hablar de arquitectura, calidad o productividad. Sin embargo, muchas veces olvidamos que las mejores decisiones técnicas aparecen cuando las personas sienten que pueden hablar, discrepar y proponer ideas. La inclusión no es solo un tema de cultura organizacional; también tiene un impacto directo en la calidad del software que construimos.
+En desarrollo de software hablamos de arquitectura, calidad o productividad. Sin embargo, muchas veces olvidamos que las mejores decisiones técnicas aparecen cuando las personas sienten que pueden hablar, discrepar y proponer ideas. La inclusión no es solo un tema de cultura organizacional; también tiene un impacto directo en la calidad del software que construimos. Sí, aunque no lo creas, me costó encajarlo con el desarrollo, pero después de darle vueltas creo que va por ahí.
 
 ---
 
