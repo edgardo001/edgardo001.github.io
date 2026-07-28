@@ -15,7 +15,7 @@ Una de las materias era sobre liderazgo inclusivo y diversidad en las organizaci
 
 ## Diversidad no es lo mismo que inclusión
 
-La premisa de esa clase fue clara: **"Diversidad es lo que somos e inclusión es lo que hacemos"**. La diversidad habla de representación, cuántas identidades distintas hay en la sala, mientras que la inclusión es la experiencia de sentir que puedes ser tú mismo y que lo que aportas tiene valor.
+**"Diversidad es lo que somos e inclusión es lo que hacemos"**. La diversidad habla de representación, cuántas identidades distintas hay en la sala, mientras que la inclusión es la experiencia de sentir que puedes ser tú mismo y que lo que aportas tiene valor.
 
 Hay una frase de Verna Myers que lo resume mejor que cualquier definición técnica:
 
