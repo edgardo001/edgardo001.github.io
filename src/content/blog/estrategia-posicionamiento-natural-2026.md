@@ -2,6 +2,7 @@
 title: "Estrategia de Posicionamiento Natural 2026: SEO, AEO, GEO y Métricas Avanzadas"
 description: "Guía de posicionamiento orgánico en 2026 integrando SEO, AEO y GEO con métricas avanzadas para visibilidad en buscadores y asistentes de IA."
 pubDate: 2026-06-10
+updatedDate: 2026-07-10
 tags: ["SEO", "marketing digital", "estrategia"]
 shareX: "Guía de posicionamiento orgánico 2026: SEO + AEO + GEO. Cómo prepararse para buscadores y asistentes de IA"
 shareWhatsApp: "Te comparto mi guía de posicionamiento orgánico para 2026 integrando SEO tradicional, AEO y GEO. Incluye métricas avanzadas para medir visibilidad tanto en buscadores como en asistentes de IA como ChatGPT, Perplexity y Google AI Overviews."
