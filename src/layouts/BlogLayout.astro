@@ -113,6 +113,13 @@ const imageURL = image ? `${siteURL}${image}` : null;
 		<svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 		<svg class="moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
 	</button>
+	<nav class="blog-breadcrumbs" aria-label="Breadcrumb">
+		<ol>
+			<li><a href="/">Inicio</a></li>
+			<li><a href="/blog/">Blog</a></li>
+			<li aria-current="page">{title}</li>
+		</ol>
+	</nav>
 	<article class="blog-article">
 		<header class="blog-header">
 			<a href="/blog/" class="blog-back">&larr; Volver al blog</a>
@@ -569,6 +576,50 @@ const imageURL = image ? `${siteURL}${image}` : null;
 		text-align: justify;
 		line-height: 1.8;
 		color: var(--text-primary);
+	}
+
+	.blog-breadcrumbs {
+		max-width: 720px;
+		margin: 0 auto;
+		padding: 100px 24px 0;
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		color: var(--text-muted);
+	}
+	.blog-breadcrumbs ol {
+		list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 6px;
+		margin: 0;
+		padding: 0;
+	}
+	.blog-breadcrumbs li {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		margin: 0;
+	}
+	.blog-breadcrumbs li + li::before {
+		content: '/';
+		color: var(--text-muted);
+		opacity: 0.5;
+	}
+	.blog-breadcrumbs a {
+		color: var(--accent-emerald);
+		text-decoration: none;
+		transition: color 0.2s;
+	}
+	.blog-breadcrumbs a:hover {
+		color: var(--accent-indigo);
+		text-decoration: underline;
+	}
+	.blog-breadcrumbs li[aria-current="page"] {
+		color: var(--text-secondary);
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		max-width: 280px;
 	}
 
 	.blog-header {
@@ -1464,6 +1515,12 @@ const imageURL = image ? `${siteURL}${image}` : null;
 		}
 		.blog-back {
 			margin-top: 56px;
+		}
+		.blog-breadcrumbs {
+			padding: 80px 16px 0;
+		}
+		.blog-breadcrumbs li[aria-current="page"] {
+			max-width: 160px;
 		}
 	}
 </style>
