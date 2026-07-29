@@ -360,18 +360,10 @@ const imageURL = image ? `${siteURL}${image}` : null;
 		// Reading mode toggle
 		const readingBtn = document.getElementById('reading-mode-toggle');
 		if (readingBtn) {
-			const RM_KEY = 'blog-reading-mode';
-			if (localStorage.getItem(RM_KEY) === 'on') {
-				document.body.classList.add('reading-mode');
-				readingBtn.classList.add('font-btn--active');
-				readingBtn.setAttribute('aria-label', 'Desactivar modo lectura');
-			}
 			readingBtn.addEventListener('click', () => {
-				document.body.classList.toggle('reading-mode');
-				const isOn = document.body.classList.contains('reading-mode');
+				const isOn = document.body.classList.toggle('reading-mode');
 				readingBtn.classList.toggle('font-btn--active', isOn);
 				readingBtn.setAttribute('aria-label', isOn ? 'Desactivar modo lectura' : 'Activar modo lectura');
-				localStorage.setItem(RM_KEY, isOn ? 'on' : 'off');
 			});
 		}
 
