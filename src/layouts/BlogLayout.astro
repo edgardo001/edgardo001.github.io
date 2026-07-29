@@ -112,6 +112,18 @@ const imageURL = image ? `${siteURL}${image}` : null;
 		/>
 	</article>
 
+	<div id="img-modal" class="img-modal" role="dialog" aria-modal="true" aria-label="Vista ampliada de imagen">
+		<button class="img-modal-close" aria-label="Cerrar">&times;</button>
+		<img class="img-modal-content" alt="" />
+		<div class="img-modal-zoom-bar">
+			<button class="img-modal-zoom-btn" data-zoom="out" aria-label="Reducir zoom">−</button>
+			<button class="img-modal-zoom-btn" data-zoom="reset" aria-label="Restablecer zoom">
+				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+			</button>
+			<button class="img-modal-zoom-btn" data-zoom="in" aria-label="Aumentar zoom">+</button>
+		</div>
+	</div>
+
 	<script>
 		const themeBtn = document.getElementById('blog-theme-toggle');
 		if (themeBtn) {
@@ -123,6 +135,54 @@ const imageURL = image ? `${siteURL}${image}` : null;
 				localStorage.setItem('theme', newTheme);
 			});
 		}
+
+		const modal = document.getElementById('img-modal');
+		const modalImg = modal.querySelector('.img-modal-content');
+		const modalClose = modal.querySelector('.img-modal-close');
+		const zoomBtns = modal.querySelectorAll('.img-modal-zoom-btn');
+		let zoomLevel = 1;
+
+		function setZoom(level) {
+			zoomLevel = Math.max(0.25, Math.min(5, level));
+			modalImg.style.transform = `scale(${zoomLevel})`;
+		}
+
+		function openModal(src, alt) {
+			modalImg.src = src;
+			modalImg.alt = alt || '';
+			zoomLevel = 1;
+			modalImg.style.transform = '';
+			modal.classList.add('open');
+			document.body.style.overflow = 'hidden';
+		}
+
+		function closeModal() {
+			modal.classList.remove('open');
+			document.body.style.overflow = '';
+		}
+
+		document.querySelector('.blog-content')?.addEventListener('click', (e) => {
+			const img = e.target.closest('img');
+			if (img) openModal(img.src, img.alt);
+		});
+
+		modalClose.addEventListener('click', closeModal);
+		modal.addEventListener('click', (e) => {
+			if (e.target === modal) closeModal();
+		});
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+		});
+
+		zoomBtns.forEach((btn) => {
+			btn.addEventListener('click', (e) => {
+				e.stopPropagation();
+				const action = btn.dataset.zoom;
+				if (action === 'in') setZoom(zoomLevel * 1.4);
+				else if (action === 'out') setZoom(zoomLevel / 1.4);
+				else if (action === 'reset') setZoom(1);
+			});
+		});
 	</script>
 </body>
 </html>
@@ -289,6 +349,112 @@ const imageURL = image ? `${siteURL}${image}` : null;
 		border-radius: var(--radius-md);
 		border: 1px solid var(--border);
 		margin: 24px 0;
+		cursor: zoom-in;
+	}
+
+	.img-modal {
+		display: flex;
+		position: fixed;
+		inset: 0;
+		z-index: 9999;
+		background: rgba(0, 0, 0, 0);
+		align-items: center;
+		justify-content: center;
+		padding: 24px;
+		pointer-events: none;
+		transition: background 0.25s ease;
+	}
+
+	.img-modal.open {
+		background: rgba(0, 0, 0, 0.85);
+		pointer-events: auto;
+	}
+
+	.img-modal-content {
+		max-width: min(85vw, 800px);
+		max-height: 75vh;
+		object-fit: contain;
+		border-radius: 4px;
+		opacity: 0;
+		transform: scale(0.9);
+		transition: opacity 0.25s ease, transform 0.25s ease;
+		box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+		border: none;
+		margin: 0;
+	}
+
+	.img-modal.open .img-modal-content {
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	.img-modal-close {
+		position: fixed;
+		top: 16px;
+		right: 20px;
+		background: none;
+		border: none;
+		color: #fff;
+		font-size: 2.5rem;
+		line-height: 1;
+		cursor: pointer;
+		opacity: 0;
+		transition: opacity 0.25s ease;
+		z-index: 10000;
+		padding: 8px;
+		width: 48px;
+		height: 48px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.img-modal.open .img-modal-close {
+		opacity: 0.85;
+	}
+
+	.img-modal-close:hover {
+		opacity: 1;
+	}
+
+	.img-modal-zoom-bar {
+		position: fixed;
+		bottom: 24px;
+		left: 50%;
+		transform: translateX(-50%);
+		display: flex;
+		gap: 8px;
+		background: rgba(0, 0, 0, 0.45);
+		backdrop-filter: blur(8px);
+		padding: 8px 12px;
+		border-radius: 40px;
+		opacity: 0;
+		transition: opacity 0.25s ease;
+		z-index: 10000;
+	}
+
+	.img-modal.open .img-modal-zoom-bar {
+		opacity: 1;
+	}
+
+	.img-modal-zoom-btn {
+		background: rgba(255, 255, 255, 0.12);
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		color: #fff;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		font-size: 1.25rem;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: background 0.2s ease;
+		line-height: 1;
+	}
+
+	.img-modal-zoom-btn:hover {
+		background: rgba(255, 255, 255, 0.25);
 	}
 
 	.blog-theme-btn {
