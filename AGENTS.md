@@ -106,6 +106,18 @@ Se generan en `BlogLayout.astro` en el `<head>`. No requieren configuración por
 
 Los campos de frontmatter se validan con Zod en `src/content/config.ts`. Sin embargo, los campos custom no sobreviven la serialización de `getStaticPaths` (ver sección gray-matter arriba). El schema existe solo para type safety y validación en dev.
 
+## Características del blog
+
+- **Buscador**: Input search en `/blog/` filtra posts por keyword en vivo
+- **Tags**: Sistema de tags en frontmatter, pills clickeables en listing y article header
+- **Breadcrumbs**: Navegación `Inicio → Blog → Título` en cada post
+- **Modo lectura**: Botón + atajo `r` oculta paneles/UI para lectura sin distracciones; persiste en localStorage
+- **Atajos de teclado**: `j/k` (siguiente/anterior), `t` (ToC), `?` (ayuda), `r` (modo lectura), `Esc` (cerrar paneles)
+- **Posición de lectura**: Se guarda scroll en localStorage por slug, se restaura al volver
+- **Caja del autor**: Bio con datos profesionales al final de cada artículo
+- **Print styles**: `@media print` optimizado para imprimir/PDF
+- **RSS feed**: `/rss.xml` generado con `@astrojs/rss`
+
 ## Flujo de trabajo
 
 Los cambios pasan por **OpenSpec** (plan → diseño → tareas → implementación) usando los comandos `/opsx-*`.
