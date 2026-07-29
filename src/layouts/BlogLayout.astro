@@ -42,6 +42,7 @@ const imageURL = image ? `${siteURL}${image}` : null;
 	{imageURL ? <meta name="twitter:image" content={imageURL} /> : null}
 	<title>{title} — Edgardo Vásquez</title>
 	<link rel="canonical" href={canonicalURL} />
+	<link rel="alternate" type="application/rss+xml" title="Edgardo Vásquez — Blog" href="/rss.xml" />
 	<script type="application/ld+json" set:html={JSON.stringify({
 		"@context": "https://schema.org",
 		"@type": "Article",
