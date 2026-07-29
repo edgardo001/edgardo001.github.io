@@ -41,6 +41,8 @@ Single-page estática + blog con content collections (Astro v7). Sin framework J
 
 - **Tono**: Personal, profesional, directo. Sin clickbait ni frases absolutas ("se murió", "te doy la solución", "nunca", "siempre"). Demostrar conocimiento compartiendo experiencia real con ejemplos concretos del código del proyecto.
 - **Frontmatter**: `title`, `description` (máx 160 caracteres), `pubDate` en formato ISO. Campo opcional `image` para OG Image (ej. `/blog/img/mi-imagen.webp`).
+  - `tags` (opcional): array de strings para categorizar posts. Se muestra como pills clickeables en el listing.
+  - `updatedDate` (opcional): fecha ISO de última actualización. Si existe, se muestra junto a la fecha de publicación.
   - `[slug].astro` obtiene los campos custom (`image`, `shareX`, `shareWhatsApp`, `shareReddit`, `shareInstagram`) vía **gray-matter** leyendo los archivos `.md` directamente con `readFileSync` + `process.cwd()`.
   - **Motivo**: `entry.data` de `getCollection('blog')` cuando pasa por `getStaticPaths` solo expone `title`, `description` y `pubDate`. Los campos custom se pierden durante la serialización interna de Astro. gray-matter los lee del disco sin pasar por ese proxy, y se pasan al layout mediante un objeto `frontmatter` separado en las props.
   - **Dependencia**: `gray-matter` (agregada con `npm install gray-matter`).

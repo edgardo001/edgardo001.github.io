@@ -2,6 +2,7 @@
 title: "El ABC de la Inclusión Organizacional"
 description: "El modelo ABC de Heather Caruso: Autoría, Pertenencia y Competencia. Cómo pasar de la representación a una participación efectiva en las organizaciones."
 pubDate: 2026-07-28
+tags: ["liderazgo", "inclusión", "cultura organizacional"]
 shareX: "El modelo ABC de la inclusión: Autoría, Pertenencia y Competencia. Lo que aprendí en el diplomado de la Universidad Católica"
 shareWhatsApp: "Te comparto lo que aprendí sobre el modelo ABC de la inclusión organizacional en el diplomado de la Universidad Católica. Explica cómo pasar de la simple representación a una participación efectiva usando Autoría, Pertenencia y Competencia."
 shareReddit: "ABC de la Inclusión Organizacional: el modelo de Heather Caruso aplicado a equipos y empresas"

@@ -6,7 +6,7 @@ export interface Props {
 }
 
 const { entry } = Astro.props;
-const { title, description, pubDate } = entry.data;
+const { title, description, pubDate, tags } = entry.data;
 ---
 
 <a href={`/blog/${entry.id}/`} class="blog-card">
@@ -15,6 +15,11 @@ const { title, description, pubDate } = entry.data;
 	</time>
 	<h2 class="blog-card-title">{title}</h2>
 	<p class="blog-card-desc">{description}</p>
+	{tags && tags.length > 0 && (
+		<div class="blog-card-tags">
+			{tags.map(tag => <span class="blog-card-tag">{tag}</span>)}
+		</div>
+	)}
 	<span class="blog-card-cta">Leer artículo &rarr;</span>
 </a>
 
@@ -60,6 +65,25 @@ const { title, description, pubDate } = entry.data;
 		color: var(--accent-emerald);
 		font-weight: 600;
 		transition: var(--transition);
+	}
+	.blog-card-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 6px;
+		margin-bottom: 16px;
+	}
+	.blog-card-tag {
+		font-family: var(--font-mono);
+		font-size: 0.65rem;
+		padding: 3px 10px;
+		border-radius: 12px;
+		background: var(--surface);
+		border: 1px solid var(--border);
+		color: var(--text-muted);
+	}
+	.blog-card:hover .blog-card-tag {
+		border-color: var(--border-hover);
+		color: var(--text-secondary);
 	}
 	.blog-card:hover .blog-card-cta {
 		color: var(--accent-indigo);

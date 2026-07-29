@@ -2,6 +2,7 @@
 title: "Mis plantillas web: una forma más simple de elegir tu próximo sitio"
 description: "Una colección de más de 30 plantillas web que he desarrollado como Edgardo Vásquez para que clientes y reclutadores vean opciones reales antes de decidir. De la mano de 12 años de experiencia construyendo soluciones web."
 pubDate: 2026-07-15
+tags: ["web", "diseño", "productividad"]
 shareX: "Más de 30 plantillas web que he desarrollado. Clientes y reclutadores pueden ver opciones reales antes de decidir"
 shareWhatsApp: "He publicado más de 30 plantillas web que he desarrollado a lo largo de mi carrera. Están pensadas para que clientes y reclutadores puedan ver opciones reales de diseño y funcionalidad antes de tomar una decisión. 12 años de experiencia resumidos en templates listos para usar."
 shareReddit: "Más de 30 plantillas web profesionales para clientes y reclutadores"

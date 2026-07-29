@@ -6,6 +6,8 @@ const blog = defineCollection({
 		title: z.string(),
 		description: z.string(),
 		pubDate: z.coerce.date(),
+		updatedDate: z.coerce.date().optional(),
+		tags: z.array(z.string()).optional(),
 		shareX: z.string().optional(),
 		shareWhatsApp: z.string().optional(),
 		shareReddit: z.string().optional(),

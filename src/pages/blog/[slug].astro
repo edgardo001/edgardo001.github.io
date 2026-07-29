@@ -18,16 +18,18 @@ export async function getStaticPaths() {
       params: { slug },
       props: {
         entry,
-        frontmatter: {
-          title: String(fm.title ?? entry.data.title ?? ''),
-          description: String(fm.description ?? entry.data.description ?? ''),
-          pubDate: fm.pubDate ? new Date(fm.pubDate) : entry.data.pubDate,
-          image: fm.image ?? undefined,
-          shareX: fm.shareX ?? undefined,
-          shareWhatsApp: fm.shareWhatsApp ?? undefined,
-          shareReddit: fm.shareReddit ?? undefined,
-          shareInstagram: fm.shareInstagram ?? undefined,
-        },
+		frontmatter: {
+		  title: String(fm.title ?? entry.data.title ?? ''),
+		  description: String(fm.description ?? entry.data.description ?? ''),
+		  pubDate: fm.pubDate ? new Date(fm.pubDate) : entry.data.pubDate,
+		  updatedDate: fm.updatedDate ? new Date(fm.updatedDate) : undefined,
+		  tags: Array.isArray(fm.tags) ? fm.tags : undefined,
+		  image: fm.image ?? undefined,
+		  shareX: fm.shareX ?? undefined,
+		  shareWhatsApp: fm.shareWhatsApp ?? undefined,
+		  shareReddit: fm.shareReddit ?? undefined,
+		  shareInstagram: fm.shareInstagram ?? undefined,
+		},
       },
     };
   });
@@ -48,6 +50,8 @@ const allPosts = allEntries
 ---
 
 <BlogLayout title={frontmatter.title} description={frontmatter.description} pubDate={frontmatter.pubDate}
+  updatedDate={frontmatter.updatedDate}
+  tags={frontmatter.tags}
   shareX={frontmatter.shareX}
   shareWhatsApp={frontmatter.shareWhatsApp}
   shareReddit={frontmatter.shareReddit}

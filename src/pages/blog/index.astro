@@ -5,6 +5,8 @@ import { getCollection } from 'astro:content';
 
 const blogEntries = await getCollection('blog');
 blogEntries.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const allTags = [...new Set(blogEntries.flatMap(e => e.data.tags ?? []))].sort();
 ---
 
 <Layout title="Blog — Edgardo Vásquez" description="Artículos sobre tecnología, liderazgo y arquitectura de software.">
@@ -22,6 +24,14 @@ blogEntries.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 					<svg class="blog-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
 					<input type="search" id="blog-search-input" class="blog-search-input" placeholder="Buscar artículos..." aria-label="Buscar artículos por palabra clave" autocomplete="off">
 				</div>
+				{allTags.length > 0 && (
+					<div class="blog-tags-filter" id="blog-tags-filter">
+						<button class="blog-tag-btn blog-tag-btn--active" data-tag="" aria-pressed="true">Todos</button>
+						{allTags.map(tag => (
+							<button class="blog-tag-btn" data-tag={tag} aria-pressed="false">{tag}</button>
+						))}
+					</div>
+				)}
 			</header>
 
 			{
@@ -145,6 +155,36 @@ blogEntries.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 	.blog-search-input::placeholder {
 		color: var(--text-muted);
 	}
+	.blog-tags-filter {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		margin-top: 20px;
+	}
+	.blog-tag-btn {
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		padding: 6px 14px;
+		border-radius: 20px;
+		border: 1px solid var(--border);
+		background: var(--surface-card);
+		color: var(--text-secondary);
+		cursor: pointer;
+		transition: background 0.2s, color 0.2s, border-color 0.2s;
+	}
+	.blog-tag-btn:hover {
+		border-color: var(--accent-emerald);
+		color: var(--accent-emerald);
+	}
+	.blog-tag-btn--active {
+		background: var(--accent-emerald);
+		color: #fff;
+		border-color: var(--accent-emerald);
+	}
+	.blog-tag-btn--active:hover {
+		color: #fff;
+		opacity: 0.9;
+	}
 	.blog-no-results {
 		text-align: center;
 		padding: 60px 0;
@@ -212,6 +252,27 @@ blogEntries.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 				noResults.hidden = !hidden;
 				if (hidden) querySpan.textContent = q;
 			}
+		});
+	}
+
+	const tagFilter = document.getElementById('blog-tags-filter');
+	if (tagFilter && grid) {
+		const cards = grid.querySelectorAll('.blog-card');
+		tagFilter.addEventListener('click', (e) => {
+			const btn = e.target.closest('.blog-tag-btn');
+			if (!btn) return;
+			tagFilter.querySelectorAll('.blog-tag-btn').forEach(b => {
+				b.classList.remove('blog-tag-btn--active');
+				b.setAttribute('aria-pressed', 'false');
+			});
+			btn.classList.add('blog-tag-btn--active');
+			btn.setAttribute('aria-pressed', 'true');
+			const tag = btn.dataset.tag;
+			cards.forEach(card => {
+				const cardTags = card.querySelector('.blog-card-tags');
+				const match = !tag || (cardTags && cardTags.textContent.includes(tag));
+				card.classList.toggle('blog-card--hidden', !match);
+			});
 		});
 	}
 </script>

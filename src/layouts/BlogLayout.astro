@@ -7,6 +7,8 @@ export interface Props {
 	title: string;
 	description: string;
 	pubDate: Date;
+	updatedDate?: Date;
+	tags?: string[];
 	shareX?: string;
 	shareWhatsApp?: string;
 	shareReddit?: string;
@@ -16,7 +18,7 @@ export interface Props {
 	allPosts?: { slug: string; title: string; pubDate: Date }[];
 }
 
-const { title, description, pubDate, shareX, shareWhatsApp, shareReddit, shareInstagram, image, relatedPosts, allPosts } = Astro.props;
+const { title, description, pubDate, updatedDate, tags, shareX, shareWhatsApp, shareReddit, shareInstagram, image, relatedPosts, allPosts } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const siteURL = String(Astro.site).replace(/\/$/, '');
 const imageURL = image ? `${siteURL}${image}` : null;
@@ -115,10 +117,22 @@ const imageURL = image ? `${siteURL}${image}` : null;
 			<a href="/blog/" class="blog-back">&larr; Volver al blog</a>
 			<h1 class="blog-title">{title}</h1>
 			<p class="blog-description">{description}</p>
-			<time class="blog-date" datetime={pubDate.toISOString()}>
-				{new Intl.DateTimeFormat('es-CL', { dateStyle: 'long' }).format(pubDate)}
-			</time>
-			<span class="blog-reading-time" id="reading-time"></span>
+			<div class="blog-meta">
+				<time class="blog-date" datetime={pubDate.toISOString()}>
+					{new Intl.DateTimeFormat('es-CL', { dateStyle: 'long' }).format(pubDate)}
+				</time>
+				<span class="blog-reading-time" id="reading-time"></span>
+				{updatedDate && (
+					<time class="blog-updated" datetime={updatedDate.toISOString()}>
+						· Actualizado {new Intl.DateTimeFormat('es-CL', { dateStyle: 'long' }).format(updatedDate)}
+					</time>
+				)}
+			</div>
+			{tags && tags.length > 0 && (
+				<div class="blog-tags">
+					{tags.map(tag => <span class="blog-tag">{tag}</span>)}
+				</div>
+			)}
 		</header>
 		<div class="blog-content">
 			<slot />
@@ -579,6 +593,7 @@ const imageURL = image ? `${siteURL}${image}` : null;
 		line-height: 1.15;
 		margin-bottom: 16px;
 		letter-spacing: -0.02em;
+		text-align: left;
 	}
 
 	.blog-description {
@@ -586,12 +601,44 @@ const imageURL = image ? `${siteURL}${image}` : null;
 		color: var(--text-secondary);
 		line-height: 1.6;
 		margin-bottom: 16px;
+		text-align: left;
 	}
 
 	.blog-date {
 		font-family: var(--font-mono);
 		font-size: 0.85rem;
 		color: var(--text-muted);
+		text-align: left;
+	}
+
+	.blog-updated {
+		font-family: var(--font-mono);
+		font-size: 0.85rem;
+		color: var(--text-muted);
+		text-align: left;
+	}
+
+	.blog-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 6px;
+		margin-top: 16px;
+	}
+	.blog-tag {
+		font-family: var(--font-mono);
+		font-size: 0.7rem;
+		padding: 3px 10px;
+		border-radius: 12px;
+		background: var(--surface);
+		border: 1px solid var(--border);
+		color: var(--text-muted);
+	}
+
+	.blog-meta {
+		display: flex;
+		align-items: baseline;
+		flex-wrap: wrap;
+		gap: 4px;
 	}
 
 	.blog-content h2 {
