@@ -35,6 +35,16 @@ export async function getStaticPaths() {
 
 const { entry, frontmatter } = Astro.props;
 const { Content } = await render(entry);
+
+const allEntries = await getCollection('blog');
+const related = allEntries
+  .filter(e => e.id !== entry.id)
+  .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+  .slice(0, 3)
+  .map(e => ({ slug: e.id, title: e.data.title, pubDate: e.data.pubDate }));
+const allPosts = allEntries
+  .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+  .map(e => ({ slug: e.id, title: e.data.title, pubDate: e.data.pubDate }));
 ---
 
 <BlogLayout title={frontmatter.title} description={frontmatter.description} pubDate={frontmatter.pubDate}
@@ -43,6 +53,8 @@ const { Content } = await render(entry);
   shareReddit={frontmatter.shareReddit}
   shareInstagram={frontmatter.shareInstagram}
   image={frontmatter.image}
+  relatedPosts={related}
+  allPosts={allPosts}
 >
   <Content />
 </BlogLayout>

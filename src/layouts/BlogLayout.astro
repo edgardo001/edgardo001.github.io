@@ -12,9 +12,11 @@ export interface Props {
 	shareReddit?: string;
 	shareInstagram?: string;
 	image?: string;
+	relatedPosts?: { slug: string; title: string; pubDate: Date }[];
+	allPosts?: { slug: string; title: string; pubDate: Date }[];
 }
 
-const { title, description, pubDate, shareX, shareWhatsApp, shareReddit, shareInstagram, image } = Astro.props;
+const { title, description, pubDate, shareX, shareWhatsApp, shareReddit, shareInstagram, image, relatedPosts, allPosts } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const siteURL = String(Astro.site).replace(/\/$/, '');
 const imageURL = image ? `${siteURL}${image}` : null;
@@ -88,6 +90,13 @@ const imageURL = image ? `${siteURL}${image}` : null;
 	</script>
 </head>
 <body>
+	<div id="progress-bar" class="progress-bar"></div>
+	<button id="back-to-top" class="back-to-top" aria-label="Volver arriba">
+		<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+	</button>
+	<button id="blog-posts-toggle" class="blog-posts-toggle" aria-label="Abrir lista de artículos">
+		<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+	</button>
 	<button id="blog-theme-toggle" class="blog-theme-btn" aria-label="Cambiar tema">
 		<svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 		<svg class="moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -100,6 +109,7 @@ const imageURL = image ? `${siteURL}${image}` : null;
 			<time class="blog-date" datetime={pubDate.toISOString()}>
 				{new Intl.DateTimeFormat('es-CL', { dateStyle: 'long' }).format(pubDate)}
 			</time>
+			<span class="blog-reading-time" id="reading-time"></span>
 		</header>
 		<div class="blog-content">
 			<slot />
@@ -110,7 +120,60 @@ const imageURL = image ? `${siteURL}${image}` : null;
 			shareReddit={shareReddit}
 			shareInstagram={shareInstagram}
 		/>
+		{relatedPosts && relatedPosts.length > 0 && (
+			<aside class="related-posts">
+				<h2 class="related-posts-title">Artículos relacionados</h2>
+				<div class="related-posts-grid">
+					{relatedPosts.map(post => (
+						<a href={`/blog/${post.slug}/`} class="related-post-card">
+							<time datetime={post.pubDate.toISOString()}>
+								{new Intl.DateTimeFormat('es-CL', { dateStyle: 'long' }).format(post.pubDate)}
+							</time>
+							<span>{post.title}</span>
+						</a>
+					))}
+				</div>
+			</aside>
+		)}
 	</article>
+
+	<button id="toc-toggle" class="toc-toggle" aria-label="Abrir tabla de contenidos">
+		<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+	</button>
+	<aside id="toc-panel" class="toc-panel" aria-label="Tabla de contenidos">
+		<div class="toc-panel-header">
+			<span class="toc-panel-title">Contenido</span>
+		</div>
+		<nav class="toc-panel-body"></nav>
+	</aside>
+	<button id="toc-close" class="toc-close sidebar-close" aria-label="Cerrar">
+		<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+	</button>
+	<div id="toc-overlay" class="panel-overlay"></div>
+
+	<aside id="posts-panel" class="posts-panel" aria-label="Todos los artículos">
+		<div class="posts-panel-header">
+			<span class="posts-panel-title">Artículos</span>
+		</div>
+		<nav class="posts-panel-body">
+			{allPosts && allPosts.length > 0 && (
+				<ul class="posts-list">
+					{allPosts.map(post => (
+						<li>
+							<a href={`/blog/${post.slug}/`} class="posts-list-link">
+								<time datetime={post.pubDate.toISOString()}>{new Intl.DateTimeFormat('es-CL', { dateStyle: 'long' }).format(post.pubDate)}</time>
+								<span>{post.title}</span>
+							</a>
+						</li>
+					))}
+				</ul>
+			)}
+		</nav>
+	</aside>
+	<button id="posts-close" class="posts-close sidebar-close" aria-label="Cerrar">
+		<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+	</button>
+	<div id="posts-overlay" class="panel-overlay"></div>
 
 	<div id="img-modal" class="img-modal" role="dialog" aria-modal="true" aria-label="Vista ampliada de imagen">
 		<button class="img-modal-close" aria-label="Cerrar">&times;</button>
@@ -182,6 +245,130 @@ const imageURL = image ? `${siteURL}${image}` : null;
 				else if (action === 'out') setZoom(zoomLevel / 1.4);
 				else if (action === 'reset') setZoom(1);
 			});
+		});
+
+		// Reading time
+		const content = document.querySelector('.blog-content');
+		if (content) {
+			const text = content.innerText || '';
+			const words = text.split(/\s+/).filter(Boolean).length;
+			const min = Math.max(1, Math.round(words / 200));
+			const rt = document.getElementById('reading-time');
+			if (rt) rt.textContent = `· ${min} min de lectura`;
+		}
+
+		// Progress bar
+		const bar = document.getElementById('progress-bar');
+		if (bar) {
+			window.addEventListener('scroll', () => {
+				const scrollTop = window.scrollY;
+				const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+				const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+				bar.style.width = progress + '%';
+			});
+		}
+
+		// Back to top
+		const backBtn = document.getElementById('back-to-top');
+		if (backBtn) {
+			window.addEventListener('scroll', () => {
+				backBtn.classList.toggle('visible', window.scrollY > 400);
+			});
+			backBtn.addEventListener('click', () => {
+				window.scrollTo({ top: 0, behavior: 'smooth' });
+			});
+		}
+
+		// Table of Contents — sidebar collapsible
+		if (content) {
+			const headings = content.querySelectorAll('h2, h3');
+			if (headings.length > 0) {
+				const panel = document.getElementById('toc-panel');
+				const overlay = document.getElementById('toc-overlay');
+				const body = panel.querySelector('.toc-panel-body');
+				const toggle = document.getElementById('toc-toggle');
+				const close = document.getElementById('toc-close');
+				const list = document.createElement('ul');
+				list.className = 'toc-list';
+				headings.forEach((h) => {
+					const id = h.id || h.textContent.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+					if (!h.id) h.id = id;
+					const li = document.createElement('li');
+					li.className = h.tagName === 'H3' ? 'toc-h3' : 'toc-h2';
+					const a = document.createElement('a');
+					a.href = '#' + id;
+					a.textContent = h.textContent;
+					li.appendChild(a);
+					list.appendChild(li);
+				});
+				body.appendChild(list);
+
+				function openToc() { panel.classList.add('toc-panel--open'); overlay.classList.add('panel-overlay--open'); close.classList.add('sidebar-close--visible'); }
+				function closeToc() { panel.classList.remove('toc-panel--open'); overlay.classList.remove('panel-overlay--open'); close.classList.remove('sidebar-close--visible'); }
+
+				toggle.addEventListener('click', (e) => { e.stopPropagation(); openToc(); });
+				close.addEventListener('click', closeToc);
+				overlay.addEventListener('click', closeToc);
+				body.addEventListener('click', closeToc);
+
+				toggle.classList.add('toc-toggle--visible');
+			}
+		}
+
+		// Posts panel — sidebar izquierdo
+		const postsToggle = document.getElementById('blog-posts-toggle');
+		const postsPanel = document.getElementById('posts-panel');
+		const postsOverlay = document.getElementById('posts-overlay');
+		const postsClose = document.getElementById('posts-close');
+		if (postsToggle && postsPanel) {
+			function openPosts() { postsPanel.classList.add('posts-panel--open'); postsOverlay.classList.add('panel-overlay--open'); postsClose.classList.add('sidebar-close--visible'); }
+			function closePosts() { postsPanel.classList.remove('posts-panel--open'); postsOverlay.classList.remove('panel-overlay--open'); postsClose.classList.remove('sidebar-close--visible'); }
+
+			postsToggle.addEventListener('click', (e) => { e.stopPropagation(); openPosts(); });
+			postsClose.addEventListener('click', closePosts);
+			postsOverlay.addEventListener('click', closePosts);
+			postsPanel.querySelector('.posts-panel-body')?.addEventListener('click', closePosts);
+
+			postsToggle.classList.add('blog-posts-toggle--visible');
+		}
+
+		// Cerrar cualquier panel con Escape
+		document.addEventListener('keydown', (e) => {
+			if (e.key !== 'Escape') return;
+			['toc-panel', 'posts-panel'].forEach(id => {
+				const p = document.getElementById(id);
+				if (p?.classList.contains(id + '--open')) {
+					const overlayId = id === 'toc-panel' ? 'toc-overlay' : 'posts-overlay';
+					const closeId = id === 'toc-panel' ? 'toc-close' : 'posts-close';
+					p.classList.remove(id + '--open');
+					document.getElementById(overlayId)?.classList.remove('panel-overlay--open');
+					document.getElementById(closeId)?.classList.remove('sidebar-close--visible');
+				}
+			});
+		});
+
+		// Copy code button
+		content.querySelectorAll('pre').forEach((pre) => {
+			const btn = document.createElement('button');
+			btn.className = 'copy-btn';
+			btn.textContent = 'Copiar';
+			btn.addEventListener('click', async () => {
+				try {
+					const code = pre.querySelector('code');
+					await navigator.clipboard.writeText(code ? code.innerText : pre.innerText);
+					btn.textContent = 'Copiado!';
+					btn.classList.add('copy-btn--done');
+					setTimeout(() => {
+						btn.textContent = 'Copiar';
+						btn.classList.remove('copy-btn--done');
+					}, 2000);
+				} catch {
+					btn.textContent = 'Error';
+					setTimeout(() => btn.textContent = 'Copiar', 2000);
+				}
+			});
+			pre.classList.add('pre--has-copy');
+			pre.appendChild(btn);
 		});
 	</script>
 </body>
@@ -457,6 +644,432 @@ const imageURL = image ? `${siteURL}${image}` : null;
 		background: rgba(255, 255, 255, 0.25);
 	}
 
+	/* Progress bar */
+	.progress-bar {
+		position: fixed;
+		top: 0;
+		left: 0;
+		height: 3px;
+		width: 0;
+		background: linear-gradient(90deg, var(--accent-emerald), var(--accent-indigo));
+		z-index: 9998;
+		transition: width 0.1s linear;
+	}
+
+	/* Back to top */
+	.back-to-top {
+		position: fixed;
+		bottom: 24px;
+		right: 16px;
+		z-index: 1000;
+		background: var(--surface);
+		border: 1px solid var(--border);
+		border-radius: 50%;
+		width: 44px;
+		height: 44px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		color: var(--text-secondary);
+		opacity: 0;
+		transform: translateY(12px);
+		pointer-events: none;
+		transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s;
+		box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+	}
+	.back-to-top.visible {
+		opacity: 1;
+		transform: translateY(0);
+		pointer-events: auto;
+	}
+	.back-to-top:hover {
+		background: var(--surface-card);
+		color: var(--text-primary);
+	}
+
+	/* Reading time */
+	.blog-reading-time {
+		font-family: var(--font-mono);
+		font-size: 0.85rem;
+		color: var(--text-muted);
+		margin-left: 4px;
+	}
+
+	/* Table of Contents — collapsible sidebar */
+	.toc-toggle {
+		position: fixed;
+		top: 68px;
+		right: 16px;
+		z-index: 1000;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		background: var(--surface);
+		border: 1px solid var(--border);
+		color: var(--text-primary);
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.3s, background 0.2s;
+		box-shadow: none;
+	}
+	.toc-toggle--visible {
+		opacity: 1;
+		pointer-events: auto;
+	}
+	.toc-toggle:hover {
+		background: var(--surface-card);
+		transform: scale(1.05);
+	}
+
+	.toc-panel {
+		position: fixed;
+		top: 0;
+		right: 0;
+		width: 280px;
+		height: 100vh;
+		z-index: 9999;
+		background: var(--surface);
+		border-left: 1px solid var(--border);
+		box-shadow: -4px 0 24px rgba(0,0,0,0.08);
+		backdrop-filter: blur(6px);
+		-webkit-backdrop-filter: blur(6px);
+		transform: translateX(100%);
+		transition: transform 0.3s ease;
+		display: flex;
+		flex-direction: column;
+	}
+	.toc-panel--open {
+		transform: translateX(0);
+	}
+
+	.sidebar-close {
+		position: fixed;
+		top: 16px;
+		z-index: 10000;
+		background: var(--surface);
+		border: 1px solid var(--border);
+		border-radius: 50%;
+		color: var(--text-primary);
+		cursor: pointer;
+		width: 40px;
+		height: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: opacity 0.25s ease, background 0.2s;
+		opacity: 0;
+		pointer-events: none;
+	}
+	.sidebar-close:hover {
+		background: var(--surface-card);
+	}
+	.sidebar-close--visible {
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	#toc-close {
+		right: calc(280px + 12px);
+	}
+	#posts-close {
+		left: calc(300px + 12px);
+	}
+
+	@media (width <= 768px) {
+		#toc-close {
+			right: 12px;
+		}
+		#posts-close {
+			right: 12px;
+			left: auto;
+		}
+	}
+
+	.toc-panel-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 16px 16px;
+		border-bottom: 1px solid var(--border);
+	}
+	.toc-panel-title {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 1rem;
+		color: var(--text-primary);
+	}
+
+	.toc-panel-body {
+		position: static;
+		top: auto;
+		width: auto;
+		z-index: auto;
+		flex: 1;
+		overflow-y: auto;
+		padding: 12px 20px 24px;
+		background: none;
+		backdrop-filter: none;
+		border-bottom: none;
+	}
+	.toc-panel-body .toc-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		background: none;
+		border: none;
+		border-radius: 0;
+		border-left: 0;
+	}
+	.toc-panel-body .toc-list li {
+		margin-bottom: 2px;
+		font-size: 0.85rem;
+		line-height: 1.4;
+	}
+	.toc-panel-body .toc-list a {
+		display: block;
+		padding: 6px 10px;
+		border-radius: 4px;
+		color: var(--text-secondary);
+		text-decoration: none;
+		transition: background 0.15s, color 0.15s;
+	}
+	.toc-panel-body .toc-list a:hover {
+		background: var(--surface-card);
+		color: var(--accent-emerald);
+	}
+	.toc-panel-body .toc-h3 a {
+		padding-left: 24px;
+		font-size: 0.8rem;
+	}
+
+	/* Overlay for sidebars */
+	.panel-overlay {
+		position: fixed;
+		inset: 0;
+		z-index: 9998;
+		background: rgba(0,0,0,0.25);
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.3s ease;
+	}
+	.panel-overlay--open {
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	/* Posts panel — izquierdo */
+	.blog-posts-toggle {
+		position: fixed;
+		top: 16px;
+		left: 16px;
+		z-index: 1000;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		background: var(--surface);
+		border: 1px solid var(--border);
+		color: var(--text-primary);
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.3s, background 0.2s;
+	}
+	.blog-posts-toggle--visible {
+		opacity: 1;
+		pointer-events: auto;
+	}
+	.blog-posts-toggle:hover {
+		background: var(--surface-card);
+		transform: scale(1.05);
+	}
+
+	.posts-panel {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 300px;
+		height: 100vh;
+		z-index: 9999;
+		background: var(--surface);
+		border-right: 1px solid var(--border);
+		box-shadow: 4px 0 24px rgba(0,0,0,0.08);
+		backdrop-filter: blur(6px);
+		-webkit-backdrop-filter: blur(6px);
+		transform: translateX(-100%);
+		transition: transform 0.3s ease;
+		display: flex;
+		flex-direction: column;
+	}
+	.posts-panel--open {
+		transform: translateX(0);
+	}
+
+	.posts-panel-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 16px 16px;
+		border-bottom: 1px solid var(--border);
+	}
+	.posts-panel-title {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 1rem;
+		color: var(--text-primary);
+	}
+
+	.posts-panel-body {
+		position: static;
+		top: auto;
+		width: auto;
+		z-index: auto;
+		flex: 1;
+		overflow-y: auto;
+		padding: 12px 20px 24px;
+		background: none;
+		backdrop-filter: none;
+		border-bottom: none;
+	}
+	.posts-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+	.posts-list li {
+		margin-bottom: 4px;
+	}
+	.posts-list-link {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+		padding: 10px 12px;
+		border-radius: 6px;
+		text-decoration: none;
+		transition: background 0.15s;
+	}
+	.posts-list-link:hover {
+		background: var(--surface-card);
+	}
+	.posts-list-link time {
+		font-family: var(--font-mono);
+		font-size: 0.7rem;
+		color: var(--text-muted);
+	}
+	.posts-list-link span {
+		font-size: 0.85rem;
+		color: var(--text-primary);
+		font-weight: 500;
+		line-height: 1.3;
+	}
+	.posts-list-link:hover span {
+		color: var(--accent-emerald);
+	}
+
+	@media (width <= 768px) {
+		.toc-panel {
+			width: 100vw;
+		}
+		.toc-toggle {
+			top: 64px;
+			right: 16px;
+		}
+		.posts-panel {
+			width: 100vw;
+		}
+		.blog-posts-toggle {
+			top: 16px;
+			left: 16px;
+		}
+	}
+
+	/* Copy code button */
+	.pre--has-copy {
+		position: relative;
+	}
+	.copy-btn {
+		position: absolute;
+		top: 8px;
+		right: 8px;
+		font-family: var(--font-mono);
+		font-size: 0.7rem;
+		padding: 4px 10px;
+		border-radius: 4px;
+		border: 1px solid var(--border);
+		background: var(--surface-card);
+		color: var(--text-muted);
+		cursor: pointer;
+		opacity: 0;
+		transition: opacity 0.2s, background 0.2s, color 0.2s;
+		line-height: 1.4;
+	}
+	.pre--has-copy:hover .copy-btn {
+		opacity: 1;
+	}
+	.copy-btn:hover {
+		background: var(--surface);
+		color: var(--text-primary);
+	}
+	.copy-btn--done {
+		background: var(--accent-emerald) !important;
+		color: #fff !important;
+		border-color: var(--accent-emerald) !important;
+	}
+
+	/* Related posts */
+	.related-posts {
+		margin-top: 64px;
+		padding-top: 40px;
+		border-top: 1px solid var(--border);
+	}
+	.related-posts-title {
+		font-family: var(--font-display);
+		font-size: 1.5rem;
+		font-weight: 700;
+		margin-bottom: 24px;
+		color: var(--text-primary);
+	}
+	.related-posts-grid {
+		display: grid;
+		gap: 16px;
+	}
+	.related-post-card {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		padding: 16px 20px;
+		background: var(--surface-card);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-md);
+		text-decoration: none;
+		transition: border-color 0.2s, background 0.2s;
+	}
+	.related-post-card:hover {
+		border-color: var(--accent-emerald);
+		background: var(--surface);
+	}
+	.related-post-card time {
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		color: var(--text-muted);
+	}
+	.related-post-card span {
+		font-size: 0.95rem;
+		color: var(--text-primary);
+		font-weight: 500;
+		line-height: 1.4;
+	}
+	.related-post-card:hover span {
+		color: var(--accent-emerald);
+	}
+
 	.blog-theme-btn {
 		position: fixed;
 		top: 16px;
@@ -494,8 +1107,11 @@ const imageURL = image ? `${siteURL}${image}` : null;
 
 	@media (width <= 600px) {
 		.blog-article {
-			padding: 40px 16px 60px;
+			padding: 50px 16px 60px;
 			font-size: 1rem;
+		}
+		.blog-back {
+			margin-top: 56px;
 		}
 	}
 </style>
