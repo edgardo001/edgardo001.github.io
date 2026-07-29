@@ -98,6 +98,9 @@ const imageURL = image ? `${siteURL}${image}` : null;
 		<button id="font-decrease" class="font-btn" aria-label="Reducir tamaño de letra">
 			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20 9 4h2l6 16"/><path d="M5 15h8"/><path d="M15 14h8"/></svg>
 		</button>
+		<button id="font-reset" class="font-btn font-btn--reset" aria-label="Restablecer tamaño de letra">
+			<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+		</button>
 		<button id="font-increase" class="font-btn" aria-label="Aumentar tamaño de letra">
 			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20 9 4h2l6 16"/><path d="M5 15h8"/><path d="M19 10v8"/><path d="M15 14h8"/></svg>
 		</button>
@@ -336,11 +339,13 @@ const imageURL = image ? `${siteURL}${image}` : null;
 		// Font size controls
 		const fontInc = document.getElementById('font-increase');
 		const fontDec = document.getElementById('font-decrease');
+		const fontReset = document.getElementById('font-reset');
 		const FONT_KEY = 'blog-font-size';
+		const DEFAULT = 1.125;
 		const MIN = 0.8;
 		const MAX = 1.5;
 		const STEP = 0.1;
-		let fontSize = parseFloat(localStorage.getItem(FONT_KEY)) || 1.125;
+		let fontSize = parseFloat(localStorage.getItem(FONT_KEY)) || DEFAULT;
 		function applyFontSize() {
 			fontSize = Math.min(MAX, Math.max(MIN, fontSize));
 			localStorage.setItem(FONT_KEY, String(fontSize));
@@ -350,6 +355,7 @@ const imageURL = image ? `${siteURL}${image}` : null;
 		document.getElementById('font-controls')?.classList.add('font-controls--visible');
 		fontInc?.addEventListener('click', () => { fontSize += STEP; applyFontSize(); flash(fontInc); });
 		fontDec?.addEventListener('click', () => { fontSize -= STEP; applyFontSize(); flash(fontDec); });
+		fontReset?.addEventListener('click', () => { fontSize = DEFAULT; applyFontSize(); flash(fontReset); });
 		function flash(el) {
 			el.style.transform = 'scale(0.85)';
 			el.style.transition = 'transform 0.1s';
@@ -383,17 +389,19 @@ const imageURL = image ? `${siteURL}${image}` : null;
 
 		function lockScroll() {
 			scrollPos = window.scrollY;
-			document.body.style.overflow = 'hidden';
-			document.body.style.position = 'fixed';
-			document.body.style.top = `-${scrollPos}px`;
-			document.body.style.width = '100%';
+			document.documentElement.style.overflow = 'hidden';
+			document.documentElement.style.position = 'fixed';
+			document.documentElement.style.top = `-${scrollPos}px`;
+			document.documentElement.style.width = '100%';
+			document.documentElement.style.height = '100%';
 		}
 
 		function unlockScroll() {
-			document.body.style.overflow = '';
-			document.body.style.position = '';
-			document.body.style.top = '';
-			document.body.style.width = '';
+			document.documentElement.style.overflow = '';
+			document.documentElement.style.position = '';
+			document.documentElement.style.top = '';
+			document.documentElement.style.width = '';
+			document.documentElement.style.height = '';
 			window.scrollTo(0, scrollPos);
 		}
 
@@ -1066,6 +1074,15 @@ const imageURL = image ? `${siteURL}${image}` : null;
 	.font-btn:first-child {
 		border-radius: 50% 0 0 50%;
 		border-right: none;
+	}
+	.font-btn--reset {
+		border-radius: 0;
+		border-right: none;
+		font-size: 0.75rem;
+	}
+	.font-btn--reset svg {
+		width: 16px;
+		height: 16px;
 	}
 	.font-btn:last-child {
 		border-radius: 0 50% 50% 0;
@@ -1817,7 +1834,6 @@ const imageURL = image ? `${siteURL}${image}` : null;
 	@media (width <= 600px) {
 		.blog-article {
 			padding: 50px 16px 60px;
-			font-size: 1rem;
 		}
 		.blog-back {
 			margin-top: 56px;
