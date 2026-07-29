@@ -244,7 +244,7 @@ const allTags = [...new Set(blogEntries.flatMap(e => e.data.tags ?? []))].sort()
 			let visible = 0;
 			cards.forEach(card => {
 				const match = !q || card.textContent.toLowerCase().includes(q);
-				card.classList.toggle('blog-card--hidden', !match);
+				card.style.display = match ? '' : 'none';
 				if (match) visible++;
 			});
 			if (noResults && querySpan) {
@@ -271,7 +271,7 @@ const allTags = [...new Set(blogEntries.flatMap(e => e.data.tags ?? []))].sort()
 			cards.forEach(card => {
 				const cardTags = card.querySelector('.blog-card-tags');
 				const match = !tag || (cardTags && cardTags.textContent.includes(tag));
-				card.classList.toggle('blog-card--hidden', !match);
+				card.style.display = match ? '' : 'none';
 			});
 		});
 	}
