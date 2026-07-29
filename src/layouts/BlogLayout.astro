@@ -539,6 +539,51 @@ const imageURL = image ? `${siteURL}${image}` : null;
 			closeAllPanels();
 		});
 
+		// Keyboard shortcuts
+		const currentPath = window.location.pathname.replace(/\/$/, '');
+		const allLinks = Array.from(document.querySelectorAll('.posts-list a'));
+		const currentIdx = allLinks.findIndex(a => {
+			const href = a.getAttribute('href').replace(/\/$/, '');
+			return href === currentPath;
+		});
+		document.addEventListener('keydown', (e) => {
+			if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
+			if (e.key === 't' || e.key === 'T') {
+				e.preventDefault();
+				const panel = document.getElementById('toc-panel');
+				if (panel?.classList.contains('toc-panel--open')) {
+					document.getElementById('toc-close')?.click();
+				} else {
+					document.getElementById('toc-toggle')?.click();
+				}
+			}
+			if (e.key === '?' && e.shiftKey) {
+				e.preventDefault();
+				showShortcutsHelp();
+			}
+			if (e.key === 'j' && currentIdx >= 0 && currentIdx < allLinks.length - 1) {
+				e.preventDefault();
+				window.location.href = allLinks[currentIdx + 1].getAttribute('href');
+			}
+			if (e.key === 'k' && currentIdx > 0) {
+				e.preventDefault();
+				window.location.href = allLinks[currentIdx - 1].getAttribute('href');
+			}
+		});
+		function showShortcutsHelp() {
+			const existing = document.getElementById('shortcuts-help');
+			if (existing) { existing.remove(); return; }
+			const div = document.createElement('div');
+			div.id = 'shortcuts-help';
+			div.className = 'shortcuts-help';
+			div.setAttribute('role', 'dialog');
+			div.setAttribute('aria-label', 'Atajos de teclado');
+			div.innerHTML = `<div class="shortcuts-help-content"><h3>Atajos de teclado</h3><table><tr><td><kbd>j</kbd></td><td>Artículo siguiente</td></tr><tr><td><kbd>k</kbd></td><td>Artículo anterior</td></tr><tr><td><kbd>t</kbd></td><td>Abrir/cerrar tabla de contenidos</td></tr><tr><td><kbd>?</kbd></td><td>Mostrar esta ayuda</td></tr><tr><td><kbd>Esc</kbd></td><td>Cerrar paneles</td></tr></table><button class="shortcuts-help-close" aria-label="Cerrar">Cerrar</button></div>`;
+			document.body.appendChild(div);
+			div.querySelector('.shortcuts-help-close')?.addEventListener('click', () => div.remove());
+			div.addEventListener('click', (e) => { if (e.target === div) div.remove(); });
+		}
+
 		// Copy code button
 		content.querySelectorAll('pre').forEach((pre) => {
 			const btn = document.createElement('button');
@@ -1507,6 +1552,71 @@ const imageURL = image ? `${siteURL}${image}` : null;
 	.blog-theme-btn .moon { display: none; }
 	[data-theme="light"] .blog-theme-btn .sun { display: none; }
 	[data-theme="light"] .blog-theme-btn .moon { display: block; }
+
+	/* Shortcuts help overlay */
+	.shortcuts-help {
+		position: fixed;
+		inset: 0;
+		z-index: 10001;
+		background: rgba(0,0,0,0.4);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 24px;
+	}
+	.shortcuts-help-content {
+		background: var(--surface);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-lg);
+		padding: 32px;
+		max-width: 400px;
+		width: 100%;
+		box-shadow: 0 16px 48px rgba(0,0,0,0.2);
+	}
+	.shortcuts-help-content h3 {
+		font-family: var(--font-display);
+		font-size: 1.2rem;
+		font-weight: 700;
+		margin-bottom: 20px;
+		color: var(--text-primary);
+	}
+	.shortcuts-help-content table {
+		width: 100%;
+		border-collapse: collapse;
+	}
+	.shortcuts-help-content td {
+		padding: 6px 0;
+		font-size: 0.9rem;
+		color: var(--text-secondary);
+	}
+	.shortcuts-help-content td:first-child {
+		width: 60px;
+	}
+	.shortcuts-help-content kbd {
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		padding: 2px 8px;
+		border-radius: 4px;
+		border: 1px solid var(--border);
+		background: var(--surface-card);
+		color: var(--text-primary);
+	}
+	.shortcuts-help-close {
+		margin-top: 20px;
+		width: 100%;
+		padding: 10px;
+		border-radius: var(--radius-md);
+		border: 1px solid var(--border);
+		background: var(--surface-card);
+		color: var(--text-primary);
+		font-family: var(--font-body);
+		font-size: 0.9rem;
+		cursor: pointer;
+		transition: background 0.2s;
+	}
+	.shortcuts-help-close:hover {
+		background: var(--surface);
+	}
 
 	@media (width <= 600px) {
 		.blog-article {
