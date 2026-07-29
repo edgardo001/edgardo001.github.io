@@ -91,8 +91,17 @@ const imageURL = image ? `${siteURL}${image}` : null;
 </head>
 <body>
 	<div id="progress-bar" class="progress-bar"></div>
-	<button id="back-to-top" class="back-to-top" aria-label="Volver arriba">
-		<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+	<div id="font-controls" class="font-controls">
+		<button id="font-decrease" class="font-btn" aria-label="Reducir tamaño de letra">
+			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20 9 4h2l6 16"/><path d="M5 15h8"/><path d="M15 14h8"/></svg>
+		</button>
+		<button id="font-increase" class="font-btn" aria-label="Aumentar tamaño de letra">
+			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20 9 4h2l6 16"/><path d="M5 15h8"/><path d="M19 10v8"/><path d="M15 14h8"/></svg>
+		</button>
+	</div>
+	<button id="back-to-top" class="back-to-top" aria-label="Ir abajo">
+		<svg class="arrow-up" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+		<svg class="arrow-down" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
 	</button>
 	<button id="blog-posts-toggle" class="blog-posts-toggle" aria-label="Abrir lista de artículos">
 		<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
@@ -268,73 +277,72 @@ const imageURL = image ? `${siteURL}${image}` : null;
 			});
 		}
 
-		// Back to top
+		// Back to top / bottom
 		const backBtn = document.getElementById('back-to-top');
 		if (backBtn) {
 			window.addEventListener('scroll', () => {
-				backBtn.classList.toggle('visible', window.scrollY > 400);
+				const atTop = window.scrollY < 200;
+				const show = !atTop || window.innerHeight < document.documentElement.scrollHeight;
+				backBtn.classList.toggle('visible', show);
+				backBtn.classList.toggle('back-to-top--at-top', atTop);
+				backBtn.setAttribute('aria-label', atTop ? 'Ir abajo' : 'Volver arriba');
 			});
 			backBtn.addEventListener('click', () => {
-				window.scrollTo({ top: 0, behavior: 'smooth' });
+				if (backBtn.classList.contains('back-to-top--at-top')) {
+					window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
+				} else {
+					window.scrollTo({ top: 0, behavior: 'smooth' });
+				}
 			});
 		}
 
-		// Table of Contents — sidebar collapsible
-		if (content) {
-			const headings = content.querySelectorAll('h2, h3');
-			if (headings.length > 0) {
-				const panel = document.getElementById('toc-panel');
-				const overlay = document.getElementById('toc-overlay');
-				const body = panel.querySelector('.toc-panel-body');
-				const toggle = document.getElementById('toc-toggle');
-				const close = document.getElementById('toc-close');
-				const list = document.createElement('ul');
-				list.className = 'toc-list';
-				headings.forEach((h) => {
-					const id = h.id || h.textContent.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
-					if (!h.id) h.id = id;
-					const li = document.createElement('li');
-					li.className = h.tagName === 'H3' ? 'toc-h3' : 'toc-h2';
-					const a = document.createElement('a');
-					a.href = '#' + id;
-					a.textContent = h.textContent;
-					li.appendChild(a);
-					list.appendChild(li);
-				});
-				body.appendChild(list);
-
-				function openToc() { panel.classList.add('toc-panel--open'); overlay.classList.add('panel-overlay--open'); close.classList.add('sidebar-close--visible'); }
-				function closeToc() { panel.classList.remove('toc-panel--open'); overlay.classList.remove('panel-overlay--open'); close.classList.remove('sidebar-close--visible'); }
-
-				toggle.addEventListener('click', (e) => { e.stopPropagation(); openToc(); });
-				close.addEventListener('click', closeToc);
-				overlay.addEventListener('click', closeToc);
-				body.addEventListener('click', closeToc);
-
-				toggle.classList.add('toc-toggle--visible');
-			}
+		// Font size controls
+		const fontInc = document.getElementById('font-increase');
+		const fontDec = document.getElementById('font-decrease');
+		const FONT_KEY = 'blog-font-size';
+		const MIN = 0.8;
+		const MAX = 1.5;
+		const STEP = 0.1;
+		let fontSize = parseFloat(localStorage.getItem(FONT_KEY)) || 1.125;
+		function applyFontSize() {
+			fontSize = Math.min(MAX, Math.max(MIN, fontSize));
+			localStorage.setItem(FONT_KEY, String(fontSize));
+			document.documentElement.style.setProperty('--blog-font-size', fontSize + 'rem');
+		}
+		applyFontSize();
+		document.getElementById('font-controls')?.classList.add('font-controls--visible');
+		fontInc?.addEventListener('click', () => { fontSize += STEP; applyFontSize(); flash(fontInc); });
+		fontDec?.addEventListener('click', () => { fontSize -= STEP; applyFontSize(); flash(fontDec); });
+		function flash(el) {
+			el.style.transform = 'scale(0.85)';
+			el.style.transition = 'transform 0.1s';
+			setTimeout(() => el.style.transform = 'scale(1)', 100);
 		}
 
-		// Posts panel — sidebar izquierdo
-		const postsToggle = document.getElementById('blog-posts-toggle');
-		const postsPanel = document.getElementById('posts-panel');
-		const postsOverlay = document.getElementById('posts-overlay');
-		const postsClose = document.getElementById('posts-close');
-		if (postsToggle && postsPanel) {
-			function openPosts() { postsPanel.classList.add('posts-panel--open'); postsOverlay.classList.add('panel-overlay--open'); postsClose.classList.add('sidebar-close--visible'); }
-			function closePosts() { postsPanel.classList.remove('posts-panel--open'); postsOverlay.classList.remove('panel-overlay--open'); postsClose.classList.remove('sidebar-close--visible'); }
+		const isMobile = () => window.innerWidth <= 768;
+		let scrollPos = 0;
 
-			postsToggle.addEventListener('click', (e) => { e.stopPropagation(); openPosts(); });
-			postsClose.addEventListener('click', closePosts);
-			postsOverlay.addEventListener('click', closePosts);
-			postsPanel.querySelector('.posts-panel-body')?.addEventListener('click', closePosts);
-
-			postsToggle.classList.add('blog-posts-toggle--visible');
+		function slugify(text) {
+			return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 		}
 
-		// Cerrar cualquier panel con Escape
-		document.addEventListener('keydown', (e) => {
-			if (e.key !== 'Escape') return;
+		function lockScroll() {
+			scrollPos = window.scrollY;
+			document.body.style.overflow = 'hidden';
+			document.body.style.position = 'fixed';
+			document.body.style.top = `-${scrollPos}px`;
+			document.body.style.width = '100%';
+		}
+
+		function unlockScroll() {
+			document.body.style.overflow = '';
+			document.body.style.position = '';
+			document.body.style.top = '';
+			document.body.style.width = '';
+			window.scrollTo(0, scrollPos);
+		}
+
+		function closeAllPanels() {
 			['toc-panel', 'posts-panel'].forEach(id => {
 				const p = document.getElementById(id);
 				if (p?.classList.contains(id + '--open')) {
@@ -345,6 +353,168 @@ const imageURL = image ? `${siteURL}${image}` : null;
 					document.getElementById(closeId)?.classList.remove('sidebar-close--visible');
 				}
 			});
+			if (isMobile()) unlockScroll();
+		}
+
+		// TOC — sidebar derecho
+		if (content) {
+			const headings = content.querySelectorAll('h2, h3');
+			if (headings.length > 0) {
+				const panel = document.getElementById('toc-panel');
+				const overlay = document.getElementById('toc-overlay');
+				const body = panel.querySelector('.toc-panel-body');
+				const toggle = document.getElementById('toc-toggle');
+				const close = document.getElementById('toc-close');
+				const list = document.createElement('ul');
+				list.className = 'toc-list';
+				const tocLinks = [];
+				headings.forEach((h) => {
+					const id = slugify(h.textContent);
+					h.id = id;
+					// Link button para copiar enlace directo a la sección
+					const linkBtn = document.createElement('a');
+					linkBtn.className = 'heading-link';
+					linkBtn.setAttribute('aria-label', 'Copiar enlace a esta sección');
+					linkBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>';
+					linkBtn.href = '#' + id;
+					linkBtn.addEventListener('click', (e) => {
+						e.preventDefault();
+						const url = window.location.origin + window.location.pathname + '#' + id;
+						navigator.clipboard.writeText(url).then(() => {
+							linkBtn.classList.add('heading-link--copied');
+							setTimeout(() => linkBtn.classList.remove('heading-link--copied'), 2000);
+						});
+						history.replaceState(null, '', '#' + id);
+					});
+					h.appendChild(linkBtn);
+					// TOC item
+					const li = document.createElement('li');
+					li.className = h.tagName === 'H3' ? 'toc-h3' : 'toc-h2';
+					const a = document.createElement('a');
+					a.href = '#' + id;
+					a.textContent = h.textContent;
+					li.appendChild(a);
+					list.appendChild(li);
+					tocLinks.push({ el: a, heading: h });
+				});
+				body.appendChild(list);
+
+				function openToc() {
+					panel.classList.add('toc-panel--open');
+					overlay.classList.add('panel-overlay--open');
+					close.classList.add('sidebar-close--visible');
+					if (isMobile()) lockScroll();
+					close.focus();
+				}
+				function closeToc() {
+					panel.classList.remove('toc-panel--open');
+					overlay.classList.remove('panel-overlay--open');
+					close.classList.remove('sidebar-close--visible');
+					if (isMobile()) unlockScroll();
+					toggle.focus();
+				}
+
+				toggle.addEventListener('click', (e) => { e.stopPropagation(); openToc(); });
+				close.addEventListener('click', closeToc);
+				overlay.addEventListener('click', closeToc);
+
+				// Smooth scroll en anclas TOC + cerrar panel
+				body.addEventListener('click', (e) => {
+					const link = e.target.closest('a');
+					if (!link) return;
+					e.preventDefault();
+					const id = link.getAttribute('href').slice(1);
+					const target = document.getElementById(id);
+					if (target) {
+						target.scrollIntoView({ behavior: 'smooth' });
+						history.replaceState(null, '', '#' + id);
+					}
+					closeToc();
+				});
+
+				toggle.classList.add('toc-toggle--visible');
+
+				// IntersectionObserver para resaltar enlace activo
+				const observer = new IntersectionObserver((entries) => {
+					let active = '';
+					entries.forEach(entry => {
+						if (entry.isIntersecting) active = entry.target.id;
+					});
+					tocLinks.forEach(({ el }) => {
+						const isActive = el.getAttribute('href').slice(1) === active;
+						el.classList.toggle('toc-active', isActive);
+					});
+				}, { rootMargin: '-80px 0px -70% 0px', threshold: 0 });
+
+				headings.forEach(h => observer.observe(h));
+			}
+		}
+
+		// Scroll inicial a hash en la URL (deep linking)
+		if (window.location.hash) {
+			const id = window.location.hash.slice(1);
+			const attempt = () => {
+				const target = document.getElementById(id);
+				if (target) {
+					target.scrollIntoView({ behavior: 'smooth' });
+					return true;
+				}
+				return false;
+			};
+			if (!attempt()) {
+				// Si las cabeceras aún no tienen ID (ej: sin TOC), reintentar después
+				let tries = 0;
+				const interval = setInterval(() => {
+					tries++;
+					if (attempt() || tries > 20) clearInterval(interval);
+				}, 100);
+			}
+		}
+
+		// Posts panel — sidebar izquierdo
+		const postsToggle = document.getElementById('blog-posts-toggle');
+		const postsPanel = document.getElementById('posts-panel');
+		const postsOverlay = document.getElementById('posts-overlay');
+		const postsClose = document.getElementById('posts-close');
+		if (postsToggle && postsPanel) {
+			function openPosts() {
+				postsPanel.classList.add('posts-panel--open');
+				postsOverlay.classList.add('panel-overlay--open');
+				postsClose.classList.add('sidebar-close--visible');
+				if (isMobile()) lockScroll();
+				postsClose.focus();
+			}
+			function closePosts() {
+				postsPanel.classList.remove('posts-panel--open');
+				postsOverlay.classList.remove('panel-overlay--open');
+				postsClose.classList.remove('sidebar-close--visible');
+				if (isMobile()) unlockScroll();
+				postsToggle.focus();
+			}
+
+			postsToggle.addEventListener('click', (e) => { e.stopPropagation(); openPosts(); });
+			postsClose.addEventListener('click', closePosts);
+			postsOverlay.addEventListener('click', closePosts);
+			postsPanel.querySelector('.posts-panel-body')?.addEventListener('click', closePosts);
+
+			postsToggle.classList.add('blog-posts-toggle--visible');
+		}
+
+		// Resaltar artículo actual en posts panel
+		const currentSlug = window.location.pathname.replace(/\/blog\//, '').replace(/\/$/, '') || '';
+		if (currentSlug) {
+			document.querySelectorAll('.posts-list-link').forEach(link => {
+				const href = link.getAttribute('href');
+				if (href && href.includes(currentSlug)) {
+					link.classList.add('posts-list-link--active');
+				}
+			});
+		}
+
+		// Cerrar cualquier panel con Escape
+		document.addEventListener('keydown', (e) => {
+			if (e.key !== 'Escape') return;
+			closeAllPanels();
 		});
 
 		// Copy code button
@@ -380,7 +550,8 @@ const imageURL = image ? `${siteURL}${image}` : null;
 		margin: 0 auto;
 		padding: 140px 24px 80px;
 		font-family: var(--font-body);
-		font-size: 1.125rem;
+		font-size: var(--blog-font-size, 1.125rem);
+		text-align: justify;
 		line-height: 1.8;
 		color: var(--text-primary);
 	}
@@ -657,6 +828,51 @@ const imageURL = image ? `${siteURL}${image}` : null;
 	}
 
 	/* Back to top */
+	.font-controls {
+		position: fixed;
+		bottom: 24px;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 999;
+		display: flex;
+		flex-direction: row;
+		gap: 0;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.25s ease;
+	}
+	.font-controls--visible {
+		opacity: 1;
+		pointer-events: auto;
+	}
+	.font-btn {
+		width: 44px;
+		height: 44px;
+		background: var(--surface);
+		border: 1px solid var(--border);
+		color: var(--text-secondary);
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: background 0.2s, color 0.2s;
+		box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+	}
+	.font-btn:first-child {
+		border-radius: 50% 0 0 50%;
+		border-right: none;
+	}
+	.font-btn:last-child {
+		border-radius: 0 50% 50% 0;
+	}
+	.font-btn:hover {
+		background: var(--surface-card);
+		color: var(--text-primary);
+	}
+	.font-btn svg {
+		display: block;
+	}
+
 	.back-to-top {
 		position: fixed;
 		bottom: 24px;
@@ -687,6 +903,9 @@ const imageURL = image ? `${siteURL}${image}` : null;
 		background: var(--surface-card);
 		color: var(--text-primary);
 	}
+	.back-to-top .arrow-down { display: none; }
+	.back-to-top--at-top .arrow-up { display: none; }
+	.back-to-top--at-top .arrow-down { display: block; }
 
 	/* Reading time */
 	.blog-reading-time {
@@ -694,6 +913,30 @@ const imageURL = image ? `${siteURL}${image}` : null;
 		font-size: 0.85rem;
 		color: var(--text-muted);
 		margin-left: 4px;
+	}
+
+	/* Custom scrollbars */
+	.toc-panel-body::-webkit-scrollbar,
+	.posts-panel-body::-webkit-scrollbar {
+		width: 6px;
+	}
+	.toc-panel-body::-webkit-scrollbar-track,
+	.posts-panel-body::-webkit-scrollbar-track {
+		background: transparent;
+	}
+	.toc-panel-body::-webkit-scrollbar-thumb,
+	.posts-panel-body::-webkit-scrollbar-thumb {
+		background: var(--border);
+		border-radius: 3px;
+	}
+	.toc-panel-body::-webkit-scrollbar-thumb:hover,
+	.posts-panel-body::-webkit-scrollbar-thumb:hover {
+		background: var(--text-muted);
+	}
+	.toc-panel-body,
+	.posts-panel-body {
+		scrollbar-width: thin;
+		scrollbar-color: var(--border) transparent;
 	}
 
 	/* Table of Contents — collapsible sidebar */
@@ -724,6 +967,54 @@ const imageURL = image ? `${siteURL}${image}` : null;
 	.toc-toggle:hover {
 		background: var(--surface-card);
 		transform: scale(1.05);
+	}
+
+	/* Heading link button */
+	.heading-link {
+		display: inline-block;
+		vertical-align: baseline;
+		margin-left: 6px;
+		width: 22px;
+		height: 22px;
+		line-height: 22px;
+		border-radius: 4px;
+		color: var(--text-muted);
+		text-decoration: none;
+		transition: color 0.15s, background 0.15s;
+		text-align: center;
+		position: relative;
+	}
+	.heading-link:hover {
+		color: var(--accent-emerald);
+		background: var(--surface-card);
+	}
+	.heading-link--copied {
+		color: var(--accent-emerald);
+	}
+	.heading-link svg {
+		display: inline;
+		vertical-align: baseline;
+	}
+	.heading-link--copied::after {
+		content: '¡Link copiado!';
+		position: absolute;
+		bottom: 100%;
+		left: 50%;
+		transform: translateX(-50%);
+		margin-bottom: 6px;
+		padding: 3px 8px;
+		font-size: 0.7rem;
+		font-family: var(--font-mono);
+		color: var(--accent-emerald);
+		background: var(--surface-card);
+		border: 1px solid var(--border);
+		border-radius: 4px;
+		white-space: nowrap;
+		pointer-events: none;
+	}
+	.blog-content h2,
+	.blog-content h3 {
+		position: relative;
 	}
 
 	.toc-panel {
@@ -841,6 +1132,11 @@ const imageURL = image ? `${siteURL}${image}` : null;
 	.toc-panel-body .toc-list a:hover {
 		background: var(--surface-card);
 		color: var(--accent-emerald);
+	}
+	.toc-panel-body .toc-list a.toc-active {
+		color: var(--accent-emerald);
+		background: var(--surface-card);
+		font-weight: 600;
 	}
 	.toc-panel-body .toc-h3 a {
 		padding-left: 24px;
@@ -971,6 +1267,14 @@ const imageURL = image ? `${siteURL}${image}` : null;
 	}
 	.posts-list-link:hover span {
 		color: var(--accent-emerald);
+	}
+	.posts-list-link--active {
+		background: var(--surface-card);
+		border-left: 3px solid var(--accent-emerald);
+	}
+	.posts-list-link--active span {
+		color: var(--accent-emerald);
+		font-weight: 600;
 	}
 
 	@media (width <= 768px) {
