@@ -980,11 +980,13 @@ const imageURL = image ? `${siteURL}${image}` : null;
 		padding: 24px;
 		pointer-events: none;
 		transition: background 0.25s ease;
+		visibility: hidden;
 	}
 
 	.img-modal.open {
 		background: rgba(0, 0, 0, 0.85);
 		pointer-events: auto;
+		visibility: visible;
 	}
 
 	.img-modal-content {
