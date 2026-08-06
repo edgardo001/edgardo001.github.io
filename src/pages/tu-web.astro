@@ -1,0 +1,1208 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Tu Página Web Profesional en 1 Mes | Landing Page SPA | Edgardo Vásquez"
+  description="Landing page profesional para PYMEs chilenas. Diseño incluido, dominio .cl, hosting gratuito, WhatsApp integrado y buenas prácticas web. Sin suscripciones mensuales."
+>
+  <Navbar />
+  <main>
+
+    <!-- ===== HERO ===== -->
+    <section class="tuweb-hero">
+      <div class="tuweb-hero-bg">
+        <div class="tuweb-orb tuweb-orb-1"></div>
+        <div class="tuweb-orb tuweb-orb-2"></div>
+        <div class="tuweb-orb tuweb-orb-3"></div>
+        <div class="tuweb-grid-bg"></div>
+      </div>
+      <div class="container">
+        <div class="tuweb-hero-grid">
+          <div class="tuweb-hero-content">
+            <span class="kicker" data-i18n="tuweb.hero.kicker">Landing Page SPA para PYMEs</span>
+            <h1 data-i18n="tuweb.hero.title">Tu página web profesional a medida</h1>
+            <p class="section-desc" data-i18n="tuweb.hero.subtitle">
+              Diseño incluido, optimizada para celulares, con WhatsApp integrado y hosting gratuito. Ideal para negocios que quieren aparecer en Google y proyectar autoridad sin pagar suscripciones mensuales.
+            </p>
+            <div class="tuweb-hero-btns">
+              <a href="https://wa.me/56999219760?text=Hola%20Edgardo,%20quiero%20cotizar%20una%20landing%20page%20para%20mi%20negocio" target="_blank" class="btn btn-primary">
+                <span data-i18n="tuweb.hero.cta">Quiero mi página web</span>
+              </a>
+              <a href="#como-funciona" class="btn btn-secondary">
+                <span data-i18n="tuweb.hero.secondary">Más información</span>
+              </a>
+            </div>
+          </div>
+          <div class="tuweb-hero-visual">
+            <div class="tuweb-hero-card">
+              <div class="tuweb-hero-card-bar"></div>
+              <div class="tuweb-hero-card-content">
+                <div class="tuweb-hero-card-line w-60"></div>
+                <div class="tuweb-hero-card-line w-80"></div>
+                <div class="tuweb-hero-card-line w-40"></div>
+                <div class="tuweb-hero-card-domain">.cl</div>
+                <div class="tuweb-hero-card-line w-30"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FEATURES ===== -->
+    <section class="tuweb-features" id="que-incluye">
+      <div class="tuweb-features-bg"></div>
+      <div class="container">
+        <div class="section-header">
+          <span class="kicker" data-i18n="tuweb.features.kicker">¿Qué incluye?</span>
+          <h2 class="section-title" data-i18n="tuweb.features.title">Todo lo que necesitas para estar en línea</h2>
+        </div>
+        <div class="tuweb-features-grid">
+          <div class="tuweb-feature-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            <span data-i18n="tuweb.features.f1">Diseño + desarrollo completo</span>
+          </div>
+          <div class="tuweb-feature-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            <span data-i18n="tuweb.features.f2">Dominio .cl incluido (1 año)</span>
+          </div>
+          <div class="tuweb-feature-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/><path d="M11 15a3 3 0 1 1 0 6 3 3 0 1 1 0-6z"/><path d="M11 3v6"/><path d="M4.5 17.5l4.5-3"/><path d="M17.5 17.5l-4.5-3"/></svg>
+            <span data-i18n="tuweb.features.f3">Hosting gratuito (Cloudflare / GitHub Pages)</span>
+          </div>
+          <div class="tuweb-feature-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            <span data-i18n="tuweb.features.f4">WhatsApp flotante + Google Maps</span>
+          </div>
+          <div class="tuweb-feature-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+            <span data-i18n="tuweb.features.f5">Google Analytics 4 integrado</span>
+          </div>
+          <div class="tuweb-feature-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-i18n="tuweb.features.f6">HTML semántico con buenas prácticas web</span>
+          </div>
+          <div class="tuweb-feature-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <span data-i18n="tuweb.features.f7">Modo claro/oscuro personalizable</span>
+          </div>
+          <div class="tuweb-feature-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><rect x="3" y="1" width="18" height="22" rx="2"/><line x1="9" y1="6" x2="15" y2="6"/><line x1="9" y1="10" x2="15" y2="10"/><line x1="9" y1="14" x2="12" y2="14"/></svg>
+            <span data-i18n="tuweb.features.f8">Accesibilidad WAI-ARIA</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== COMPARISON TABLE ===== -->
+    <section class="tuweb-compare">
+      <div class="container">
+        <div class="section-header">
+          <span class="kicker" data-i18n="tuweb.compare.kicker">Redes sociales vs Landing Page</span>
+          <h2 class="section-title" data-i18n="tuweb.compare.title">No reemplaces tus redes: multiplícalas</h2>
+          <p class="section-desc" data-i18n="tuweb.compare.desc">
+            Las redes sociales son un excelente canal para atraer tráfico. La landing page es donde cierras la venta con autoridad.
+          </p>
+        </div>
+        <div class="tuweb-compare-table">
+          <div class="tuweb-compare-row tuweb-compare-header">
+            <div data-i18n="tuweb.compare.col1">Redes Sociales / Flyers</div>
+            <div class="tuweb-compare-vs"></div>
+            <div data-i18n="tuweb.compare.col2">Landing Page SPA (.cl)</div>
+          </div>
+          <div class="tuweb-compare-row">
+            <div data-i18n="tuweb.compare.r1c1">Mar de distracciones y competencia a un clic</div>
+            <div class="tuweb-compare-vs">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div data-i18n="tuweb.compare.r1c2">Espacio 100% propio, enfocado solo en tu negocio</div>
+          </div>
+          <div class="tuweb-compare-row">
+            <div data-i18n="tuweb.compare.r2c1">El contenido dura 24-48 hrs y se pierde</div>
+            <div class="tuweb-compare-vs">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div data-i18n="tuweb.compare.r2c2">Vitrina fija, organizada y disponible 24/7</div>
+          </div>
+          <div class="tuweb-compare-row">
+            <div data-i18n="tuweb.compare.r3c1">Imagen de emprendimiento informal</div>
+            <div class="tuweb-compare-vs">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div data-i18n="tuweb.compare.r3c2">Dominio propio que genera autoridad e institucionalidad</div>
+          </div>
+          <div class="tuweb-compare-row">
+            <div data-i18n="tuweb.compare.r4c1">Google no indexa posts de Instagram</div>
+            <div class="tuweb-compare-vs">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div data-i18n="tuweb.compare.r4c2">Indexable en Google: te encuentran buscando tu servicio</div>
+          </div>
+          <div class="tuweb-compare-row">
+            <div data-i18n="tuweb.compare.r5c1">Diseño limitado al formato de la red social</div>
+            <div class="tuweb-compare-vs">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div data-i18n="tuweb.compare.r5c2">Diseño 100% personalizado con tu identidad de marca</div>
+          </div>
+          <div class="tuweb-compare-row">
+            <div data-i18n="tuweb.compare.r6c1">No tienes control sobre cambios de algoritmo o políticas</div>
+            <div class="tuweb-compare-vs">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div data-i18n="tuweb.compare.r6c2">Tú controlas el 100% de tu espacio: dominio, hosting y contenido</div>
+          </div>
+          <div class="tuweb-compare-row">
+            <div data-i18n="tuweb.compare.r7c1">Sin herramientas para medir visitas o conversiones</div>
+            <div class="tuweb-compare-vs">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div data-i18n="tuweb.compare.r7c2">Google Analytics 4 integrado: mides visitas y clics a WhatsApp</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROCESS ===== -->
+    <section class="tuweb-process" id="como-funciona">
+      <div class="container">
+        <div class="section-header">
+          <span class="kicker" data-i18n="tuweb.process.kicker">Cómo funciona</span>
+          <h2 class="section-title" data-i18n="tuweb.process.title">De la idea a tu sitio en línea en 4 pasos</h2>
+        </div>
+        <div class="tuweb-process-steps">
+          <div class="tuweb-step">
+            <div class="tuweb-step-num">1</div>
+            <h3 data-i18n="tuweb.process.step1.title">Eliges el diseño base</h3>
+            <p><span data-i18n="tuweb.process.step1.desc">Te muestro templates de referencia para que elijas la estructura que más se ajusta a tu negocio.</span> <a href="https://ui-templates.edgardovasquez.cl" target="_blank" rel="noopener" class="tuweb-inline-link" data-i18n="tuweb.process.step1.link">Explora el catálogo →</a></p>
+          </div>
+          <div class="tuweb-step-connector"></div>
+          <div class="tuweb-step">
+            <div class="tuweb-step-num">2</div>
+            <h3 data-i18n="tuweb.process.step2.title">Planificamos juntos</h3>
+            <p data-i18n="tuweb.process.step2.desc">Definimos colores, secciones, imágenes y el mensaje que quieres transmitir con tu negocio.</p>
+          </div>
+          <div class="tuweb-step-connector"></div>
+          <div class="tuweb-step">
+            <div class="tuweb-step-num">3</div>
+            <h3 data-i18n="tuweb.process.step3.title">Desarrollo y ajustes</h3>
+            <p data-i18n="tuweb.process.step3.desc">Construyo tu landing page a medida. Puedes enviar hasta 10 páginas de referencia como inspiración y revisar avances durante el desarrollo.</p>
+          </div>
+          <div class="tuweb-step-connector"></div>
+          <div class="tuweb-step">
+            <div class="tuweb-step-num">4</div>
+            <h3 data-i18n="tuweb.process.step4.title">Lanzamiento y entrega</h3>
+            <p data-i18n="tuweb.process.step4.desc">Tu sitio en línea con dominio .cl, hosting configurado y todas las cuentas a tu nombre. Te asisto en la configuración final.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SCOPE ===== -->
+    <section class="tuweb-scope" id="alcance">
+      <div class="container">
+        <div class="section-header">
+          <span class="kicker" data-i18n="tuweb.scope.kicker">Alcance transparente</span>
+          <h2 class="section-title" data-i18n="tuweb.scope.title">Lo que incluye y lo que no</h2>
+          <p class="section-desc" data-i18n="tuweb.scope.desc">
+            Para que sepas exactamente qué esperar. Sin letra chica, sin sorpresas.
+          </p>
+        </div>
+        <div class="tuweb-scope-grid">
+          <div class="tuweb-scope-card tuweb-scope-includes">
+            <div class="tuweb-scope-badge" data-i18n="tuweb.scope.includes">Incluye</div>
+            <ul class="tuweb-scope-list">
+              <li data-i18n="tuweb.scope.i1">Sitio web tipo Landing Page SPA (página única)</li>
+              <li data-i18n="tuweb.scope.i2">Diseño responsive: escritorio, tablet y móvil</li>
+              <li data-i18n="tuweb.scope.i3">Hasta 3 secciones personalizadas adicionales</li>
+              <li data-i18n="tuweb.scope.i4">Formulario de contacto vía WhatsApp o mailto:</li>
+              <li data-i18n="tuweb.scope.i5">HTML semántico, Open Graph y datos JSON-LD</li>
+              <li data-i18n="tuweb.scope.i6">3 meses de garantía técnica por bugs</li>
+            </ul>
+          </div>
+          <div class="tuweb-scope-card tuweb-scope-excludes">
+            <div class="tuweb-scope-badge tuweb-scope-badge-excludes" data-i18n="tuweb.scope.excludes">No incluye</div>
+            <ul class="tuweb-scope-list">
+              <li data-i18n="tuweb.scope.e1">Backend, bases de datos ni panel admin (CMS)</li>
+              <li data-i18n="tuweb.scope.e2">Calculadoras, cotizadores ni lógica de negocio</li>
+              <li data-i18n="tuweb.scope.e3">Autenticación de usuarios ni roles</li>
+              <li data-i18n="tuweb.scope.e4">Pasarelas de pago ni comercio electrónico</li>
+              <li data-i18n="tuweb.scope.e5">Procesamiento de datos sensibles</li>
+              <li data-i18n="tuweb.scope.e6">Actualización de tarifas o datos externos</li>
+            </ul>
+          </div>
+        </div>
+        <p class="tuweb-scope-warn" data-i18n="tuweb.scope.warn">
+          Si necesitas alguna funcionalidad compleja, se cotiza como proyecto independiente en una Etapa 2.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== PRICING ===== -->
+    <section class="tuweb-pricing" id="precios">
+      <div class="container">
+        <div class="section-header">
+          <span class="kicker" data-i18n="tuweb.pricing.kicker">Inversión</span>
+          <h2 class="section-title" data-i18n="tuweb.pricing.title">Precio fijo, sin suscripciones ni costos ocultos</h2>
+        </div>
+        <div class="tuweb-pricing-grid">
+          <div class="tuweb-pricing-card">
+            <div class="tuweb-pricing-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <h3 data-i18n="tuweb.pricing.dev">Desarrollo Landing Page SPA</h3>
+            <div class="tuweb-pricing-amount" data-i18n="tuweb.pricing.devPrice">Cotizar</div>
+            <div class="tuweb-pricing-note" data-i18n="tuweb.pricing.devNote">Pago único. 50% anticipo + 50% al cierre</div>
+          </div>
+          <div class="tuweb-pricing-card">
+            <div class="tuweb-pricing-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <h3 data-i18n="tuweb.pricing.domain">Dominio .cl (1 año)</h3>
+            <div class="tuweb-pricing-amount" data-i18n="tuweb.pricing.domainPrice">~$10.000 CLP</div>
+            <div class="tuweb-pricing-note" data-i18n="tuweb.pricing.domainNote">Registrado a nombre del cliente en NIC Chile</div>
+          </div>
+          <div class="tuweb-pricing-card">
+            <div class="tuweb-pricing-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/><path d="M11 15a3 3 0 1 1 0 6 3 3 0 1 1 0-6z"/><path d="M11 3v6"/><path d="M4.5 17.5l4.5-3"/><path d="M17.5 17.5l-4.5-3"/></svg>
+            </div>
+            <h3 data-i18n="tuweb.pricing.hosting">Hosting</h3>
+            <div class="tuweb-pricing-amount" data-i18n="tuweb.pricing.hostingPrice">Gratuito</div>
+            <div class="tuweb-pricing-note" data-i18n="tuweb.pricing.hostingNote">Cloudflare Pages o GitHub Pages</div>
+          </div>
+        </div>
+        <div class="tuweb-pricing-total">
+          <span data-i18n="tuweb.pricing.total">Total estimado inicial</span>
+          <strong data-i18n="tuweb.pricing.totalPrice">Cotiza sin compromiso</strong>
+        </div>
+        <div class="tuweb-pricing-cta-wrapper">
+          <a href="https://wa.me/56999219760?text=Hola%20Edgardo,%20quiero%20cotizar%20una%20landing%20page%20para%20mi%20negocio" target="_blank" class="btn btn-primary" style="width: auto; padding: 18px 40px;">
+            <span data-i18n="tuweb.pricing.cta">Cotizar sin compromiso</span>
+          </a>
+        </div>
+
+        <div class="tuweb-pricing-extras">
+          <div class="tuweb-pricing-maintenance">
+            <h3 data-i18n="tuweb.pricing.maintenance">Post-entrega y mantenimiento</h3>
+            <ul class="tuweb-maint-list">
+              <li data-i18n="tuweb.pricing.m1">Soporte técnico incluido por 3 meses tras la entrega</li>
+              <li data-i18n="tuweb.pricing.m2">Ajustes y modificaciones menores sin costo durante el primer año</li>
+              <li data-i18n="tuweb.pricing.m3">Todas las cuentas (dominio, hosting, analytics) a tu nombre</li>
+              <li data-i18n="tuweb.pricing.m4">Código fuente en repositorio del cliente</li>
+            </ul>
+          </div>
+          <div class="tuweb-pricing-reqs">
+            <h3 data-i18n="tuweb.pricing.requirements">Qué necesito de ti para empezar</h3>
+            <ul>
+              <li data-i18n="tuweb.pricing.req1">Logotipo en alta calidad (SVG, PDF o PNG) [opcional]</li>
+              <li data-i18n="tuweb.pricing.req2">Paleta de colores corporativa [opcional]</li>
+              <li data-i18n="tuweb.pricing.req3">Textos de servicios, misión y visión</li>
+              <li data-i18n="tuweb.pricing.req4">6 a 10 imágenes de alta calidad</li>
+              <li data-i18n="tuweb.pricing.req5">URLs de tus redes sociales</li>
+              <li data-i18n="tuweb.pricing.req6">Correo electrónico para registrar cuentas</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section class="tuweb-faq" id="faq">
+      <div class="container">
+        <div class="section-header">
+          <span class="kicker" data-i18n="tuweb.faq.kicker">Preguntas frecuentes</span>
+          <h2 class="section-title" data-i18n="tuweb.faq.title">Resuelve tus dudas antes de decidir</h2>
+        </div>
+        <div class="tuweb-faq-list">
+          <details class="tuweb-faq-item">
+            <summary data-i18n="tuweb.faq.q1">¿Puedo tener una calculadora de tarifas, carrito de compras o blog en el sitio?</summary>
+            <p data-i18n="tuweb.faq.a1">Este tipo de funcionalidades requieren lógica de negocio, pruebas exhaustivas y, en muchos casos, actualización periódica de datos. Eso implica un nivel de complejidad de desarrollo y mantenimiento distinto al de una landing page informativa. La estrategia recomendada es lanzar primero la landing page para establecer presencia digital y captar consultas. Una vez en funcionamiento, evaluamos juntos si conviene abordar esas herramientas como un proyecto independiente en una segunda etapa.</p>
+          </details>
+          <details class="tuweb-faq-item">
+            <summary data-i18n="tuweb.faq.q2">Mi capacidad de producción es limitada. ¿Una página web no me traería más demanda de la que puedo atender?</summary>
+            <p data-i18n="tuweb.faq.a2">Una presencia digital profesional no necesariamente implica mayor volumen de trabajo, sino mejor calidad de clientes. La landing page eleva la percepción de valor de tu servicio, lo que atrae a clientes con mayor disposición a pagar por calidad. Además, puedes comunicar disponibilidad de agenda directamente en el sitio, lo que te permite gestionar expectativas y mantener control sobre tu capacidad de producción.</p>
+          </details>
+          <details class="tuweb-faq-item">
+            <summary data-i18n="tuweb.faq.q3">Si pongo precios en la web, mi competencia los ve y pierdo flexibilidad para cobrar según cada proyecto.</summary>
+            <p data-i18n="tuweb.faq.a3">Tú decides si mostrar precios o no. En servicios a medida, muchos clientes prefieren no publicarlos para mantener libertad al cotizar y no exponer su estructura de costos. La landing page se adapta a tu criterio: si quieres mostrar tarifas de referencia, las incluimos. Si prefieres no publicarlas, el sitio destaca la calidad de tu trabajo, explica tu metodología y deriva la cotización a un canal directo. Es tu decisión estratégica, no una limitación técnica.</p>
+          </details>
+          <details class="tuweb-faq-item">
+            <summary data-i18n="tuweb.faq.q4">Ya tengo presencia en Instagram, Facebook y WhatsApp. ¿Qué aporta una página web que las redes no?</summary>
+            <p data-i18n="tuweb.faq.a4">Las redes sociales son un excelente canal de difusión, pero operan en un entorno que no controlas: el contenido tiene corta visibilidad, compites con múltiples estímulos en la misma pantalla y los motores de búsqueda no indexan publicaciones. Una landing page con dominio propio es un activo digital permanente que proyecta seriedad, aparece en búsquedas de Google y centraliza la información de tu negocio sin distracciones. Ambos canales se complementan: las redes atraen tráfico, la landing page convierte.</p>
+          </details>
+          <details class="tuweb-faq-item">
+            <summary data-i18n="tuweb.faq.q5">¿Qué sucede si después de entregado el sitio quiero hacer cambios?</summary>
+            <p data-i18n="tuweb.faq.a5">El servicio incluye ajustes y modificaciones menores sin costo durante el primer año, como cambios de texto, imágenes, colores o enlaces. Si requieres funcionalidades nuevas o un rediseño estructural, lo conversamos, evaluamos el alcance y te entrego una cotización por separado antes de comenzar.</p>
+          </details>
+          <details class="tuweb-faq-item">
+            <summary data-i18n="tuweb.faq.q6">¿Puedo vender mis productos por el sitio?</summary>
+            <p data-i18n="tuweb.faq.a6">Sí, podemos desarrollar una sección para que puedas vender tus productos. El flujo no contempla carrito de compras ni plataformas de pago: el cliente elige los productos y cantidades que le interesan, y al confirmar se te envía el detalle del pedido como mensaje a tu WhatsApp. Así puedes indicar si dispones del producto y ajustar los costos reales según cada caso. Este mecanismo te permite vender sin perder el control de la negociación.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CTA FINAL ===== -->
+    <section class="tuweb-cta">
+      <div class="tuweb-cta-bg">
+        <div class="tuweb-cta-orb"></div>
+        <div class="tuweb-cta-orb tuweb-cta-orb-2"></div>
+        <div class="tuweb-cta-particles">
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+      <div class="container">
+        <div class="section-header">
+          <span class="kicker" data-i18n="tuweb.cta.kicker">¿Listo para dar el salto?</span>
+          <h2 class="section-title" data-i18n="tuweb.cta.title">Tu negocio merece un espacio propio en internet</h2>
+          <p class="section-desc" data-i18n="tuweb.cta.desc">
+            Sin suscripciones, sin costos ocultos. Diseño profesional, dominio .cl y hosting gratuito incluidos. Cotiza sin compromiso y cuéntame sobre tu negocio.
+          </p>
+          <a href="https://wa.me/56999219760?text=Hola%20Edgardo,%20quiero%20cotizar%20una%20landing%20page%20para%20mi%20negocio" target="_blank" class="btn btn-primary" style="display: inline-flex; width: auto; padding: 20px 48px; font-size: 1.05rem; margin-top: 2rem;">
+            <span data-i18n="tuweb.cta.button">Conversemos por WhatsApp</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <button id="tuweb-back-to-top" class="tuweb-back-to-top" aria-label="Volver arriba">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
+
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  /* ===== HERO ===== */
+  .tuweb-hero {
+    padding: 170px 0 80px;
+    background: radial-gradient(120% 60% at 30% 20%, oklch(76% 0.17 162 / 0.04) 0%, transparent 100%);
+  }
+  .tuweb-hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .tuweb-hero-content h1 {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin: 16px 0 20px;
+    letter-spacing: -0.03em;
+  }
+  .tuweb-hero-content .section-desc {
+    font-size: clamp(1rem, 1.8vw, 1.15rem);
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+    max-width: 560px;
+    line-height: 1.6;
+  }
+  .tuweb-hero-btns {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .tuweb-hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .tuweb-hero-card {
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    width: 280px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+  }
+  .tuweb-hero-card-bar {
+    height: 8px;
+    background: var(--accent-gradient);
+  }
+  .tuweb-hero-card-content {
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .tuweb-hero-card-line {
+    height: 12px;
+    border-radius: 4px;
+    background: var(--border);
+  }
+  .tuweb-hero-card-line.w-60 { width: 60%; }
+  .tuweb-hero-card-line.w-80 { width: 80%; }
+  .tuweb-hero-card-line.w-40 { width: 40%; }
+  .tuweb-hero-card-line.w-30 { width: 30%; }
+  .tuweb-hero-card-domain {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--accent-emerald);
+    padding: 12px 0 6px;
+    border-top: 1px solid var(--border);
+    margin-top: 8px;
+    letter-spacing: -0.02em;
+    text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    .tuweb-hero { padding: 130px 0 60px; }
+    .tuweb-hero-grid { grid-template-columns: 1fr; gap: 48px; text-align: center; }
+    .tuweb-hero-content .section-desc { margin: 0 auto 32px; }
+    .tuweb-hero-btns { justify-content: center; }
+    .tuweb-hero-visual { order: -1; }
+    .tuweb-hero-card { width: min(280px, 80vw); }
+    .tuweb-orb-2 { display: none; }
+  }
+
+  /* ===== ANIMATED BACKGROUND ===== */
+  .tuweb-hero-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .tuweb-hero {
+    position: relative;
+    isolation: isolate;
+  }
+  .tuweb-hero .container {
+    position: relative;
+    z-index: 2;
+  }
+
+  .tuweb-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.15;
+    animation: tuweb-orb-float 14s ease-in-out infinite;
+  }
+  .tuweb-orb-1 {
+    width: 500px;
+    height: 500px;
+    background: var(--accent-emerald);
+    top: -15%;
+    right: -10%;
+    animation-delay: 0s;
+  }
+  .tuweb-orb-2 {
+    width: 350px;
+    height: 350px;
+    background: var(--accent-indigo);
+    bottom: -10%;
+    left: -5%;
+    animation-delay: -5s;
+    animation-duration: 16s;
+  }
+  .tuweb-orb-3 {
+    width: 250px;
+    height: 250px;
+    background: var(--accent-emerald);
+    top: 40%;
+    right: 30%;
+    animation-delay: -9s;
+    animation-duration: 12s;
+    opacity: 0.1;
+  }
+
+  @keyframes tuweb-orb-float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(40px, -30px) scale(1.15); }
+    50% { transform: translate(-20px, 25px) scale(0.9); }
+    75% { transform: translate(30px, 15px) scale(1.1); }
+  }
+
+  .tuweb-grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 70%);
+    animation: tuweb-grid-drift 20s linear infinite;
+  }
+
+  @keyframes tuweb-grid-drift {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(60px, 60px); }
+  }
+
+  /* features subtle bg dot pattern */
+  .tuweb-features {
+    position: relative;
+    isolation: isolate;
+  }
+  .tuweb-features .container {
+    position: relative;
+    z-index: 2;
+  }
+  .tuweb-features-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image: radial-gradient(circle, var(--accent-emerald) 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.05;
+    animation: tuweb-dots-fade 8s ease-in-out infinite alternate;
+  }
+  @keyframes tuweb-dots-fade {
+    0% { opacity: 0.03; }
+    100% { opacity: 0.08; }
+  }
+
+  /* ===== FEATURES ===== */
+  .tuweb-features {
+    padding: 80px 0;
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .tuweb-features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    margin-top: 3rem;
+  }
+  .tuweb-feature-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 18px 22px;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+  }
+  .tuweb-feature-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.03) 45%, transparent 50%);
+    transform: translateX(-100%);
+    transition: transform 0.8s ease;
+  }
+  .tuweb-feature-card:hover::after {
+    transform: translateX(100%);
+  }
+  .tuweb-feature-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-2px);
+  }
+  .tuweb-feature-card svg {
+    color: var(--accent-emerald);
+    flex-shrink: 0;
+  }
+
+  /* ===== COMPARISON TABLE ===== */
+  .tuweb-compare {
+    padding: 80px 0;
+    border-top: 1px solid var(--border);
+    position: relative;
+    isolation: isolate;
+  }
+  .tuweb-compare::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 80% 20%, oklch(76% 0.17 162 / 0.04) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 30% at 20% 80%, oklch(68% 0.22 280 / 0.03) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .tuweb-compare .container {
+    position: relative;
+    z-index: 1;
+  }
+  .tuweb-compare-table {
+    margin-top: 3rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--surface-card);
+  }
+  .tuweb-compare-row {
+    display: grid;
+    grid-template-columns: 1fr 48px 1fr;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .tuweb-compare-row:last-child {
+    border-bottom: none;
+  }
+  .tuweb-compare-row > div:first-child,
+  .tuweb-compare-row > div:last-child {
+    padding: 18px 24px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  .tuweb-compare-row > div:last-child {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+  .tuweb-compare-header {
+    background: oklch(76% 0.17 162 / 0.06);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--text-primary);
+  }
+  .tuweb-compare-header > div {
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+  .tuweb-compare-header > div:last-child {
+    color: var(--accent-emerald);
+  }
+  .tuweb-compare-vs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 18px 0;
+  }
+  .tuweb-compare-vs svg {
+    color: var(--accent-emerald);
+  }
+  .tuweb-compare-header .tuweb-compare-vs {
+    color: var(--text-muted);
+    font-weight: 900;
+    font-size: 0.65rem;
+  }
+
+  @media (max-width: 768px) {
+    .tuweb-compare-row {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+    .tuweb-compare-row > div:first-child,
+    .tuweb-compare-row > div:last-child {
+      padding: 14px 20px;
+    }
+    .tuweb-compare-row > div:first-child {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+      opacity: 0.75;
+    }
+    .tuweb-compare-vs {
+      display: none;
+    }
+    .tuweb-compare-header {
+      display: none;
+    }
+  }
+
+  /* ===== PROCESS ===== */
+  .tuweb-process {
+    padding: 80px 0;
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .tuweb-process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 3rem;
+    position: relative;
+  }
+  .tuweb-step {
+    text-align: center;
+    padding: 0 16px;
+    position: relative;
+  }
+  .tuweb-step-num {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--accent-gradient);
+    color: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 1.3rem;
+    margin: 0 auto 16px;
+    font-family: var(--font-display);
+    box-shadow: 0 0 20px var(--accent-emerald-glow);
+    position: relative;
+  }
+  .tuweb-step-num::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: var(--accent-gradient);
+    opacity: 0.3;
+    filter: blur(8px);
+    z-index: -1;
+    animation: tuweb-glow-pulse 3s ease-in-out infinite;
+  }
+  @keyframes tuweb-glow-pulse {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.15); }
+  }
+  .tuweb-step h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .tuweb-step p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  .tuweb-inline-link {
+    color: var(--accent-emerald);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .tuweb-inline-link:hover {
+    text-decoration: underline;
+  }
+  .tuweb-step-connector {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .tuweb-process-steps {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+
+  /* ===== SCOPE ===== */
+  .tuweb-scope {
+    padding: 80px 0;
+    border-top: 1px solid var(--border);
+  }
+  .tuweb-scope-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 3rem;
+  }
+  .tuweb-scope-card {
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 30px;
+  }
+  .tuweb-scope-includes {
+    border-color: oklch(76% 0.17 162 / 0.3);
+  }
+  .tuweb-scope-excludes {
+    border-color: oklch(55% 0.2 25 / 0.3);
+  }
+  .tuweb-scope-badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 6px 14px;
+    border-radius: 50px;
+    margin-bottom: 20px;
+    background: oklch(76% 0.17 162 / 0.1);
+    color: var(--accent-emerald);
+    border: 1px solid oklch(76% 0.17 162 / 0.2);
+  }
+  .tuweb-scope-badge-excludes {
+    background: oklch(55% 0.2 25 / 0.1);
+    color: oklch(65% 0.18 25);
+    border: 1px solid oklch(55% 0.2 25 / 0.2);
+  }
+  .tuweb-scope-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .tuweb-scope-list li {
+    position: relative;
+    padding-left: 24px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  .tuweb-scope-includes .tuweb-scope-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--accent-emerald);
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+  .tuweb-scope-excludes .tuweb-scope-list li::before {
+    content: "✕";
+    position: absolute;
+    left: 0;
+    color: oklch(65% 0.18 25);
+    font-weight: 700;
+    font-size: 0.8rem;
+  }
+  .tuweb-scope-warn {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: oklch(68% 0.22 280 / 0.06);
+    border: 1px solid oklch(68% 0.22 280 / 0.15);
+    border-radius: var(--radius-md);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .tuweb-scope-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ===== PRICING ===== */
+  .tuweb-pricing {
+    padding: 80px 0;
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .tuweb-pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+    margin-top: 3rem;
+  }
+  .tuweb-pricing-card {
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 32px 24px;
+    text-align: center;
+    transition: var(--transition);
+  }
+  .tuweb-pricing-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+  }
+  .tuweb-pricing-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: oklch(76% 0.17 162 / 0.1);
+    color: var(--accent-emerald);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+  }
+  .tuweb-pricing-card h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .tuweb-pricing-amount {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--accent-emerald);
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .tuweb-pricing-note {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+  .tuweb-pricing-total {
+    margin-top: 32px;
+    padding: 20px 28px;
+    background: oklch(76% 0.17 162 / 0.06);
+    border: 1px solid oklch(76% 0.17 162 / 0.2);
+    border-radius: var(--radius-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .tuweb-pricing-total span {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+  .tuweb-pricing-total strong {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--accent-emerald);
+    letter-spacing: -0.02em;
+  }
+  .tuweb-pricing-cta-wrapper {
+    text-align: center;
+    margin-top: 28px;
+  }
+  .tuweb-pricing-extras {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 48px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+  }
+  .tuweb-pricing-maintenance h3,
+  .tuweb-pricing-reqs h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 18px;
+    color: var(--text-primary);
+  }
+  .tuweb-maint-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .tuweb-maint-list li {
+    position: relative;
+    padding-left: 22px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  .tuweb-maint-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--accent-emerald);
+    font-weight: 700;
+    font-size: 0.8rem;
+  }
+  .tuweb-pricing-reqs ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .tuweb-pricing-reqs ul li {
+    position: relative;
+    padding-left: 20px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+  .tuweb-pricing-reqs ul li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--accent-emerald);
+    font-weight: 700;
+  }
+
+  @media (max-width: 768px) {
+    .tuweb-pricing-extras {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+
+  /* ===== FAQ ===== */
+  .tuweb-faq {
+    padding: 80px 0;
+    border-top: 1px solid var(--border);
+    position: relative;
+    isolation: isolate;
+  }
+  .tuweb-faq::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 50% 40% at 50% 0%, oklch(68% 0.22 280 / 0.03) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .tuweb-faq .container {
+    position: relative;
+    z-index: 1;
+  }
+  .tuweb-faq-list {
+    max-width: 800px;
+    margin: 3rem auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .tuweb-faq-item {
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: var(--transition);
+  }
+  .tuweb-faq-item[open] {
+    border-color: var(--border-hover);
+  }
+  .tuweb-faq-item summary {
+    padding: 18px 24px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    color: var(--text-primary);
+    user-select: none;
+  }
+  .tuweb-faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+  .tuweb-faq-item summary::after {
+    content: "+";
+    font-size: 1.3rem;
+    font-weight: 300;
+    color: var(--accent-emerald);
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+    line-height: 1;
+  }
+  .tuweb-faq-item[open] summary::after {
+    content: "−";
+  }
+  .tuweb-faq-item p {
+    padding: 0 24px 20px;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  /* ===== CTA FINAL ===== */
+  .tuweb-cta {
+    padding: 100px 0;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: radial-gradient(ellipse 80% 50% at 50% 50%, oklch(76% 0.17 162 / 0.08) 0%, transparent 70%),
+                linear-gradient(180deg, var(--surface) 0%, var(--bg) 100%);
+  }
+  .tuweb-cta-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .tuweb-cta .container {
+    position: relative;
+    z-index: 2;
+  }
+  .tuweb-cta-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.1;
+    animation: tuweb-orb-float 12s ease-in-out infinite;
+  }
+  .tuweb-cta-orb:first-of-type {
+    width: 500px;
+    height: 500px;
+    background: var(--accent-emerald);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .tuweb-cta-orb-2 {
+    width: 300px;
+    height: 300px;
+    background: var(--accent-indigo);
+    bottom: -20%;
+    right: -10%;
+    animation-delay: -6s;
+    animation-duration: 15s;
+  }
+  .tuweb-cta-particles {
+    position: absolute;
+    inset: 0;
+  }
+  .tuweb-cta-particles span {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--accent-emerald);
+    opacity: 0;
+    animation: tuweb-particle-rise 8s ease-in infinite;
+  }
+  .tuweb-cta-particles span:nth-child(1) { left: 10%; animation-delay: 0s; }
+  .tuweb-cta-particles span:nth-child(2) { left: 25%; animation-delay: 1.5s; }
+  .tuweb-cta-particles span:nth-child(3) { left: 40%; animation-delay: 3s; }
+  .tuweb-cta-particles span:nth-child(4) { left: 60%; animation-delay: 4.5s; }
+  .tuweb-cta-particles span:nth-child(5) { left: 75%; animation-delay: 2s; }
+  .tuweb-cta-particles span:nth-child(6) { left: 90%; animation-delay: 5s; }
+
+  @keyframes tuweb-particle-rise {
+    0% { bottom: -10%; opacity: 0; transform: translateY(0) scale(0); }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.6; }
+    100% { bottom: 110%; opacity: 0; transform: translateY(-100vh) scale(1.5); }
+  }
+
+  /* ===== BACK TO TOP ===== */
+  .tuweb-back-to-top {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 900;
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  }
+  .tuweb-back-to-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .tuweb-back-to-top:hover {
+    border-color: var(--accent-emerald);
+    color: var(--accent-emerald);
+  }
+</style>
+
+<script>
+  const backToTop = document.getElementById('tuweb-back-to-top');
+  if (backToTop) {
+    window.addEventListener('scroll', () => {
+      backToTop.classList.toggle('visible', window.scrollY > 600);
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+</script>
