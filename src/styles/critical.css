@@ -21,7 +21,7 @@
     --radius-md: 12px;
     --radius-sm: 8px;
     --container-width: 1200px;
-    --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition: color 0.3s ease, opacity 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 [data-theme="light"] {
     --bg: oklch(97% 0.01 250);
@@ -51,8 +51,11 @@ nav .container { display: flex; justify-content: space-between; align-items: cen
 .logo { display: flex; align-items: center; gap: 10px; }
 .logo-mark { width: 32px; height: 32px; border-radius: var(--radius-sm); background: var(--accent-gradient); display: flex; align-items: center; justify-content: center; font-weight: 900; color: var(--bg); font-family: var(--font-display); font-size: 1.1rem; box-shadow: 0 0 15px var(--accent-emerald-glow); }
 .logo-text { font-family: var(--font-display); font-weight: 800; font-size: 1.25rem; color: var(--text-primary); letter-spacing: -0.01em; }
-.nav-links { display: flex; align-items: center; gap: 28px; }
-.nav-links a { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); padding: 6px 4px; position: relative; }
+.nav-links { display: flex; align-items: center; gap: 18px; }
+.nav-links a { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-secondary); padding: 6px 4px; position: relative; white-space: nowrap; transition: color 0.2s ease; }
+.nav-links a:hover { color: var(--text-primary); }
+.nav-links a.active { color: var(--accent-emerald); }
+.nav-links a.active::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: var(--accent-emerald); border-radius: 1px; }
 .theme-btn { background: none; border: 1px solid var(--border); padding: 8px; border-radius: var(--radius-sm); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); }
 .theme-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; }
 .theme-btn .moon { display: none; }

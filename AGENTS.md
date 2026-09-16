@@ -49,6 +49,12 @@ Single-page estática + blog con content collections (Astro v7). Sin framework J
 - **Imagen destacada**: WebP optimizado (~100KB) en `public/blog/img/`, referenciada como `/blog/img/nombre.webp`. Formato obligatorio, no usar PNG/JPG.
   - La imagen se genera en la raíz como `image.png`, se convierte a WebP y se mueve a `public/blog/img/`. **Nunca commitear `image.png`** — está en `.gitignore`.
   - **No pushear el post sin la imagen.** Verificar que exista en `public/blog/img/` antes de commitear.
+  - **Método alternativo: diagramas con HTML+CSS** — Para imágenes conceptuales, diagramas o infografías (no fotografías), se puede generar un HTML temporal con CSS puro que dibuja el visual, capturar con Chrome headless y convertir a WebP:
+    1. Crear un `.html` temporal en `public/blog/img/` con CSS que dibuje el diagrama (posición absoluta, gradients, colores, tipografía del sistema)
+    2. Capturar screenshot: `chrome.exe --headless --screenshot=output.png --window-size=960,560 archivo.html`
+    3. Convertir a WebP con `sharp`: `await sharp('input.png').webp({ quality: 90 }).toFile('output.webp')`
+    4. Eliminar el `.html` temporal y el `.png` intermedio
+    - Ejemplo: la imagen de "Las 4 etapas de la seguridad psicológica" se generó así
 - **Navbar**: Incluir enlace a `/blog/` con entrada i18n `nav.blog` en ES/EN.
 - **SEO/AEO/GEO en contenido**:
   - Encabezados H2/H3 descriptivos, evitar "clickbait".
@@ -238,6 +244,42 @@ El flujo del consejo:
 7. **Arquitecto** sintetiza y emite resolución final: ✅ aprobado, 🔄 requiere cambios, ❌ rechazado
 
 Si es aprobado → `/opsx-propose` para generar los artefactos OpenSpec.
+
+---
+
+## Despliegue con GitHub Actions
+
+El sitio se despliega automáticamente en GitHub Pages vía el workflow `.github/workflows/deploy.yml`, que se dispara **solo con `push` a `main`**.
+
+**El workflow tiene 2 jobs:**
+- `build` — checkout, Node 22, `npm ci`, `npm run build` (genera `./dist`), sube el artifact `github-pages` con `actions/upload-pages-artifact@v3` (path `./dist`).
+- `deploy` (`needs: build`) — publica el artifact con `actions/deploy-pages@v4` en el environment `github-pages`.
+
+Ver el estado/artifacts/logs en la pestaña **Actions** del repo (`edgardo001/edgardo001.github.io`). Comandos CLI útiles con `gh`:
+- `gh run list --workflow=deploy.yml` — ver últimos runs y su conclusión.
+- `gh run view <id> --log` — logs del run.
+- `gh api repos/<repo>/pages` — estado de Pages (cname, build_type, source).
+- `gh api repos/<repo>/deployments/<id>/statuses` — estados del deployment (waiting → queued → error/success).
+- `gh api repos/<repo>/environments` — protection rules del environment `github-pages`.
+
+### Cómo volver a disparar el workflow
+
+`deploy.yml` **no tiene `workflow_dispatch`**, por lo que **no existe el botón "Run workflow"** en la UI. Alternativas:
+
+1. **Re-run desde la UI** (lo más simple): pestaña Actions → clic en el run → botón **"Re-run workflow"** (desplegable) → "Re-run failed jobs" o "Re-run all jobs".
+2. **Re-run por CLI**:
+   - `gh run rerun <run-id> --failed` — solo los jobs fallidos.
+   - `gh run rerun <run-id>` — todos los jobs.
+   - `gh run rerun <run-id> --job <job-id>` — un job específico (ej. solo `deploy`).
+3. **Disparar de nuevo vía commit/push** (porque solo hay evento `push`):
+   ```bash
+   git commit --allow-empty -m "ci: trigger deploy" && git push origin main
+   ```
+
+**Notas/errores comunes:**
+- `gh run rerun <id> cannot be rerun; This workflow is already running` → el run ya está en cola/en curso (p. ej. un re-run pendiente). Esperar o `gh run cancel <id>` antes de reintentar.
+- Si un run queda **encolado (queued)** por mucho tiempo y el deployment de Pages queda en `waiting → queued → error` **sin pasos ejecutados**, suele ser un **incidente global de GitHub** (Actions/Pages en `major_outage`), no un problema del código. Verificar en https://www.githubstatus.com antes de tocar el repo.
+- El build puede compilar perfectamente y aun así fallar el `deploy` si Pages está caído: el artifact se sube bien, pero la publicación no se procesa. Es transitorio; no hay nada que arreglar.
 
 ---
 
