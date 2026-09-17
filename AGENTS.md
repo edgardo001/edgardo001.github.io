@@ -1,320 +1,83 @@
 # edgardo001.github.io — Portafolio Profesional
 
-> Este archivo se actualiza con cada aprendizaje relevante: nuevas convenciones, patrones, decisiones de arquitectura, o reglas que faciliten el trabajo futuro. Es responsabilidad del agente en curso mantenerlo.
+> **Mantenimiento obligatorio**: actualiza este archivo periódicamente y con cada aprendizaje relevante (convenciones, decisiones, reglas). Al terminar una tarea, revisa si algo quedó obsoleto (métricas de Lighthouse, pasos de deploy, herramientas) y corrígelo o elimínalo. Mantenlo breve (máximo 200 líneas): solo lo que no se deduce del código.
 
-## Proyecto
+Sitio personal de **Edgardo Vásquez Valenzuela** (Solutions Architect, Technical Lead & Senior Software Engineer) — https://edgardovasquez.cl
 
-Sitio web personal de **Edgardo Vásquez Valenzuela** — Solutions Architect, Technical Lead & Senior Software Engineer.
-URL: https://edgardovasquez.cl
+## Stack y arquitectura
 
-## Stack
+Astro v7 (static output) · Vanilla CSS (`src/styles/global.css`) · Vanilla JS en componentes · i18next ES/EN (`src/i18n/`) · GitHub Pages (CNAME) · GA4 vía GTM.
 
-| Capa | Tecnología |
-|------|-----------|
-| Framework | Astro.js v7 (static output) |
-| Estilos | Vanilla CSS (global.css con variables CSS) |
-| Interactividad | Vanilla JS embebido en componentes |
-| Hosting | GitHub Pages |
-| Dominio | edgardovasquez.cl (CNAME) |
-| Analytics | Google Analytics 4 (GTM) |
+- `src/components/` componentes `.astro` · `src/layouts/` `Layout.astro` + `BlogLayout.astro` · `src/pages/` `index.astro`, `blog/index.astro`, `blog/[slug].astro`
+- `src/content/blog/*.md` posts; el slug es el nombre del archivo.
+- `public/blog/img/` imágenes de posts, referenciadas como `/blog/img/nombre.webp`.
+- Sin framework JS cliente, sin router, sin API.
 
-## Arquitectura
+Comandos: `start-dev.bat` (dev) · `npx astro build` (build).
 
-```
-src/
-├── components/     → 12 componentes .astro (Hero, QueAporto, Skills, Contact…)
-├── content/
-│   └── blog/       → Artículos en markdown (.md) con frontmatter (title, description, pubDate)
-├── i18n/           → Traducciones ES/EN (i18next)
-├── layouts/        → Layout.astro + BlogLayout.astro (shell HTML + head + theme script)
-├── pages/          → index.astro + /blog/index.astro + /blog/[slug].astro
-└── styles/         → global.css (~1400 líneas, variables, layout, secciones)
+## Blog: frontmatter
 
-public/
-└── blog/
-    └── img/        → Imágenes de artículos del blog (WebP, formato obligatorio, ~100KB)
-```
+| Campo | Regla |
+|-------|-------|
+| `title`, `pubDate` (ISO) | Obligatorios |
+| `description` | Obligatorio, máx 160 caracteres |
+| `image` | `/blog/img/*.webp` (OG image) |
+| `tags` | Minúscula; siglas en mayúscula (`SEO`) |
+| `updatedDate` | ISO, opcional |
+| `shareX` | `len(shareX) + 2 + len(url) ≤ 280`; url = `https://edgardovasquez.cl/blog/{slug}/` |
+| `shareWhatsApp`, `shareReddit` (título ≤ 300), `shareInstagram` | Opcionales; fallback: `description` → `title` |
 
-Single-page estática + blog con content collections (Astro v7). Sin framework JS cliente, sin router, sin API. Los slugs de blog se derivan del nombre del archivo `.md`. Las imágenes del blog van en `public/blog/img/` y se referencian como `/blog/img/nombre.webp` (formato obligatorio).
+- `[slug].astro` lee los campos custom con **gray-matter** desde disco, porque `getStaticPaths` solo conserva `title`, `description` y `pubDate`. El schema Zod de `src/content/config.ts` solo sirve para validar en dev.
+- LinkedIn y Facebook usan los OG tags (cache ~7 días; refrescar con https://www.linkedin.com/post-inspector/).
 
-## Blog
+## Blog: imágenes y diagramas
 
-- **Tono**: Personal, profesional, directo. Sin clickbait ni frases absolutas ("se murió", "te doy la solución", "nunca", "siempre"). Demostrar conocimiento compartiendo experiencia real con ejemplos concretos del código del proyecto.
-- **Frontmatter**: `title`, `description` (máx 160 caracteres), `pubDate` en formato ISO. Campo opcional `image` para OG Image (ej. `/blog/img/mi-imagen.webp`).
-  - `tags` (opcional): array de strings para categorizar posts. Se muestra como pills clickeables en el listing.
-  - `updatedDate` (opcional): fecha ISO de última actualización. Si existe, se muestra junto a la fecha de publicación.
-  - `[slug].astro` obtiene los campos custom (`image`, `shareX`, `shareWhatsApp`, `shareReddit`, `shareInstagram`, `tags`, `updatedDate`) vía **gray-matter** leyendo los archivos `.md` directamente con `readFileSync` + `process.cwd()`.
-  - **Motivo**: `entry.data` de `getCollection('blog')` cuando pasa por `getStaticPaths` solo expone `title`, `description` y `pubDate`. Los campos custom se pierden durante la serialización interna de Astro. gray-matter los lee del disco sin pasar por ese proxy, y se pasan al layout mediante un objeto `frontmatter` separado en las props.
-  - **Dependencia**: `gray-matter` (agregada con `npm install gray-matter`).
-- **Imagen destacada**: WebP optimizado (~100KB) en `public/blog/img/`, referenciada como `/blog/img/nombre.webp`. Formato obligatorio, no usar PNG/JPG.
-  - La imagen se genera en la raíz como `image.png`, se convierte a WebP y se mueve a `public/blog/img/`. **Nunca commitear `image.png`** — está en `.gitignore`.
-  - **No pushear el post sin la imagen.** Verificar que exista en `public/blog/img/` antes de commitear.
-  - **Método alternativo: diagramas con HTML+CSS** — Para imágenes conceptuales, diagramas o infografías (no fotografías), se puede generar un HTML temporal con CSS puro que dibuja el visual, capturar con Chrome headless y convertir a WebP:
-    1. Crear un `.html` temporal en `public/blog/img/` con CSS que dibuje el diagrama (posición absoluta, gradients, colores, tipografía del sistema)
-    2. Capturar screenshot: `chrome.exe --headless --screenshot=output.png --window-size=960,560 archivo.html`
-    3. Convertir a WebP con `sharp`: `await sharp('input.png').webp({ quality: 90 }).toFile('output.webp')`
-    4. Eliminar el `.html` temporal y el `.png` intermedio
-    - Ejemplo: la imagen de "Las 4 etapas de la seguridad psicológica" se generó así
-- **Diagramas Mermaid**: Alternativa a las imágenes HTML+CSS para diagramas de flujo, secuencia, estados y comparaciones. Se usa client-side con CDN (`mermaid@10`), carga condicional (solo si el post tiene bloques ` ```mermaid `), y se adapta al tema claro/oscuro del blog.
-  - **Sintaxis**: `graph TD` (top-down), `graph LR` (left-right), `subgraph` para agrupar nodos.
-  - **Restricciones**: Los IDs de subgraph no pueden tener emojis ni caracteres especiales. Los labels sí los aceptan entre comillas: `subgraph id ["Label con emoji ❌"]`.
-  - **Renderizado**: El script en `BlogLayout.astro` detecta bloques `pre[data-language="mermaid"] code`, los reemplaza por `<div class="mermaid">` y Mermaid los renderiza como SVG.
-  - **Pie de imagen**: Cada diagrama se envuelve en `<figure>` + `<figcaption>` automáticamente ("Diagrama generado con Mermaid.js. Elaboración propia.").
-  - **Cuándo usar**: Diagramas de flujo simples, comparaciones con subgraph, secuencias de pasos. Para imágenes conceptuales, infografías complejas o fotografías, seguir usando HTML+CSS + Chrome headless.
-  - **Ejemplo**: post `ml-produccion-no-solo-tutoriales` usa 3 diagramas Mermaid (flujo ML, Pipeline vs data leakage, overfitting).
-- **Navbar**: Incluir enlace a `/blog/` con entrada i18n `nav.blog` en ES/EN.
-- **SEO/AEO/GEO en contenido**:
-  - Encabezados H2/H3 descriptivos, evitar "clickbait".
-  - Incluir ejemplos de código real del proyecto (ARIA labels, preconnect, fetchpriority, etc.).
-  - Párrafos cortos y directos, sin exageraciones.
-  - Sección de cierre sin sensacionalismo.
-- **JSON-LD estructurado**: Todo post debe tener schema Article vía `<script type="application/ld+json">` en el `<head>`, incluyendo headline, description, datePublished, author, publisher, url y mainEntityOfPage. Se implementa en `BlogLayout.astro` con las props del post + `Astro.site` para la URL canónica.
-- **Figcaption**: Imágenes con pie usan `<figure>` + `<figcaption>` con estilo global en BlogLayout (centrado, mono, itálica, tono muted).
-- **FAQ para público no técnico**: Incluir sección FAQ cuando el artículo mencione conceptos técnicos (frontend, backend, etc.). Explicar en lenguaje simple, sin jerga. Ideal para posts orientados a clientes o reclutadores.
-- **Hipervínculos externos**: Usar siempre HTML `<a href="..." target="_blank" rel="noopener noreferrer">texto</a>`, no links Markdown `[texto](url)`. Aplica también a LinkedIn, YouTube y repos de GitHub.
-- **Tags**: En minúscula (ej. `["liderazgo", "machine-learning", "data-science"]`). Excepción: siglas como `SEO`.
-- **Pie de imagen generada**: `Elaboración propia con OpenCode (MiMo v2.5, Xiaomi).` (ajustar si cambia la herramienta).
-- **Voz y trato**: Primera persona, tono cercano y honesto. Tratar al lector de **tú** de forma consistente (no mezclar con "ustedes"). Conceptos técnicos explicados entre paréntesis en lenguaje simple, **una sola vez** por post.
-- **Consistencia de tiempos verbales**: No mezclar presente y pasado en la misma idea (ej. un diplomado en curso va en presente).
-- **Sin repeticiones**: Evitar repetir muletillas ("Ahí…"), párrafos que digan lo mismo o la presentación personal del inicio en el cierre.
-- **Español correcto**: Tildes en texto y en diagramas Mermaid (ej. `Memorizó`), evitar anglicismos cuando hay equivalente ("prueba de realidad" en vez de "reality check").
-- **Precisión técnica**: Evitar afirmaciones absolutas ("el error más común" → "uno de los más comunes"), aclarar umbrales arbitrarios en el código y verificar que las definiciones sean exactas (ej. StandardScaler estandariza, no normaliza a un rango). Nombres de columnas, funciones y variables en backticks, tal como aparecen en el código.
-- **Coherencia con el repo/fuentes**: No afirmar algo sobre el código o los datos (ej. "sin datos aleatorios") sin verificarlo. Eliminar imágenes de `public/blog/img/` que el post no use.
+- **Solo WebP** (~100KB) en `public/blog/img/`. No pushear el post sin su imagen. Nunca commitear `image.png` (raíz, en `.gitignore`).
+- Borrar de `public/blog/img/` las imágenes que el post no use.
+- Pie de imagen: `<figure>` + `<figcaption>` con `Elaboración propia con OpenCode (MiMo v2.5, Xiaomi).` (ajustar si cambia la herramienta).
+- **Infografías HTML+CSS**: `.html` temporal → `chrome.exe --headless --screenshot=out.png --window-size=960,560 archivo.html` → `sharp('out.png').webp({ quality: 90 })` → borrar `.html` y `.png`.
+- **Mermaid** (flujos, secuencias, comparaciones simples): bloques ` ```mermaid `, cargados por CDN solo si el post los usa; `BlogLayout.astro` agrega el figcaption automáticamente. Los IDs de `subgraph` no admiten emojis ni caracteres especiales; los labels sí, entre comillas: `subgraph id ["Label ❌"]`.
 
-### Botones de Compartir
+## Blog: redacción
 
-Cada post tiene botones para LinkedIn, WhatsApp, X (Twitter), Reddit, Facebook e Instagram en `src/components/ShareButtons.astro`. El texto que se comparte se controla desde el frontmatter con campos opcionales:
-
-| Campo | Para | Límite | Formato del share |
-|-------|------|--------|-------------------|
-| `shareX` | X/Twitter | **280 caracteres** (incluyendo URL + `\n\n`) | `{shareX}\n\n{url}` |
-| `shareWhatsApp` | WhatsApp | **4096 caracteres** | `{shareWhatsApp}\n\n{url}` |
-| `shareReddit` | Reddit (título + cuerpo del post) | **300 caracteres título** | Post tipo texto con `{shareReddit}\n\n{url}` en el cuerpo |
-| `shareInstagram` | Instagram (menú nativo) | Sin límite práctico | `{shareInstagram}\n\n{url}` vía `navigator.share()` |
-| `shareDescription` | — (general, obsoleto) | — | Usado solo si el campo específico no existe |
-
-**Regla de validación — X/Twitter es el más restrictivo:**
-```
-len(shareX) + 2 + len(url) ≤ 280
-```
-Donde la URL del post es `https://edgardovasquez.cl/blog/{slug}/`. Ejemplo real: `https://edgardovasquez.cl/blog/primer-articulo/` = 47 chars.
-
-**Cadena de fallback**: Si un campo no está definido, se usa `description` (el que se ve en la página). Si `description` tampoco existe, se usa `title`.
-
-**LinkedIn y Facebook** no usan texto personalizado — extraen título y descripción de los OG Tags de la página automáticamente.
-
-**Instagram** usa `navigator.share()` (Web Share API). En móvil abre el menú nativo con todas las apps (incluyendo Instagram). Si Web Share no está disponible, fallback a copiar al portapapeles.
-
-### OG Tags & Twitter Cards
-
-Se generan en `BlogLayout.astro` en el `<head>`. No requieren configuración por post (usan `title`, `description`, `pubDate` e `image` del frontmatter). Los tags generados:
-
-| Tag | Fuente |
-|-----|--------|
-| `og:title` | `title` |
-| `og:description` | `description` |
-| `og:type` | `"article"` (fijo) |
-| `og:url` | `canonicalURL` (Astro.site + pathname) |
-| `og:site_name` | `"Edgardo Vásquez"` (fijo) |
-| `og:image` | `image` del frontmatter (solo si existe) |
-| `twitter:card` | `"summary_large_image"` (fijo) |
-| `twitter:title` | `title` |
-| `twitter:description` | `description` |
-| `twitter:image` | `image` del frontmatter (solo si existe) |
-
-**Importante**: LinkedIn y Facebook cachean los OG tags hasta por 7 días. Al publicar un post nuevo, usar https://www.linkedin.com/post-inspector/ para forzar la refrescada del caché.
-
-### Content Config
-
-Los campos de frontmatter se validan con Zod en `src/content/config.ts`. Sin embargo, los campos custom no sobreviven la serialización de `getStaticPaths` (ver sección gray-matter arriba). El schema existe solo para type safety y validación en dev.
-
-## Características del blog
-
-- **Buscador**: Input search en `/blog/` filtra posts por keyword en vivo
-- **Tags**: Sistema de tags en frontmatter, pills clickeables en listing y article header
-- **Breadcrumbs**: Navegación `Inicio → Blog → Título` en cada post
-- **Modo lectura**: Botón + atajo `r` oculta paneles/UI para lectura sin distracciones; persiste en localStorage
-- **Atajos de teclado**: `j/k` (siguiente/anterior), `t` (ToC), `?` (ayuda), `r` (modo lectura), `Esc` (cerrar paneles)
-- **Posición de lectura**: Se guarda scroll en localStorage por slug, se restaura al volver
-- **Caja del autor**: Bio con datos profesionales al final de cada artículo
-- **Print styles**: `@media print` optimizado para imprimir/PDF
-- **RSS feed**: `/rss.xml` generado con `@astrojs/rss`
+- **Voz**: primera persona, cercana, honesta, con experiencia real y código concreto. Trato de **tú** en todo el post (nunca "ustedes").
+- **Sin absolutos ni clickbait**: "uno de los errores más comunes", no "el error más común"; evitar "nunca" y "siempre". H2/H3 descriptivos.
+- **Conceptos técnicos**: explicarlos entre paréntesis en lenguaje simple, **una sola vez** por post. Agregar una FAQ si el post apunta a un público no técnico.
+- **Tiempos verbales** coherentes (algo en curso va en presente).
+- **Sin repeticiones**: nada de muletillas ("Ahí…"), párrafos redundantes ni repetir la presentación del inicio en el cierre.
+- **Español correcto**: tildes también en Mermaid; evitar anglicismos con equivalente ("prueba de realidad", no "reality check").
+- **Precisión técnica**: definiciones exactas (StandardScaler estandariza, no lleva a un rango), aclarar los umbrales arbitrarios y poner en backticks los identificadores tal como están en el código.
+- **Verificar** cualquier afirmación sobre repos o datos (ej. "sin datos aleatorios") antes de publicarla.
+- **Links externos**: siempre `<a href="..." target="_blank" rel="noopener noreferrer">texto</a>`, nunca `[texto](url)`.
 
 ## Flujo de trabajo
 
-Los cambios pasan por **OpenSpec** (plan → diseño → tareas → implementación) usando los comandos `/opsx-*`.
+1. `/council "cambio"`: debate de roles (Arquitecto, Developer, UI/UX, Tester, Profile Expert, Cliente). El Arquitecto resuelve: ✅ / 🔄 / ❌.
+2. Si se aprueba: OpenSpec con `/opsx-propose` → `/opsx-apply` → `/opsx-archive`.
+3. El push se hace solo con la aprobación del Líder Técnico.
 
-## Comandos útiles
+## Lighthouse
 
-- `start-dev.bat` — inicia el servidor de desarrollo (`npm run dev`).
-- `npx astro build` — build de producción.
+- **Umbral: 90+** en performance, accessibility, best-practices y seo, medido contra producción (no localhost). Guardar el reporte en `lighthouse/report.json` (desktop) y `lighthouse/report-mobile.json`.
+- Base (jul 2026): desktop 91-98 / 100 / 100 / 100 · mobile **84** / 96 / 96 / 100.
+- El cuello de botella mobile es GTM (163KB, ya en `async` + init en `window.load`). Para llegar a 90+: reemplazarlo (Plausible/Umami) o cargarlo tras la primera interacción. Pendientes: minificar el CSS crítico (`<style is:global>` en vez de `?raw`) y evaluar si Fira Code es necesario.
+- No revertir: global.css render-blocking y fuentes con `display=optional` (resolvieron el CLS 0.825 → 0), ni el preload AVIF del hero con `fetchpriority=high`.
 
-## Auditoría con Lighthouse
-
-Toda versión debe pasar auditoría Lighthouse antes de darse por completa.
-
-**Umbral mínimo: 90+ en todas las categorías** (performance, accessibility, best-practices, seo).
-
-**Línea base actual (julio 2026):**
-| Dispositivo | Performance | Accessibility | Best-practices | SEO |
-|-------------|-------------|---------------|----------------|-----|
-| Desktop | 91-98 | 100 | 100 | 100 |
-| Mobile | 84 | 96 | 96 | 100 |
-
-Mobile está bajo el umbral (84). Los principales cuellos de botella mobile son:
-- **CLS** (ya resuelto: 0.000 con CSS render-blocking + font-display:optional)
-- **LCP** (~4.3s): Hero image tarda en cargar por Slow 4G + JS execution
-- **TBT** (~90ms): GTM (163KB) + módulo i18next (18.5KB) en main thread
-- **Style & Layout** (~1.0s, 51% del main thread): CSS inline sin minificar + global.css render-blocking
-
-### Estrategias aplicadas
-
-| Técnica | Impacto | Notas |
-|---------|---------|-------|
-| Critical CSS inlined (sin minificar vía `?raw`) | +FCP/LCP desktop, ~5KB inline | No minificado porque `?raw` bypass el procesamiento de Vite |
-| global.css render-blocking | Fix CLS (0.825→0.000) | Necesario para evitar layout shifts al aplicar estilos asíncronos |
-| Font CSS async con `display=optional` | -render-blocking, sin CLS | `media="print"` + onload swap. `optional` evita font swap CLS |
-| Hero image AVIF preload con fetchpriority=high | +LCP | Primer elemento en `<head>` |
-| Preconnect GTM, Google Fonts, simpleicons | -latencia conexiones | Antes del CSS crítico |
-| i18next init deferred a requestIdleCallback | ~-JS execution | La UI responde antes, i18n se init en idle |
-| gtag init deferred a window.load | ~-TBT | Analytics no bloquea interacción |
-| Navbar styles restaurados | Fix visual | Mobile menu + theme toggle duplicado en mobile |
-
-### Cuello de botella principal: Google Tag Manager (GTM)
-
-**GTM** (`https://www.googletagmanager.com/gtag/js?id=G-HQ7V2L86TR`) es el script de Google Analytics que mide las visitas del sitio. Es el principal culpable de que mobile no alcance 90+ en Lighthouse.
-
-| Impacto | Valor |
-|---------|-------|
-| Peso | **163KB** (~35% del total de la página) |
-| Script Evaluation | **0.2-0.8s** en el hilo principal |
-| Conexiones adicionales | DNS + TCP + TLS a `googletagmanager.com` |
-| Tracking adicional | `analytics.google.com`, `doubleclick.net`, `google.cl/ads` |
-
-No se puede eliminar porque las visitas se miden con Google Analytics 4. Ya está mitigado con:
-- `gtag()` init diferido a `window.load` (no bloquea interacción temprana)
-- Script con atributo `async` (no bloquea parsing)
-
-Si en el futuro se requiere llegar a 90+ mobile, GTM debe reemplazarse por un sistema de analytics más liviano (ej. Plausible, Umami) o cargarse solo después de interacción del usuario.
-
-### Pendiente mobile (para llegar a 90+)
-
-- **CSS crítico sin minificar**: Usar `<style is:global>` en el template en vez de `?raw` para que Astro lo minifique.
-- **Reducir pesos de fuentes**: Actualmente ~70KB (Inter + Fira Code). Evaluar si Fira Code es necesario.
-
-### Ejecutar
-
-Desktop:
 ```bash
 npx lighthouse https://edgardovasquez.cl --only-categories="performance,accessibility,best-practices,seo" --output json --output-path lighthouse/report.json --chrome-path "C:\Program Files\Google\Chrome\Application\chrome.exe" --preset=desktop
-```
-
-Mobile:
-```bash
 npx lighthouse https://edgardovasquez.cl --only-categories="performance" --output json --output-path lighthouse/report-mobile.json --chrome-path "C:\Program Files\Google\Chrome\Application\chrome.exe" --emulated-form-factor=mobile --throttling-method=simulate
 ```
 
-- Ejecutar contra producción (no localhost) para resultados realistas.
-- Si alguna categoría baja de 90, no se considera completo.
-- Lighthouse CLI falla con EPERM en cleanup (Windows temp) pero los reportes se generan antes del error — ignorar.
-- El MCP `chrome-devtools` NO incluye la categoría performance correctamente — usar siempre la CLI oficial.
+- El error EPERM de cleanup en Windows se ignora (el reporte ya quedó generado). No usar el MCP `chrome-devtools` para medir performance.
 
-### Guardado
+## Deploy (GitHub Actions)
 
-El reporte JSON va en `lighthouse/report.json` (desktop) y `lighthouse/report-mobile.json` (mobile).
-
----
-
-## Agentes de desarrollo
-
-Cada agente representa un rol con expertise específica. Colaboran mediante el **Consejo Técnico** para debatir y refinar cambios antes de implementar.
-
-### Agentes disponibles
-
-| Agente | Rol | Expertise |
-|--------|-----|-----------|
-| **Arquitecto** | Diseña la solución | Estructura, escalabilidad, impacto en el sistema completo |
-| **Developer** | Implementa el código | Astro, CSS, JS, buenas prácticas, rendimiento |
-| **UI/UX** | Diseña la experiencia | Accesibilidad, diseño responsive, micro-interacciones, consistencia visual |
-| **Tester** | Valida la calidad | Lighthouse, a11y, regresiones, edge cases, mobile-first |
-| **Profile Expert** | Mejora el perfil profesional | Redacción, posicionamiento, marca personal, qué mostrar y cómo |
-| **Líder Técnico** | Supervisa la ejecución | Aprueba cambios, revisa calidad, coordina agentes, vela por coherencia del proyecto |
-| **Cliente** | Representa al usuario final | Revisa desde la perspectiva de reclutadores, clientes y colegas |
-
-### Consejo Técnico (debate)
-
-Antes de implementar un cambio, los agentes debaten invocando `/council`:
-
-```
-/council "descripción del cambio propuesto"
-```
-
-El flujo del consejo:
-
-1. **Arquitecto** evalúa viabilidad técnica y propone enfoque
-2. **Developer** identifica implicancias de implementación
-3. **UI/UX** revisa impacto visual y experiencia de usuario
-4. **Tester** señala riesgos de regresión o calidad
-5. **Profile Expert** evalúa cómo impacta la marca personal
-6. **Cliente** opina desde su perspectiva (reclutador/cliente/colega)
-7. **Arquitecto** sintetiza y emite resolución final: ✅ aprobado, 🔄 requiere cambios, ❌ rechazado
-
-Si es aprobado → `/opsx-propose` para generar los artefactos OpenSpec.
-
----
-
-## Despliegue con GitHub Actions
-
-El sitio se despliega automáticamente en GitHub Pages vía el workflow `.github/workflows/deploy.yml`, que se dispara **solo con `push` a `main`**.
-
-**El workflow tiene 2 jobs:**
-- `build` — checkout, Node 22, `npm ci`, `npm run build` (genera `./dist`), sube el artifact `github-pages` con `actions/upload-pages-artifact@v3` (path `./dist`).
-- `deploy` (`needs: build`) — publica el artifact con `actions/deploy-pages@v4` en el environment `github-pages`.
-
-Ver el estado/artifacts/logs en la pestaña **Actions** del repo (`edgardo001/edgardo001.github.io`). Comandos CLI útiles con `gh`:
-- `gh run list --workflow=deploy.yml` — ver últimos runs y su conclusión.
-- `gh run view <id> --log` — logs del run.
-- `gh api repos/<repo>/pages` — estado de Pages (cname, build_type, source).
-- `gh api repos/<repo>/deployments/<id>/statuses` — estados del deployment (waiting → queued → error/success).
-- `gh api repos/<repo>/environments` — protection rules del environment `github-pages`.
-
-### Cómo volver a disparar el workflow
-
-`deploy.yml` **no tiene `workflow_dispatch`**, por lo que **no existe el botón "Run workflow"** en la UI. Alternativas:
-
-1. **Re-run desde la UI** (lo más simple): pestaña Actions → clic en el run → botón **"Re-run workflow"** (desplegable) → "Re-run failed jobs" o "Re-run all jobs".
-2. **Re-run por CLI**:
-   - `gh run rerun <run-id> --failed` — solo los jobs fallidos.
-   - `gh run rerun <run-id>` — todos los jobs.
-   - `gh run rerun <run-id> --job <job-id>` — un job específico (ej. solo `deploy`).
-3. **Disparar de nuevo vía commit/push** (porque solo hay evento `push`):
-   ```bash
-   git commit --allow-empty -m "ci: trigger deploy" && git push origin main
-   ```
-
-**Notas/errores comunes:**
-- `gh run rerun <id> cannot be rerun; This workflow is already running` → el run ya está en cola/en curso (p. ej. un re-run pendiente). Esperar o `gh run cancel <id>` antes de reintentar.
-- Si un run queda **encolado (queued)** por mucho tiempo y el deployment de Pages queda en `waiting → queued → error` **sin pasos ejecutados**, suele ser un **incidente global de GitHub** (Actions/Pages en `major_outage`), no un problema del código. Verificar en https://www.githubstatus.com antes de tocar el repo.
-- El build puede compilar perfectamente y aun así fallar el `deploy` si Pages está caído: el artifact se sube bien, pero la publicación no se procesa. Es transitorio; no hay nada que arreglar.
-
----
+- `.github/workflows/deploy.yml` corre **solo con push a `main`** (`build` → `deploy` con `actions/deploy-pages@v4`). No tiene `workflow_dispatch`.
+- Para relanzar: "Re-run" en la UI, `gh run rerun <id> [--failed]` o `git commit --allow-empty -m "ci: trigger deploy" && git push origin main`.
+- Si queda en `queued` o falla el deploy sin pasos ejecutados, revisar https://www.githubstatus.com antes de tocar el código: suele ser un incidente de GitHub.
+- "cannot be rerun; already running" significa que hay un run en curso: esperar o usar `gh run cancel <id>`.
 
 ## Git
 
-- **Commits atómicos**: un commit por cambio lógico
-- **Usa [Conventional Commits](https://www.conventionalcommits.org/)**:
-  - `feat(scope):` — nueva funcionalidad o ejemplo
-  - `fix(scope):` — corrección de bugs o errores de compilación
-  - `docs(scope):` — cambios en README, comentarios, documentación
-  - `refactor(scope):` — reestructuración sin cambiar comportamiento
-  - `style(scope):` — cambios de formato, espacios, indentación
-  - `chore(scope):` — dependencias, configs, archivos auxiliares
-  - `perf(scope):` — mejoras de rendimiento
-  - `test(scope):` — agregar o modificar tests
-  - `ci(scope):` — cambios en pipelines CI/CD
-- **Scope**: nombre del componente o módulo afectado (ej. `feat(skills):`, `fix(hero):`)
-- **Body explicativo** cuando el cambio no es obvio
-- **Commit messages en inglés**, claros y descriptivos
-- **No commitea** `node_modules/`, `dist/`, `.astro/`, ni archivos temporales
-- **Verifica estado** antes de commitear (`git status`, `git diff`)
-- **Push** solo cuando el Líder Técnico aprueba la revisión completa
+- Conventional Commits en inglés, con scope (`feat(hero):`, `fix(navbar):`, `ci:`…) y commits atómicos. Agregar body cuando el cambio no sea obvio.
+- Revisar `git status` y `git diff` antes de commitear. No commitear `node_modules/`, `dist/`, `.astro/` ni temporales.
