@@ -53,12 +53,12 @@ Pero no me quedé ahí. Me pregunté: *"¿Qué hay en ese 10% que no hablan?"* A
 | **Naive Bayes** | Clasificación | Muy rápido, funciona bien con poco datos | Asume independencia entre variables | | Clasificación de texto y cuando hay prisa |
 | **Árboles de Decisión** | Clasificación / Regresión | Fácil de visualizar y explicar | Sobreajusta fácilmente | **Random Forest** | Random Forest combina muchos árboles para reducir el error |
 | **K-Means** | Clustering | Simple, escalable | Hay que definir K, formas redondas | **Isolation Forest** (para anomalías) | Isolation Forest detecta outliers sin necesidad de definir clusters |
-| **Random Forest** | Clasificación / Regresión | Robusto, pocos hiperparámetros | Lento con muchos árboles, menos preciso que boosting | **XGBoost / LightGBM** | Boosting corrige errores secuencialmente, mejor precisión |
-| **XGBoost** | Clasificación / Regresión | Alta precisión, regularización, maneja datos faltantes | Más complejo de configurar, más lento que LightGBM | **Random Forest** | Mejor rendimiento en competiciones y producción |
-| **LightGBM** | Clasificación / Regresión | Entrena más rápido que XGBoost, maneja grandes volúmenes | Puede sobreajustar con pocos datos | **XGBoost** | Misma precisión, menos tiempo de entrenamiento |
+| **Random Forest** | Clasificación / Regresión | Robusto, pocos hiperparámetros | Lento con muchos árboles | **XGBoost / LightGBM** | Boosting corrige errores secuencialmente, puede mejorar la precisión |
+| **XGBoost** | Clasificación / Regresión | Alto rendimiento, regularización, maneja datos faltantes | Más complejo de configurar | **Random Forest** | Alternativa popular para datos tabulares con rendimiento competitivo |
+| **LightGBM** | Clasificación / Regresión | Entrena rápido, maneja grandes volúmenes | Puede sobreajustar con pocos datos | **Random Forest** | Alternativa popular para datos tabulares con rendimiento competitivo |
 | **SVM** | Clasificación | Efectivo en alta dimensionalidad, kernel trick | Lento con muchos datos, difícil de interpretar | **Regresión Logística** | Cuando la separación no es lineal y el dataset no es enorme |
-| **PCA** | Reducción de dimensionalidad | Reduce variables sin perder mucha info | Difícil de interpretar los componentes | | Preprocesamiento antes de otros algoritmos |
-| **Series de Tiempo** | Regresión temporal | Captura tendencias y estacionalidad | Requiere datos ordenados y suficientes | | Ventas, tráfico web, cualquier dato que cambie en el tiempo |
+| **PCA** | Reducción de dimensionalidad | Reduce dimensionalidad intentando conservar la mayor parte de la varianza | Pierde interpretabilidad de los componentes | | Preprocesamiento antes de otros algoritmos |
+| **Series de Tiempo** | Tipo de problema | Modelos como ARIMA, Prophet o basados en árboles para datos temporales | Requiere datos ordenados y suficientes | | Ventas, tráfico web, cualquier dato que cambie en el tiempo |
 | **Isolation Forest** | Detección de anomalías | No necesita labels, detecta outliers automáticamente | Sensible a la proporción de anomalías | **K-Means** (para anomalías) | Más directo que clustering para encontrar lo anómalo |
 
 Luego vino otra pregunta: *"¿Cómo se publican estos modelos para usarlos más adelante o en ambientes productivos?"* Así descubrí `joblib.dump` para serializar modelos (guardar el modelo entrenado en un archivo para reusarlo después). Ya conocía Flask, lo uso para APIs e interfaces web simples y económicas, pero no había conectado ambas piezas: exportar un modelo entrenado y servirlo en un endpoint REST (un punto de acceso al que otros programas pueden enviar datos y recibir respuestas). De esa conexión nació el patrón de `api.py` que tiene cada tutorial.
@@ -184,9 +184,9 @@ Este es el patrón que uso en cada tutorial:
         diagnostico = "ALERTA: posible sobreajuste (train mucho mejor que test)"
 ```
 
-Si la accuracy en train es 0.95 y en test es 0.60, el modelo memorizó los datos de entrenamiento pero no generaliza. Esto es **overfitting** (sobreajuste), que es cuando el modelo aprende demasiado bien los datos de entrenamiento y falla con datos nuevos. Es uno de los errores más comunes en ML.
+Si la accuracy en train es 0.95 y en test es 0.60, el modelo memorizó los datos de entrenamiento pero no generaliza. Esto es **overfitting** (sobreajuste), que es cuando el modelo aprende demasiado bien los datos de entrenamiento y falla con datos nuevos. Es uno de los errores más comunes en ML. Una diferencia grande entre train y test es una señal de alerta, no una prueba definitiva de overfitting. La conclusión debe apoyarse en validación cruzada, métricas adecuadas y análisis del dataset.
 
-El umbral de 0.15 en el código es una referencia arbitraria, no una regla universal. En la práctica, cada dominio tolera diferencias distintas: en un sistema de recomendación de películas, una diferencia de 0.10 puede ser aceptable. En un modelo de fraude financiero o diagnóstico médico, donde un falso negativo tiene consecuencias reales, querrás un umbral mucho más bajo (0.03 o 0.05) y métricas más allá de la accuracy, como F1 o AUC-ROC. La idea del diagnóstico automático no es darte un número mágico, sino alertarte antes de que un modelo con métricas infladas llegue a producción.
+El umbral de 0.15 es únicamente una heurística didáctica para este repositorio. No existe un valor universal para determinar si un modelo está sobreajustado. En aplicaciones reales, la evaluación debe considerar la métrica adecuada al problema, la variabilidad esperada y el costo de los distintos tipos de error.
 
 ## La pieza que no encontré: deploy con Flask
 
