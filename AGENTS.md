@@ -71,6 +71,15 @@ Single-page estática + blog con content collections (Astro v7). Sin framework J
 - **JSON-LD estructurado**: Todo post debe tener schema Article vía `<script type="application/ld+json">` en el `<head>`, incluyendo headline, description, datePublished, author, publisher, url y mainEntityOfPage. Se implementa en `BlogLayout.astro` con las props del post + `Astro.site` para la URL canónica.
 - **Figcaption**: Imágenes con pie usan `<figure>` + `<figcaption>` con estilo global en BlogLayout (centrado, mono, itálica, tono muted).
 - **FAQ para público no técnico**: Incluir sección FAQ cuando el artículo mencione conceptos técnicos (frontend, backend, etc.). Explicar en lenguaje simple, sin jerga. Ideal para posts orientados a clientes o reclutadores.
+- **Hipervínculos externos**: Usar siempre HTML `<a href="..." target="_blank" rel="noopener noreferrer">texto</a>`, no links Markdown `[texto](url)`. Aplica también a LinkedIn, YouTube y repos de GitHub.
+- **Tags**: En minúscula (ej. `["liderazgo", "machine-learning", "data-science"]`). Excepción: siglas como `SEO`.
+- **Pie de imagen generada**: `Elaboración propia con OpenCode (MiMo v2.5, Xiaomi).` (ajustar si cambia la herramienta).
+- **Voz y trato**: Primera persona, tono cercano y honesto. Tratar al lector de **tú** de forma consistente (no mezclar con "ustedes"). Conceptos técnicos explicados entre paréntesis en lenguaje simple, **una sola vez** por post.
+- **Consistencia de tiempos verbales**: No mezclar presente y pasado en la misma idea (ej. un diplomado en curso va en presente).
+- **Sin repeticiones**: Evitar repetir muletillas ("Ahí…"), párrafos que digan lo mismo o la presentación personal del inicio en el cierre.
+- **Español correcto**: Tildes en texto y en diagramas Mermaid (ej. `Memorizó`), evitar anglicismos cuando hay equivalente ("prueba de realidad" en vez de "reality check").
+- **Precisión técnica**: Evitar afirmaciones absolutas ("el error más común" → "uno de los más comunes"), aclarar umbrales arbitrarios en el código y verificar que las definiciones sean exactas (ej. StandardScaler estandariza, no normaliza a un rango). Nombres de columnas, funciones y variables en backticks, tal como aparecen en el código.
+- **Coherencia con el repo/fuentes**: No afirmar algo sobre el código o los datos (ej. "sin datos aleatorios") sin verificarlo. Eliminar imágenes de `public/blog/img/` que el post no use.
 
 ### Botones de Compartir
 
