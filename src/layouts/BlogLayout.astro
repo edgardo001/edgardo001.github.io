@@ -627,6 +627,7 @@ const imageURL = image ? `${siteURL}${image}` : null;
 		});
 
 		// Keyboard shortcuts
+		const currentPath = window.location.pathname.replace(/\/$/, '');
 		const allLinks = Array.from(document.querySelectorAll('.posts-list a'));
 		const currentIdx = allLinks.findIndex(a => {
 			const href = a.getAttribute('href').replace(/\/$/, '');
@@ -675,7 +676,6 @@ const imageURL = image ? `${siteURL}${image}` : null;
 		}
 
 		// Copy code button
-		const currentPath = window.location.pathname.replace(/\/$/, '');
 		content.querySelectorAll('pre').forEach((pre) => {
 			const btn = document.createElement('button');
 			btn.className = 'copy-btn';
@@ -716,10 +716,108 @@ const imageURL = image ? `${siteURL}${image}` : null;
 			}, 1000);
 		});
 	</script>
+
+	<script is:inline>
+		(function() {
+			var blocks = document.querySelectorAll('pre[data-language="mermaid"] code, code[data-language="mermaid"], code.language-mermaid');
+			if (blocks.length === 0) return;
+			var s = document.createElement('script');
+			s.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+			s.onload = function() {
+				var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+				var palette = isDark ? {
+					primaryColor: '#1e3a5f',
+					primaryTextColor: '#e2e8f0',
+					primaryBorderColor: '#3b82f6',
+					lineColor: '#64748b',
+					secondaryColor: '#1a3332',
+					tertiaryColor: '#1e293b',
+					noteBkgColor: '#1e3a5f',
+					noteTextColor: '#e2e8f0',
+					noteBorderColor: '#3b82f6',
+					clusterBkg: '#172554',
+					clusterBorder: '#3b82f6',
+					titleColor: '#93c5fd',
+					edgeLabelBackground: '#1e293b',
+				} : {
+					primaryColor: '#eef2ff',
+					primaryTextColor: '#1e293b',
+					primaryBorderColor: '#818cf8',
+					lineColor: '#94a3b8',
+					secondaryColor: '#ecfdf5',
+					tertiaryColor: '#f8fafc',
+					noteBkgColor: '#fef3c7',
+					noteTextColor: '#1e293b',
+					noteBorderColor: '#f59e0b',
+					clusterBkg: '#eef2ff',
+					clusterBorder: '#818cf8',
+					titleColor: '#4338ca',
+					edgeLabelBackground: '#f8fafc',
+				};
+				window.mermaid.initialize({
+					startOnLoad: false,
+					theme: 'base',
+					themeVariables: palette,
+					securityLevel: 'loose',
+					flowchart: { curve: 'monotoneX', padding: 20, htmlLabels: true },
+				});
+				blocks.forEach(function(block) {
+					var pre = block.closest('pre');
+					var div = document.createElement('div');
+					div.classList.add('mermaid');
+					div.textContent = block.textContent;
+					var fig = document.createElement('figure');
+					fig.appendChild(div);
+					var cap = document.createElement('figcaption');
+					cap.textContent = 'Diagrama generado con Mermaid.js. Elaboración propia.';
+					fig.appendChild(cap);
+					pre.replaceWith(fig);
+				});
+				window.mermaid.run();
+			};
+			s.onerror = function() {};
+			document.head.appendChild(s);
+		})();
+	</script>
 </body>
 </html>
 
 <style is:global>
+	/* Mermaid diagrams */
+	figure:has(.mermaid) {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin: 2rem 0;
+		background: var(--surface-card);
+		border: 1px solid var(--border, rgba(128,128,128,0.15));
+		border-radius: 12px;
+		padding: 1.5rem;
+		box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+	}
+	figure:has(.mermaid) figcaption {
+		font-size: 0.8rem;
+		color: var(--text-muted, #64748b);
+		margin-top: 0.75rem;
+		font-style: italic;
+	}
+	.mermaid {
+		display: flex;
+		justify-content: center;
+		overflow-x: auto;
+		width: 100%;
+	}
+	.mermaid svg {
+		max-width: 100%;
+		height: auto;
+		font-family: var(--font-body), system-ui, sans-serif;
+	}
+	.mermaid .node rect,
+	.mermaid .node polygon,
+	.mermaid .node circle {
+		rx: 8;
+		ry: 8;
+	}
 	.blog-article {
 		max-width: 720px;
 		margin: 0 auto;

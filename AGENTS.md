@@ -55,6 +55,13 @@ Single-page estática + blog con content collections (Astro v7). Sin framework J
     3. Convertir a WebP con `sharp`: `await sharp('input.png').webp({ quality: 90 }).toFile('output.webp')`
     4. Eliminar el `.html` temporal y el `.png` intermedio
     - Ejemplo: la imagen de "Las 4 etapas de la seguridad psicológica" se generó así
+- **Diagramas Mermaid**: Alternativa a las imágenes HTML+CSS para diagramas de flujo, secuencia, estados y comparaciones. Se usa client-side con CDN (`mermaid@10`), carga condicional (solo si el post tiene bloques ` ```mermaid `), y se adapta al tema claro/oscuro del blog.
+  - **Sintaxis**: `graph TD` (top-down), `graph LR` (left-right), `subgraph` para agrupar nodos.
+  - **Restricciones**: Los IDs de subgraph no pueden tener emojis ni caracteres especiales. Los labels sí los aceptan entre comillas: `subgraph id ["Label con emoji ❌"]`.
+  - **Renderizado**: El script en `BlogLayout.astro` detecta bloques `pre[data-language="mermaid"] code`, los reemplaza por `<div class="mermaid">` y Mermaid los renderiza como SVG.
+  - **Pie de imagen**: Cada diagrama se envuelve en `<figure>` + `<figcaption>` automáticamente ("Diagrama generado con Mermaid.js. Elaboración propia.").
+  - **Cuándo usar**: Diagramas de flujo simples, comparaciones con subgraph, secuencias de pasos. Para imágenes conceptuales, infografías complejas o fotografías, seguir usando HTML+CSS + Chrome headless.
+  - **Ejemplo**: post `ml-produccion-no-solo-tutoriales` usa 3 diagramas Mermaid (flujo ML, Pipeline vs data leakage, overfitting).
 - **Navbar**: Incluir enlace a `/blog/` con entrada i18n `nav.blog` en ES/EN.
 - **SEO/AEO/GEO en contenido**:
   - Encabezados H2/H3 descriptivos, evitar "clickbait".
