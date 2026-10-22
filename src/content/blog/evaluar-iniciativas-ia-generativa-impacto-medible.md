@@ -138,7 +138,7 @@ Sigo con el mismo caso, que en la práctica es un chatbot de autoservicio, y con
 | **VAN** |                  | **2.471.757**       |
 
 
-Ojo con el salto del año 1 al año 2: el flujo no se duplica porque el costo de operación no baja con la adopción. Los tokens suben un poco con el volumen, pero la infraestructura, las licencias y la supervisión son un costo fijo que se paga completo desde el día uno.
+El salto del año 1 al año 2 tiene una explicación: el flujo no se duplica porque el costo de operación no baja con la adopción. Los tokens suben un poco con el volumen, pero la infraestructura, las licencias y la supervisión son un costo fijo que se paga completo desde el día uno.
 
 El VAN es positivo: unos **CLP 2,5 millones** a valor de hoy, así que el proyecto genera valor por sobre lo que exige el costo de capital, pero con poco margen. La TIR, que es la tasa que deja el VAN en cero, da **23,5%**, unos 11,5 puntos porcentuales por sobre el 12% exigido. Y el ROI, que es la ganancia total del periodo sobre lo invertido y no una tasa anual, llega a **62%** en los tres años.
 
