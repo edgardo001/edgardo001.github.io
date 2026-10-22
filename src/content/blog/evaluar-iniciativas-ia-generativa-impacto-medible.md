@@ -306,7 +306,7 @@ Medirla ahora, antes del piloto, con lo que ya existe: registros de tickets, pla
 
 ### ¿Cómo estimo el costo en tokens?
 
-Pasa un par de casos reales por el tokenizer, saca el promedio de tokens por caso de uso y multiplícalo por el volumen mensual y por el precio del modelo. Agrégale un margen: las respuestas largas y el contexto que recupera un RAG consumen más de lo que parece. Y no olvides los costos fijos, que son la infraestructura y la supervisión humana.
+Pasa un par de casos reales por el tokenizer, saca el promedio de tokens por caso de uso y multiplícalo por el volumen mensual y por el precio del modelo. Agrégale un margen, porque las respuestas largas y el contexto que recupera un RAG consumen más de lo que parece. Y suma los costos fijos: infraestructura, licencias y supervisión humana. En una operación pequeña esos fijos son la mayor parte de la cuenta, muy por encima de los tokens.
 
 ## Cierre
 
