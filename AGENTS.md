@@ -34,8 +34,10 @@ Comandos: `start-dev.bat` (dev) · `npx astro build` (build).
 
 - **Solo WebP** (~100KB) en `public/blog/img/`. No pushear el post sin su imagen. Nunca commitear `image.png` (raíz, en `.gitignore`).
 - Borrar de `public/blog/img/` las imágenes que el post no use.
-- Pie de imagen: `<figure>` + `<figcaption>` con `Elaboración propia con OpenCode (MiMo v2.5, Xiaomi).` (ajustar si cambia la herramienta).
-- **Infografías HTML+CSS**: `.html` temporal → `chrome.exe --headless --screenshot=out.png --window-size=960,560 archivo.html` → `sharp('out.png').webp({ quality: 90 })` → borrar `.html` y `.png`.
+- Pie de imagen: `<figure>` + `<figcaption>` con `Elaboración propia con OpenCode (DeepSeek V4.1 Flash).` (ajustar si cambia la herramienta o el modelo).
+- **Infografías HTML+CSS**: `.html` temporal → screenshot a **1200×630** (OG `summary_large_image`) → `sharp(...).resize(1200,630).webp({ quality: 90 })` → borrar `.html` y `.png`.
+  - Comando que funciona en esta máquina: `chrome.exe --headless=new --disable-gpu --hide-scrollbars --user-data-dir=<temp> --force-device-scale-factor=2 --screenshot=out.png --window-size=1200,630 archivo.html` (sin `--headless=new` y sin `--user-data-dir` no escribe el archivo).
+  - El contenido debe llenar el lienzo: si sobran 100+ px arriba o abajo, el texto queda a 11px y se lee mal. Mejor grilla 3×2 con tipografía ≥14px que 6 columnas.
 - **Mermaid** (flujos, secuencias, comparaciones simples): bloques ` ```mermaid `, cargados por CDN solo si el post los usa; `BlogLayout.astro` agrega el figcaption automáticamente. Los IDs de `subgraph` no admiten emojis ni caracteres especiales; los labels sí, entre comillas: `subgraph id ["Label ❌"]`.
 
 ## Blog: redacción
@@ -46,6 +48,7 @@ Comandos: `start-dev.bat` (dev) · `npx astro build` (build).
 - **Tiempos verbales** coherentes (algo en curso va en presente).
 - **Sin repeticiones**: nada de muletillas ("Ahí…"), párrafos redundantes ni repetir la presentación del inicio en el cierre.
 - **Español correcto**: tildes también en Mermaid; evitar anglicismos con equivalente ("prueba de realidad", no "reality check").
+- **Puntuación**: no usar punto y coma ni guiones largos (—, –) en la prosa. Preferir punto seguido, coma o dos puntos. El signo `−` (menos matemático, U+2212) sí se usa en fórmulas y montos negativos.
 - **Precisión técnica**: definiciones exactas (StandardScaler estandariza, no lleva a un rango), aclarar los umbrales arbitrarios y poner en backticks los identificadores tal como están en el código.
 - **Verificar** cualquier afirmación sobre repos o datos (ej. "sin datos aleatorios") antes de publicarla.
 - **Links externos**: siempre `<a href="..." target="_blank" rel="noopener noreferrer">texto</a>`, nunca `[texto](url)`.
