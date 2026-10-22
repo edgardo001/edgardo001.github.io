@@ -108,47 +108,49 @@ Y estas son las cinco cosas que hay que medir antes de tocar nada:
 | **Riesgo**   | Exposición de datos, trazabilidad y necesidad de revisión manual (nivel, eventos)                    | Registros de incidentes          |
 
 
-### El caso de los 1,2M de contactos
+### El caso de 36 mil contactos
 
-Usemos números para que se entienda mejor (o eso espero). Una operación con 1,2 millones de contactos al año y un costo de USD 10 por contacto (salario, infraestructura, tecnología y supervisión incluidos) gasta USD 12M al año.
+Usemos números para que se entienda mejor (o eso espero). Pensemos en una operación de soporte con cuatro ejecutivos, cada uno atendiendo unas 750 consultas al mes. Son **36.000 contactos al año**, a un costo completo de **CLP 2.000 por contacto** (sueldo, leyes sociales, supervisión, herramientas, oficina y tiempo muerto). Eso da **CLP 72 millones al año** solo en atender contactos. Son valores referenciales, los tuyos van a variar.
 
-Con esa línea base puedes proyectar algo concreto: si el 15% de esos contactos se resuelve en autoservicio, son **USD 1,8M de ahorro bruto al año, antes de los costos de operar la IA**.
+Con esa línea base puedes proyectar algo concreto: si el 15% de esos contactos se resuelve en autoservicio, son 5.400 contactos menos y **CLP 10,8 millones de ahorro bruto al año, antes de los costos de operar la IA**.
 
-Sin la línea base, ese 1,8M es una opinión, pero con la línea base, es un dato.
+Sin la línea base, esos 10,8 millones son una opinión, pero con la línea base, son un dato.
 
 ### Mi aporte: VAN, TIR y ROI con los números del chatbot
 
 Si el proyecto pasa por un comité de inversión, decir "esto ahorra" no basta. Te van a pedir dos cosas: el **VAN** (Valor Actual Neto, el valor de hoy de los flujos futuros menos la inversión) y la **TIR** (Tasa Interna de Retorno, la rentabilidad anual equivalente).
 
-Sigo con el mismo caso, que en la práctica es un chatbot de autoservicio, y con estos supuestos, que son ilustrativos:
+Sigo con el mismo caso, que en la práctica es un chatbot de autoservicio, y con estos supuestos referenciales:
 
-- **Inversión inicial:** USD 2.000.000 (integración con CRM, arquitectura RAG, licencias, desarrollo y gestión del cambio).
-- **Ahorro bruto:** USD 1.800.000 al año, cuando el 15% de autoservicio funciona completo.
-- **Costos de operación:** USD 600.000 al año (tokens, infraestructura, supervisión y mantenimiento). Flujo neto: **USD 1.200.000**.
-- **Año 1 a la mitad:** USD 600.000, porque la adopción no llega al 15% el primer día.
+- **Inversión inicial:** CLP 10 millones (integración con el CRM o WhatsApp, arquitectura RAG, licencias, desarrollo y capacitación del equipo).
+- **Ahorro bruto:** CLP 10,8 millones al año, cuando el 15% de autoservicio funciona completo.
+- **Costos de operación:** CLP 3,6 millones al año (tokens, infraestructura y la fracción de tiempo que alguien dedica a supervisarlo y mantenerlo). Flujo neto: **CLP 7,2 millones**.
+- **Año 1 a la mitad:** CLP 1,8 millones, porque la adopción no llega al 15% el primer día.
 - **Horizonte:** 3 años, con un costo de capital del 12%.
 
 
-| Año     | Flujo neto     | Valor actual al 12% |
-| ------- | -------------- | ------------------- |
-| 0       | −USD 2.000.000 | −USD 2.000.000      |
-| 1       | USD 600.000    | USD 535.714         |
-| 2       | USD 1.200.000  | USD 956.633         |
-| 3       | USD 1.200.000  | USD 854.136         |
-| **VAN** |                | **USD 346.483**     |
+| Año     | Flujo neto (CLP) | Valor actual al 12% |
+| ------- | ---------------- | ------------------- |
+| 0       | −10.000.000      | −10.000.000         |
+| 1       | 1.800.000        | 1.607.143           |
+| 2       | 7.200.000        | 5.739.796           |
+| 3       | 7.200.000        | 5.124.818           |
+| **VAN** |                  | **2.471.757**       |
 
 
-El VAN es positivo, así que el proyecto genera valor por sobre lo que exige el costo de capital. La TIR, que es la tasa que deja el VAN en cero, da **cerca de 20,8%**: casi 9 puntos porcentuales por sobre el 12% exigido.
+Ojo con el salto del año 1 al año 2: el flujo no se duplica porque el costo de operación no baja con la adopción. Los tokens suben un poco con el volumen, pero la infraestructura, las licencias y la supervisión son un costo fijo que se paga completo desde el día uno.
+
+El VAN es positivo: unos **CLP 2,5 millones** a valor de hoy, así que el proyecto genera valor por sobre lo que exige el costo de capital, pero con poco margen. La TIR, que es la tasa que deja el VAN en cero, da **23,5%**, unos 11,5 puntos porcentuales por sobre el 12% exigido. Y el ROI, que es la ganancia total del periodo sobre lo invertido y no una tasa anual, llega a **62%** en los tres años.
 
 Hay dos cosas que cambian el resultado y que te conviene tener claras antes de que te las pregunten:
 
-- **Los costos de operación importan.** Si te olvidas de los USD 600.000 de tokens, infraestructura y supervisión, el flujo sube a USD 1,8M y el proyecto se ve mucho mejor de lo que es. Es la regla 4 de la lista en acción.
-- **La curva de adopción también.** Si asumes el 100% del beneficio desde el año 1, inflas el VAN. Y si con un escenario pesimista (autoservicio al 10%, tokens más caros) el VAN se vuelve negativo, el piloto tiene que validar justamente ese supuesto.
+- **Los costos de operación importan.** Si te olvidas de los CLP 3,6 millones de tokens, infraestructura y supervisión, el flujo sube a CLP 10,8 millones y el proyecto se ve mucho mejor de lo que es. Es la regla 4 de la lista en acción.
+- **La curva de adopción también.** Si asumes el 100% del beneficio desde el año 1, inflas el VAN. Y si el autoservicio se queda en 10% con los mismos costos de operación, el VAN cae a −CLP 4,6 millones y la TIR se vuelve negativa. Por eso el piloto tiene que validar justamente ese supuesto.
 
-Si quieres replicarlo, pon la inversión en B8 y los flujos de los años 1 a 3 en B9:B11 (600000, 1200000, 1200000). Para el VAN aplica `VNA` con la tasa del 12% sobre B9:B11 y súmale B8, y para la tasa usa `TIR` sobre B8:B11 (en inglés, `NPV` e `IRR`). Así queda la planilla, en las dos versiones:
+Si quieres replicarlo, pon la inversión en B8 (−10000000) y los flujos de los años 1 a 3 en B9:B11 (1800000, 7200000, 7200000). Para el VAN aplica `VNA` con la tasa del 12% sobre B9:B11 y súmale B8, y para la tasa usa `TIR` sobre B8:B11 (en inglés, `NPV` e `IRR`). Así queda la planilla, en las dos versiones:
 
 <figure>
-  <img src="/blog/img/blog-evaluar-ia-generativa-van-tir-excel.webp" alt="Planilla en Excel: flujo neto descontado al 12%, VAN de USD 346.483, TIR de 20,79%, margen de 8,79% sobre la tasa exigida y ROI de 50%">
+  <img src="/blog/img/blog-evaluar-ia-generativa-van-tir-excel.webp" alt="Planilla en Excel: flujo neto descontado al 12%, VAN de CLP 2.471.757, TIR de 23,5%, margen de 11,5 puntos sobre la tasa exigida y ROI de 62%">
   <figcaption>Elaboración propia en Excel, con los supuestos de este caso.</figcaption>
 </figure>
 
@@ -156,8 +158,6 @@ Si quieres replicarlo, pon la inversión en B8 y los flujos de los años 1 a 3 e
   <img src="/blog/img/blog-evaluar-ia-generativa-van-tir-sheets.webp" alt="La misma planilla en Google Sheets, con las fórmulas NPV, IRR y SUM en lugar de VNA, TIR y SUMA">
   <figcaption>La misma planilla en Google Sheets. Ahí las funciones se llaman "NPV", "IRR" y "SUM".</figcaption>
 </figure>
-
-El **ROI** (Retorno de la Inversión) es la ganancia total del periodo sobre lo invertido, no una tasa anual. Acá da 50% en tres años, que no es lo mismo que el 20% anual de la TIR.
 
 ## Priorizar es saber decir "no"
 
@@ -285,7 +285,7 @@ El VAN es un monto: los flujos futuros traídos al valor de hoy, menos la invers
 
 ### ¿Cuánto tiene que dar el ROI para aprobar un proyecto?
 
-No hay un número universal. La referencia es la tasa de descuento, que es el costo de capital o la rentabilidad mínima que exige la empresa. Si la TIR la supera y el VAN es positivo, el proyecto crea valor. Muchas organizaciones piden además un margen extra por el riesgo. En el ejemplo del chatbot, 20,8% contra 12% deja casi 9 puntos porcentuales de holgura.
+No hay un número universal. La referencia es la tasa de descuento, que es el costo de capital o la rentabilidad mínima que exige la empresa. Si la TIR la supera y el VAN es positivo, el proyecto crea valor. Muchas organizaciones piden además un margen extra por el riesgo. En el ejemplo del chatbot, 23,5% contra 12% deja 11,5 puntos porcentuales de holgura.
 
 ### ¿Qué hago si no tengo línea base?
 
