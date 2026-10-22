@@ -147,6 +147,19 @@ Hay dos cosas que cambian el resultado y que te conviene tener claras antes de q
 - **Los costos de operación importan.** Si te olvidas de los CLP 3,6 millones de tokens, infraestructura y supervisión, el flujo sube a CLP 10,8 millones y el proyecto se ve mucho mejor de lo que es. Es la regla 4 de la lista en acción.
 - **La curva de adopción también.** Si asumes el 100% del beneficio desde el año 1, inflas el VAN. Y si el autoservicio se queda en 10% con los mismos costos de operación, el VAN cae a −CLP 4,6 millones y la TIR se vuelve negativa. Por eso el piloto tiene que validar justamente ese supuesto.
 
+### De dónde salen estos números
+
+| Supuesto | Cómo sale |
+|---|---|
+| 36.000 contactos al año | 4 ejecutivos × 750 atenciones al mes × 12 meses |
+| CLP 2.000 por contacto | Sueldo bruto CLP 750.000, costo empresa ×1,35, supervisión y QA +12,5%, herramientas y oficina CLP 150.000 al mes, todo dividido por 750 atenciones. Da CLP 1.719, y sube a 2.000 para cubrir tiempo muerto, capacitación y retrabajo |
+| CLP 10 millones de inversión | Estimación por componentes: plataforma y licencias 4 M, integración con CRM o WhatsApp 3 M, base de conocimiento 1,5 M, capacitación 0,8 M y contingencia 0,7 M |
+| CLP 3,6 millones de operación | Tokens 0,3 M, infraestructura 0,7 M, licencias 0,6 M y mantenimiento de la base de conocimiento 2 M |
+| Años 2 y 3 iguales | Supuesto explícito: adopción completa desde el año 2, mismo volumen y mismos precios, sin inflación ni crecimiento |
+| Tasa del 12% | Rentabilidad mínima que se le exige al proyecto, no un dato de mercado |
+
+La inversión y el costo de operación son estimaciones por componentes, no cotizaciones de proveedor. Y el margen es delgado: con los mismos flujos, el proyecto deja de pagarse si la derivación baja de 13,2%, si el costo por contacto baja de CLP 1.766 o si la inversión supera los CLP 12,47 millones. Por eso el piloto tiene que medir esas tres cosas antes de pedir presupuesto.
+
 Si quieres replicarlo, pon la inversión en B8 (−10000000) y los flujos de los años 1 a 3 en B9:B11 (1800000, 7200000, 7200000). Para el VAN aplica `VNA` con la tasa del 12% sobre B9:B11 y súmale B8, y para la tasa usa `TIR` sobre B8:B11 (en inglés, `NPV` e `IRR`). Así queda la planilla, en las dos versiones:
 
 <figure>
